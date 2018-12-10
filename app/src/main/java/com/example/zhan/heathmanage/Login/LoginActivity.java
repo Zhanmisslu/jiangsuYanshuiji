@@ -6,6 +6,7 @@ package com.example.zhan.heathmanage.Login;
   hide_ll   隐藏下方的布局文件
  */
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Login.Adapters.UsersAdapter;
 import com.example.zhan.heathmanage.Login.Beans.User;
+import com.example.zhan.heathmanage.MainActivity;
 import com.example.zhan.heathmanage.R;
 
 import java.util.ArrayList;
@@ -169,6 +171,8 @@ public class LoginActivity extends BaseActivity {
    @OnClick(R.id.login_buttonByPassword)
     public void login_buttonByPassword_OnClick() {
        setData();
+       Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+       startActivity(intent);
        Toast.makeText(this,"登录12成功",Toast.LENGTH_SHORT).show();
    }
 
