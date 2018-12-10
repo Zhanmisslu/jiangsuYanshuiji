@@ -5,7 +5,6 @@ package com.example.zhan.heathmanage.Login;
   login_recycle  已经登录过的用户列表
   hide_ll   隐藏下方的布局文件
  */
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Login.Adapters.UsersAdapter;
 import com.example.zhan.heathmanage.Login.Beans.User;
-import com.example.zhan.heathmanage.MainActivity;
+import com.example.zhan.heathmanage.Main.MainActivity;
 import com.example.zhan.heathmanage.R;
 
 import java.util.ArrayList;
