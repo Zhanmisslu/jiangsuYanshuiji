@@ -195,4 +195,9 @@ public class LoginActivity extends BaseActivity {
         account.setText(Phone);
         password.setText(Password);
    }
+
+   //adpter回调函数，点击删除按钮更新adpter
+    public void  freshAdapter(){
+       adapter.notifyDataSetChanged();
+    }
 }

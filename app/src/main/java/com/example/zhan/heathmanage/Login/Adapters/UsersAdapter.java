@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Login.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import com.example.zhan.heathmanage.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class UsersAdapter extends RecyclerView.Adapter {
     private Context context;
@@ -62,9 +65,19 @@ public class UsersAdapter extends RecyclerView.Adapter {
         viewHolder.login_drop_deleter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"你点击了删除按钮",Toast.LENGTH_LONG).show();
+                list.remove(i);
+                SharedPreferences.Editor editor = context.getSharedPreferences("UserList", MODE_PRIVATE).edit();
+                editor.putInt("UserListSize",list.size());
+                for (int i = 0 ; i<list.size();i++){
+                    editor.putString("Item_Phone"+i,list.get(i).getPhoneNumber());
+                    editor.putString("Item_Password"+i,list.get(i).getPassword());
+                }
+                editor.commit();
+                loginActivity.freshAdapter();
+                Toast.makeText(context,"删除成功",Toast.LENGTH_LONG).show();
             }
         });
+
         viewHolder.login_drop_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
