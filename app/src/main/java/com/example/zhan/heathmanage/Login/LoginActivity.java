@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -169,10 +170,19 @@ public class LoginActivity extends BaseActivity {
    //密码登录Button点击事件
    @OnClick(R.id.login_buttonByPassword)
     public void login_buttonByPassword_OnClick() {
-       setData();
-       Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-       startActivity(intent);
-       Toast.makeText(this,"登录12成功",Toast.LENGTH_SHORT).show();
+       Log.d("account",account.getText().toString());
+       Log.d("password",password.getText().toString());
+       if (account.getText().toString().equals("")){
+           Toast.makeText(this,"账号不能为空",Toast.LENGTH_SHORT).show();
+       }else if (password.getText().toString().equals("")){
+           Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
+       }else {
+           setData();
+           Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+           startActivity(intent);
+           Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
+       }
+
    }
 
    //历史登录列表的点击事件
