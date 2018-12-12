@@ -7,4 +7,7 @@
     <color name="textColorPrimary">#616161</color>
     <color name="viewBackground">@android:color/white</color>
     <color name="colorDayNightChange">@android:color/holo_orange_dark</color>
+    <color name="primary">#FF03A9F4</color>
+    <color name="primary_dark">#FF0288D1</color>
+    <color name="status_bar_color">@color/primary_dark</color>
 </resources>

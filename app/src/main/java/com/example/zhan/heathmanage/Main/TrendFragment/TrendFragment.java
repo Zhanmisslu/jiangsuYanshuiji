@@ -52,7 +52,7 @@ public class TrendFragment extends Fragment {
 
 
         Miui10Calendar miui10Calendar = view.findViewById(R.id.miui10Calendar);
-        miui10Calendar.setPointList(pointList);
+       // miui10Calendar.setPointList(pointList);
         miui10Calendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date) {

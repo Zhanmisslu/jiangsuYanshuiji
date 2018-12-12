@@ -13,4 +13,9 @@
     <string name="menu_game_text">骚年来盘昆特牌</string>
     <string name="menu_mouse_text">竜が私が敌を喰らう</string>
     <string name="menu_rocket_text">要上天</string>
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/status_bar_color</item>
+    </style>
 </resources>

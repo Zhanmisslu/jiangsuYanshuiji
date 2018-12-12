@@ -4,8 +4,11 @@ import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.graphics.Color;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,17 +19,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
+import com.example.zhan.heathmanage.BasicsTools.StatusBarCompat;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.R;
-import com.qiantao.coordinatormenu.CoordinatorMenu;
+import com.nineoldandroids.view.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
-    public static CoordinatorMenu mCoordinatorMenu;
+    @BindView(R.id.menu_nav_view)
+    NavigationView menu_nav_view;
+    public static DrawerLayout main_drawer_layout;
     private EvaluteFragment evaluteFragment;
     private TrendFragment trendFragment;
     private FindFragment findFragment;
@@ -57,23 +63,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //StatusBarCompat.compat(this, Color.TRANSPARENT);
         ButterKnife.bind(this);
+        main_drawer_layout= (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        initEvents();
         inListener();
-
-        mCoordinatorMenu=findViewById(R.id.mainactivity_menu);
         setSelect(0);
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mCoordinatorMenu.isOpened()) {
-            mCoordinatorMenu.closeMenu();
-        }  else {
-            super.onBackPressed();
-        }
 
-    }
 
     //UI_MODE_NIGHT_NO 日间
     //UI_MODE_NIGHT_YES夜间
@@ -216,6 +215,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 setSelect(2);
                 break;
             default:break;
+        }
+    }
+    private void initEvents() {
+        main_drawer_layout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                View mContent = main_drawer_layout.getChildAt(0);
+                View mMenu = drawerView;
+                float scale = 1 - slideOffset;
+                ViewHelper.setTranslationX(mContent,
+                        mMenu.getMeasuredWidth() * (1 - scale));
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 }
