@@ -8,7 +8,8 @@
     tools:context=".Main.TrendFragment.TrendFragment">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp">
+        android:layout_height="130dp"
+        android:background="#C1FFC1">
 
 
         <LinearLayout
@@ -54,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/month_tv"
-                    android:text="2017nian"
+                    android:text="2017年"
                     android:textColor="#444444"
                     android:textSize="12sp" />
 
@@ -150,6 +151,7 @@
         app:bgCalendarColor="#f5f5f5"
         app:bgChildColor="#F5f5f5"
         app:holidayColor="#519EDC"
+        android:layout_marginBottom="15dp"
         app:lunarHolidayTextColor="#519EDC"
         app:selectCircleColor="#398FE9"
         app:solarHolidayTextColor="#519EDC"
@@ -158,7 +160,9 @@
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            >
 
 
             <LinearLayout
@@ -166,8 +170,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:background="@drawable/bg_miui10"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/lunar_year_tv"
@@ -184,114 +187,140 @@
                     android:textColor="#666666"
                     android:textSize="12sp" />
 
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    >
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/heartrate"
+                         />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="心率： "
+                        android:textColor="#666666"
+                        android:textSize="14dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="asdfasdfasdf "
+                        android:gravity="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    >
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/temperature"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="体温： "
+                        android:gravity="center"
+                        android:layout_weight="2"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="asdfasdfasdf "
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    >
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bloodpressure"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="血压： "
+                        android:gravity="center"
+                        android:layout_weight="2"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="asdfasdfasdf "
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                    >
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bloodfat"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="血脂： "
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="asdfasdfasdf "
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="asdfasdfasdf "
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
 
 
             </LinearLayout>

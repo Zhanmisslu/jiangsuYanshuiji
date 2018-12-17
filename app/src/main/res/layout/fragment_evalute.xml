@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:wave="http://schemas.android.com/apk/res-auto"
     tools:context=".Main.EvaluteFragment.EvaluteFragment">
 
     <View
@@ -17,14 +18,31 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="40dp"
         android:src="@drawable/head"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_below="@+id/view_title"
+    android:background="#00BFFF"
+    android:id="@+id/fragment_evaluate_indexrl"
+    android:layout_height="wrap_content">
 
-    <ImageView
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="晚上好啊"/>
+
+</RelativeLayout>
+    <com.john.waveview.WaveView
+        android:id="@+id/fragment_evaluate_waveview"
         android:layout_width="match_parent"
-        android:layout_height="395dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="1dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/content" />
-
+        android:layout_below="@+id/fragment_evaluate_indexrl"
+        android:layout_height="match_parent"
+        android:background="#00BFFF"
+        wave:above_wave_color="@android:color/white"
+        wave:blow_wave_color="@android:color/white"
+        wave:progress="80"
+        wave:wave_height="little"
+        wave:wave_hz="normal"
+        wave:wave_length="middle" />
 
 </RelativeLayout>
