@@ -37,7 +37,5 @@ dependencies {
     //recyclerview架包
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation project(':ncalendar')
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.nineoldandroids:library:2.4.0'
-
+    implementation project(':coordinatormenu')
 }

@@ -182,7 +182,6 @@ public class LoginActivity extends BaseActivity {
            startActivity(intent);
            Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
        }
-
    }
 
    //历史登录列表的点击事件

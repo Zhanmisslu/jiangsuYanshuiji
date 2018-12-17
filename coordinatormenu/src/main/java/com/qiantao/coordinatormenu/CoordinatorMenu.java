@@ -26,6 +26,7 @@ public class CoordinatorMenu extends FrameLayout {
     private static final String TAG = "CoordinatorMenu";
     private final int mScreenWidth;
     private final int mScreenHeight;
+    public static boolean mRollViewPagerTouching;
 
     private View mMenuView;
     private MainView mMainView;
@@ -175,6 +176,9 @@ public class CoordinatorMenu extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (mRollViewPagerTouching){
+            return false;
+        }
         return mViewDragHelper.shouldInterceptTouchEvent(event);
     }
 

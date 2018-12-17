@@ -1,1 +1,1 @@
-include ':app', ':ncalendar'
+include ':app', ':ncalendar' ,':coordinatormenu'

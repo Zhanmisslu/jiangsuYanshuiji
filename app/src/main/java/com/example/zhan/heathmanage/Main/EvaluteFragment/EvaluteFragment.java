@@ -3,7 +3,6 @@ package com.example.zhan.heathmanage.Main.EvaluteFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,26 +13,20 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.BasicsTools.HintPopupWindow;
 import com.example.zhan.heathmanage.Main.MainActivity;
 import com.example.zhan.heathmanage.R;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-import static com.example.zhan.heathmanage.Main.MainActivity.main_drawer_layout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EvaluteFragment extends Fragment {
+    private ImageView evalutefragment_iv;
     private View view;
     private MainActivity mainActivity;
     private HintPopupWindow hintPopupWindow;
-    @BindView(R.id.main_image_civ)
-    RoundedImageView main_image_civ;
+
     public EvaluteFragment() {
         // Required empty public constructor
     }
@@ -42,10 +35,19 @@ public class EvaluteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_evalute, container, false);
+        evalutefragment_iv=view.findViewById(R.id.evalutefragment_iv);
+            evalutefragment_iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mainActivity.mCoordinatorMenu.isOpened()) {
+                        mainActivity.mCoordinatorMenu.closeMenu();
+                    } else {
+                        mainActivity.mCoordinatorMenu.openMenu();
+                    }
+                }
+            });
 
-        ButterKnife.bind(this,view);
-
-        main_image_civ.setOnLongClickListener(new View.OnLongClickListener() {
+        evalutefragment_iv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 hintPopupWindow.showPopupWindow(view);
@@ -55,18 +57,6 @@ public class EvaluteFragment extends Fragment {
         });
         InitView();
         return view;
-    }
-    @OnClick({R.id.main_image_civ})
-    public void handleEvent(View view){
-        switch (view.getId()){
-            case R.id.main_image_civ:
-                if (main_drawer_layout.isDrawerOpen(GravityCompat.START)) {
-                    main_drawer_layout.closeDrawer(GravityCompat.START);
-                }else {
-                    main_drawer_layout.openDrawer(GravityCompat.START,true);
-                }
-                break;
-        }
     }
     public void InitView() {
 
