@@ -80,6 +80,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
     private List<User> getData(){
+        //TODO 查看UserList 和 每项的账号Item_Phone和密码 Item_Password;
         SharedPreferences preferences = getSharedPreferences("UserList", MODE_PRIVATE);
         int UserListSize = preferences.getInt("UserListSize",0);
         User user ;

@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Main.EvaluteFragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,16 +16,18 @@ import com.example.zhan.heathmanage.BasicsTools.HintPopupWindow;
 import com.example.zhan.heathmanage.Main.MainActivity;
 import com.example.zhan.heathmanage.R;
 import com.john.waveview.WaveView;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EvaluteFragment extends Fragment {
-    private ImageView evalutefragment_iv;
+    private RoundedImageView evalutefragment_iv;
     private View view;
     private MainActivity mainActivity;
     private HintPopupWindow hintPopupWindow;
@@ -70,11 +73,12 @@ public class EvaluteFragment extends Fragment {
 
         //下面的操作是初始化弹出数据
         ArrayList<String> strList = new ArrayList<>();
-        strList.add("选项item1");
-        strList.add("选项item2");
-        strList.add("选项item3");
-        strList.add("选项item4");
-        strList.add("选项item5");
+        SharedPreferences preferences = getActivity().getSharedPreferences("UserList",MODE_PRIVATE);
+        int UserListSize = preferences.getInt("UserListSize",0);
+        for (int i = 0;i<UserListSize;i++){
+            String UserNumber = preferences.getString("Item_Phone"+i,null);
+            strList.add(UserNumber);
+        }
         ArrayList<String> imageList = new ArrayList<>();
         ArrayList<View.OnClickListener> clickList = new ArrayList<>();
         View.OnClickListener clickListener = new View.OnClickListener() {

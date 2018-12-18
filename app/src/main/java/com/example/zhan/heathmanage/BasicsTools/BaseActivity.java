@@ -37,6 +37,7 @@ public class BaseActivity extends AppCompatActivity{
         super.onDestroy();
         unbinder.unbind();
         ActivityCollector.removeActivity(this);//每销毁一个新活动就从控制类中移除该活动
+        ImmersionBar.with(this).destroy();
     }
 
 }
