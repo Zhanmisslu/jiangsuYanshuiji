@@ -40,4 +40,6 @@ dependencies {
     implementation project(':coordinatormenu')
     //waveView
     implementation 'com.github.john990:WaveView:v0.9'
+    //水纹涟漪
+    implementation 'com.github.traex.rippleeffect:library:1.2.3'
 }

@@ -115,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#afafaf"/>
+
         <Button
             android:id="@+id/login_buttonByPassword"
             android:layout_marginTop="30dp"
