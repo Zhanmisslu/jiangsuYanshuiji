@@ -31,8 +31,8 @@ public class EvaluteFragment extends Fragment {
     private View view;
     private MainActivity mainActivity;
     private HintPopupWindow hintPopupWindow;
-    private SeekBar fragment_evaluate_seekbar;
-    private WaveView fragment_evaluate_waveview;
+    private SeekBar fragment_evalute_seekbar;
+    private WaveView fragment_evalute_waveview;
     public EvaluteFragment() {
         // Required empty public constructor
     }
@@ -66,8 +66,8 @@ public class EvaluteFragment extends Fragment {
         return view;
     }
     public void InitWaveView(){
-        fragment_evaluate_waveview=view.findViewById(R.id.fragment_evaluate_waveview);
-        fragment_evaluate_waveview.setProgress(30);
+        fragment_evalute_waveview=view.findViewById(R.id.fragment_evalute_waveview);
+        fragment_evalute_waveview.setProgress(30);
     }
     public void InitView() {
 
