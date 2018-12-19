@@ -4,6 +4,7 @@ package com.example.zhan.heathmanage.Login;
   password 登录的密码
   login_recycle  已经登录过的用户列表
   hide_ll   隐藏下方的布局文件
+  asdasdas
  */
 import android.content.Intent;
 import android.content.SharedPreferences;
