@@ -90,24 +90,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     }
 
-    //UI_MODE_NIGHT_NO 日间
-    //UI_MODE_NIGHT_YES夜间
-//    @OnClick(R.id.change_theme_ll)
-//    public void change_theme_ll_Onlick(){
-//        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//        if (mode == Configuration.UI_MODE_NIGHT_YES) {
-//            change_theme_iv.setImageResource(R.drawable.night);
-//            change_theme_tv.setText("夜间");
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        } else if (mode == Configuration.UI_MODE_NIGHT_NO) {
-//            change_theme_iv.setImageResource(R.drawable.daytime);
-//            change_theme_tv.setText("日间");
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//        }
-//        recreate();
-//}
-
-
 
     public void inListener(){
         tab_evalute_ll.setOnClickListener(this);
@@ -219,7 +201,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 setSelect(0);
                 break;
             case R.id.tab_trend_ll:
-                tab_trend_ib.setImageResource(R.drawable.trend_pressgreen);
+                tab_trend_ib.setImageResource(R.drawable.trend_press);
                 startShakeByPropertyAnim(tab_trend_ib,0.9f, 1.2f, 10f, 400);
                 tab_trend_tv.setTextColor(Color.parseColor("#FF4081"));
                 setSelect(1);

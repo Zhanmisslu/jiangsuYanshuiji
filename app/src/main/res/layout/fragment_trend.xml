@@ -8,8 +8,8 @@
     tools:context=".Main.TrendFragment.TrendFragment">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:id="@+id/fragment_evaluate_ll"
+    android:layout_height="70dp"
+    android:id="@+id/fragment_trend_ll"
     android:orientation="horizontal">
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="3dp"
         android:layout_height="10dp"
-        android:id="@+id/fragment_evaluate_ib"
+        android:id="@+id/fragment_trend_ib"
         android:background="@drawable/upon"/>
     <!--<ImageButton-->
         <!--android:layout_width="10dp"-->
@@ -69,7 +69,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:id="@+id/fragment_evaluate_view_ll"
+        android:id="@+id/fragment_trend_view_ll"
         android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,7 +77,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/tab_evalute_ll"
+                android:id="@+id/trend_dayview_ll"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -85,25 +85,25 @@
                 android:orientation="vertical" >
 
                 <ImageButton
-                    android:id="@+id/tab_evalute_ib"
+                    android:id="@+id/trend_dayview_ib"
                     android:layout_width="23dp"
                     android:layout_height="35dp"
                     android:background="#00000000"
                     android:scaleType="centerInside"
                     android:clickable="false"
-                    android:src="@drawable/evalute_press" />
+                    android:src="@drawable/day_press" />
 
                 <TextView
-                    android:id="@+id/tab_evalute_tv"
+                    android:id="@+id/trend_dayview_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="日视图"
-                    android:textColor="#FF4081"/>
+                    android:textColor="#272727"/>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tab_trend_ll"
+                android:id="@+id/trend_weekview_ll"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -111,24 +111,24 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/tab_trend_ib"
+                    android:id="@+id/trend_weekview_ib"
                     android:layout_width="25dp"
                     android:layout_height="35dp"
                     android:background="#00000000"
                     android:clickable="false"
                     android:scaleType="centerInside"
-                    android:src="@drawable/trend" />
+                    android:src="@drawable/week" />
                 <TextView
-                    android:id="@+id/tab_trend_tv"
+                    android:id="@+id/trend_weekview_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="周视图"
-                    android:textColor="#272727"
+                    android:textColor="#898989"
                     android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tab_find_ll"
+                android:id="@+id/trend_monthview_ll"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -136,19 +136,19 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/tab_find_ib"
+                    android:id="@+id/trend_monthview_ib"
                     android:layout_width="25dp"
                     android:layout_height="35dp"
                     android:background="#00000000"
                     android:clickable="false"
                     android:scaleType="centerInside"
-                    android:src="@drawable/find" />
+                    android:src="@drawable/month" />
                 <TextView
-                    android:id="@+id/tab_find_tv"
+                    android:id="@+id/trend_monthview_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="月视图"
-                    android:textColor="#272727"
+                    android:textColor="#898989"
                     android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
@@ -156,22 +156,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:layout_width="23dp"
-                    android:layout_height="35dp"
-                    android:background="#00000000"
-                    android:scaleType="centerInside"
-                    android:clickable="false"
-                    android:src="@drawable/comingsoon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="敬请期待"
-                    android:textColor="#FF4081"/>
+                >
             </LinearLayout>
 
         </LinearLayout>
@@ -179,8 +164,120 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#C4C4C4"
+        android:layout_height="1px"
+        android:layout_marginTop="5dp"
+        android:background="#557b7a7a"
         />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#C1FFC1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="日"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="一"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="二"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="三"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="四"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="五"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="六"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <com.necer.calendar.Miui10Calendar
+        android:id="@+id/miui10Calendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:bgCalendarColor="#f5f5f5"
+        app:bgChildColor="#F5f5f5"
+        app:holidayColor="#519EDC"
+        android:layout_marginBottom="15dp"
+        app:lunarHolidayTextColor="#519EDC"
+        app:selectCircleColor="#398FE9"
+        app:solarHolidayTextColor="#519EDC"
+        app:solarTermTextColor="#519EDC"
+        app:todaySolarTextColor="#398FE9">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            >
+
+
+            <FrameLayout
+                android:id="@+id/fragment_trend_fl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </FrameLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </com.necer.calendar.Miui10Calendar>
 
 </LinearLayout>
