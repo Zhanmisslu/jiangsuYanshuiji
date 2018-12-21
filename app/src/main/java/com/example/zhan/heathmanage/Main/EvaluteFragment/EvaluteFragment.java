@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Main.EvaluteFragment;
 
 
+import android.animation.ArgbEvaluator;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +14,16 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.HintPopupWindow;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.Main.MainActivity;
 import com.example.zhan.heathmanage.R;
 import com.john.waveview.WaveView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -31,8 +36,8 @@ public class EvaluteFragment extends Fragment {
     private View view;
     private MainActivity mainActivity;
     private HintPopupWindow hintPopupWindow;
-    private SeekBar fragment_evalute_seekbar;
-    private WaveView fragment_evalute_waveview;
+    private SeekBar fragment_evaluate_seekbar;
+    private WaveView fragment_evaluate_waveview;
     public EvaluteFragment() {
         // Required empty public constructor
     }
@@ -42,6 +47,10 @@ public class EvaluteFragment extends Fragment {
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_evalute, container, false);
         evalutefragment_iv=view.findViewById(R.id.evalutefragment_iv);
+        /*
+         rv_view
+         */
+        rv_view = view.findViewById(R.id.rv_view);
             evalutefragment_iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,11 +72,14 @@ public class EvaluteFragment extends Fragment {
         });
         InitView();
         InitWaveView();
+
+        initRingView();
+
         return view;
     }
     public void InitWaveView(){
-        fragment_evalute_waveview=view.findViewById(R.id.fragment_evalute_waveview);
-        fragment_evalute_waveview.setProgress(30);
+        fragment_evaluate_waveview=view.findViewById(R.id.fragment_evaluate_waveview);
+        fragment_evaluate_waveview.setProgress(100);
     }
     public void InitView() {
 
@@ -93,6 +105,67 @@ public class EvaluteFragment extends Fragment {
         //hintPopupWindow.setBackgroundAlpha(getActivity(),1);
         //具体初始化逻辑看下面的图
         hintPopupWindow = new HintPopupWindow(getActivity(), strList, clickList);
+    }
+
+    RingView rv_view;
+    ArgbEvaluator evaluator;
+    private int startColor = 0XFFfb5338;
+    private int centerColor = 0XFF00ff00;
+    private int endColor = 0XFF008dfc;
+    private int endUseColor = 0;
+
+    List<Integer> valueList = new ArrayList<>();
+    List<String> valueNameList = new ArrayList<>();
+    private int animDuration = 2500;
+    public void initRingView(){
+        evaluator = new ArgbEvaluator();
+        valueList.add(350);
+        valueList.add(450);
+        valueList.add(550);
+        valueList.add(650);
+        valueList.add(750);
+        valueList.add(850);
+        rv_view.setValueList(valueList);
+        valueNameList.add("较差");
+        valueNameList.add("中等");
+//        valueNameList.add("良好");
+        valueNameList.add("合格");
+        valueNameList.add("优秀");
+        rv_view.setValueNameList(valueNameList);
+//        rv_view.setPointer(true);
+        rv_view.setPointer(false);
+//        ly_content.setBackgroundColor((Integer) evaluator.evaluate(0f, startColor, endColor));
+        start((int) (350 + Math.random() * 500));
+    }
+    private void start(int value) {
+        float f = (value - valueList.get(0)) * 1.0f / (valueList.get(valueList.size() - 1) - valueList.get(0));
+        if (f <= 0.5f) {
+            endUseColor = (Integer) evaluator.evaluate(f, startColor, centerColor);
+
+        }
+        else
+        {
+            endUseColor = (Integer) evaluator.evaluate(f, centerColor, endColor);
+
+        }
+
+        rv_view.setValue(value, new RingView.OnProgerssChange() {
+            @Override
+            public void OnProgerssChange(float interpolatedTime) {
+                int evaluate = 0;
+//
+//                if (interpolatedTime <= 0.5f) {
+//
+//                    evaluate = (Integer) evaluator.evaluate(interpolatedTime, startColor, endUseColor);
+//
+//                } else {
+//                    evaluate = (Integer) evaluator.evaluate(interpolatedTime, centerColor, endUseColor);
+//                }
+//                ly_content.setBackgroundColor(evaluate);
+
+
+            }
+        },(int)(f*animDuration));
     }
 }
 
