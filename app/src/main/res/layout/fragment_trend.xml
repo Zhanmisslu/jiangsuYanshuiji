@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -70,7 +70,9 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:id="@+id/fragment_trend_view_ll"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layout_below="@+id/fragment_trend_ll"
+       >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -166,12 +168,16 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="5dp"
+        android:id="@+id/view"
+        android:layout_below="@+id/fragment_trend_view_ll"
         android:background="#557b7a7a"
         />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_below="@+id/view"
+        android:id="@+id/fragment_trend_week_rl"
         android:background="#C1FFC1">
         <LinearLayout
             android:layout_width="match_parent"
@@ -248,12 +254,12 @@
 
     <com.necer.calendar.Miui10Calendar
         android:id="@+id/miui10Calendar"
+        android:layout_below="@+id/fragment_trend_week_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:bgCalendarColor="#f5f5f5"
-        app:bgChildColor="#F5f5f5"
+        app:bgChildColor="#dadada"
         app:holidayColor="#519EDC"
-        android:layout_marginBottom="15dp"
         app:lunarHolidayTextColor="#519EDC"
         app:selectCircleColor="#398FE9"
         app:solarHolidayTextColor="#519EDC"
@@ -263,15 +269,16 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
             >
 
-
             <FrameLayout
+                android:gravity="center_vertical"
                 android:id="@+id/fragment_trend_fl"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1">
+
+
             </FrameLayout>
 
 
@@ -280,4 +287,17 @@
 
     </com.necer.calendar.Miui10Calendar>
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/back_today_ib"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end"
+        android:layout_marginBottom="85dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/today"
+        android:layout_marginRight="17dp"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>
