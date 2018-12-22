@@ -266,13 +266,12 @@
         app:solarTermTextColor="#519EDC"
         app:todaySolarTextColor="#398FE9">
 
-        <android.support.v4.widget.NestedScrollView
+        <com.example.zhan.heathmanage.BasicsTools.MultiScroll
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
             <FrameLayout
-                android:gravity="center_vertical"
                 android:id="@+id/fragment_trend_fl"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -281,8 +280,7 @@
 
             </FrameLayout>
 
-
-        </android.support.v4.widget.NestedScrollView>
+        </com.example.zhan.heathmanage.BasicsTools.MultiScroll>
 
 
     </com.necer.calendar.Miui10Calendar>

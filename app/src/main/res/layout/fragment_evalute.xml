@@ -14,7 +14,7 @@
             android:id="@+id/view_title"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:background="#46C4B7"/>
+            android:background="#22BA8E"/>
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/evalutefragment_iv"
             android:layout_width="40dp"
