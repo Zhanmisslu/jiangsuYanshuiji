@@ -14,6 +14,8 @@ import com.beiing.leafchart.bean.Axis;
 import com.beiing.leafchart.bean.AxisValue;
 import com.beiing.leafchart.bean.Line;
 import com.beiing.leafchart.bean.PointValue;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.LineChartServiceDaoImp;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.R;
 
@@ -40,7 +42,7 @@ public class MonthFragment extends Fragment {
     private View view;
     Axis axisX = new Axis(getAxisValuesX());
     Axis axisY = new Axis(getAxisValuesY());
-
+    LineChartServiceDao lineChartServiceDao;
     public MonthFragment() {
         // Required empty public constructor
     }
@@ -54,6 +56,7 @@ public class MonthFragment extends Fragment {
         ButterKnife.bind(this, view);
         axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
         axisY.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
+        lineChartServiceDao=new LineChartServiceDaoImp();
 
         initHeartRate();
         initBloodPressure();
@@ -61,30 +64,12 @@ public class MonthFragment extends Fragment {
         initTemperature();
         return view;
     }
-    public void judgeTime(){
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
-        final Date date1 = new Date(System.currentTimeMillis());
-
-        if(!simpleDateFormat.format(date1).equals(TrendFragment.nDate)){
-            initHeartRate();
-            initBloodPressure();
-            initBloodFat();
-            initTemperature();
-        }
-    }
     //加载心率折线图
     public void initHeartRate() {
-//        Axis axisX = new Axis(getAxisValuesX());
-//        Axis axisY = new Axis(getAxisValuesY());
-//        axisX.setAxisColor(Color.parseColor("#00000000")).setTextColor(Color.DKGRAY).setHasLines(true);
-//        axisY.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
-        //view = getLayoutInflater().inflate( R.layout.fragment_month, null);
-        //view=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_month,null);
-//        heartrate_graph=view.findViewById(R.id.heartrate_graph);
         heartrate_graph.setAxisX(axisX);
         heartrate_graph.setAxisY(axisY);
         List<Line> lines = new ArrayList<>();
-        lines.add(getHeartRateLine());
+        lines.add(lineChartServiceDao.getHeartRateLine());
         heartrate_graph.setChartData(lines);
         heartrate_graph.showWithAnimation(3000);
     }
