@@ -84,6 +84,7 @@ public class RingView extends View{
         sWidthprogerssPaint = dip2px(getContext(), 7.0f);
         pointPaintSize = dip2px(getContext(), 2.0f);
         pointShadowLayer = dip2px(getContext(), 2.5f);
+        //外面圆圈显示的画板
         ringPaint = new Paint();
         /**抗锯齿功能*/
         ringPaint.setAntiAlias(true);
@@ -93,7 +94,7 @@ public class RingView extends View{
         ringPaint.setStrokeWidth(sWidthringPaint);
         ringPaint.setColor(Color.rgb(146, 204, 255));
 
-
+        //里面圆圈显示的画板
         ringProgerssPaint = new Paint();
         ringProgerssPaint.setAntiAlias(true);
         ringProgerssPaint.setStyle(Paint.Style.STROKE);
@@ -118,14 +119,14 @@ public class RingView extends View{
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
         textPaint.setStyle(Paint.Style.FILL);
-        textPaint.setColor(Color.argb(180, 146, 204, 255));
+        textPaint.setColor(Color.argb(85, 34, 186, 142));
         textPaint.setTextSize(textPaintSize);
 
-
+        //屏幕中间显示字的画板
         progerssPaint = new Paint();
         progerssPaint.setAntiAlias(true);
         progerssPaint.setStyle(Paint.Style.FILL);
-        progerssPaint.setColor(Color.WHITE);
+        progerssPaint.setColor(Color.argb(85, 34, 186, 142));
         progerssPaint.setTextSize(progerssPaintSize);
 
 

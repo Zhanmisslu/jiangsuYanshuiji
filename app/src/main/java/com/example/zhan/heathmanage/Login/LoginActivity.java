@@ -44,20 +44,29 @@ public class LoginActivity extends BaseActivity {
 
     private List<User> userList = new ArrayList<User>();;//用户的数据源
     private UsersAdapter adapter;//适配器
-
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        preferences = getSharedPreferences("UserList", MODE_PRIVATE);
+        editor = preferences.edit();
+        getData();
+        if (userList.size()!=0){
+            account.setText(preferences.getString("Login_User",null));
+            Log.d("Login_User",preferences.getString("Login_User",null));
+            password.setText(preferences.getString("Login_Password",null));
+        }
         //创建适配器
-        adapter = new UsersAdapter(this,this,getData());
+        adapter = new UsersAdapter(this,this,userList);
         login_recycle.setLayoutManager(new LinearLayoutManager(this));
         login_recycle.setAdapter(adapter);
 
     }
     private void  setData(){
         int count = 0;
+        //判断是否有重复的账号
         if(userList!=null&&userList.size()>0){
             for (int i=0; i<userList.size();i++){
                 if (userList.get(i).getPhoneNumber().equals(account.getText().toString())){
@@ -66,12 +75,13 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         }
+        //如果没有，则添加该账号
         if (count ==0){
             User user = new User();
             user.setPhoneNumber(account.getText().toString());
             user.setPassword(password.getText().toString());
             userList.add(user);
-            SharedPreferences.Editor editor = getSharedPreferences("UserList", MODE_PRIVATE).edit();
+
             editor.putInt("UserListSize",userList.size());
             for (int i = 0 ; i<userList.size();i++){
                 editor.putString("Item_Phone"+i,userList.get(i).getPhoneNumber());
@@ -82,7 +92,7 @@ public class LoginActivity extends BaseActivity {
     }
     private List<User> getData(){
         //TODO 查看UserList 和 每项的账号Item_Phone和密码 Item_Password;
-        SharedPreferences preferences = getSharedPreferences("UserList", MODE_PRIVATE);
+
         int UserListSize = preferences.getInt("UserListSize",0);
         User user ;
         for (int i = 0 ; i<UserListSize;i++){
@@ -180,6 +190,9 @@ public class LoginActivity extends BaseActivity {
            Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
        }else {
            setData();
+           editor.putString("Login_User",account.getText().toString());
+           editor.putString("Login_Password",password.getText().toString());
+           editor.commit();
            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
            startActivity(intent);
            Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
