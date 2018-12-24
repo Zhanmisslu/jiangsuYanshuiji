@@ -100,7 +100,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
                 miui10Calendar.toToday();
             }
         });
-        final MonthFragment monthFragment=new MonthFragment();
+
         miui10Calendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date) {
@@ -118,10 +118,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
 
                 //monthFragment.initHeartRate();
                 Toast.makeText(getActivity(),"你选中的是："+date.localDate.toString(),Toast.LENGTH_SHORT).show();
-                View view1=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_month,null);
-                monthFragment.heartrate_graph=view1.findViewById(R.id.heartrate_graph);
-                monthFragment.initHeartRate();
-                InitData();
+//                InitData();
             }
 
             @Override
@@ -152,16 +149,12 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
     }
 
     public void InitData(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 monthFragment=new MonthFragment();
                 fragmentManager=getFragmentManager();
                 fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_trend_fl,monthFragment);
                 fragmentTransaction.commitAllowingStateLoss();
-            }
-        }).start();
+
     }
     public void inListener(){
         trend_dayview_ll.setOnClickListener(this);
