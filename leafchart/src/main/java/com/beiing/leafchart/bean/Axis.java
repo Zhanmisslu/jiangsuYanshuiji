@@ -55,7 +55,7 @@ public class Axis {
     /**
      * 平行于 x 或 y 轴 的坐标轴颜色
      */
-    private int axisLineColor = Color.LTGRAY;
+    private int axisLineColor = Color.WHITE;
 
     private float  axisLineWidth = DEFAULT_AXIS_WIDTH_DP;
 
