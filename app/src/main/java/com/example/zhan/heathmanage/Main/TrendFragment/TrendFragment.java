@@ -66,6 +66,9 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
     private DayFragment dayFragment;
     private WeekFragment weekFragment;
     private MonthFragment monthFragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+
     @BindView(R.id.fragment_trend_fl)FrameLayout fragment_trend_fl;
     @BindView(R.id.fragment_trend_ib)
     ImageButton fragment_trend_ib;
@@ -73,12 +76,16 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.fragment_trend_ll)LinearLayout fragment_trend_ll;
     int flag=0;
     int dayflag=0;
+    public static String nDate;
     private final String[] weeks = {"周一", "周二", "周三", "周四", "周五", "周六", "周日",};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_trend, container, false);
+
         ButterKnife.bind(this,view);
+
+
         List<String> pointList = Arrays.asList("2018-10-01", "2018-11-19", "2018-11-20", "2018-05-23", "2019-01-01");
         final Miui10Calendar miui10Calendar = view.findViewById(R.id.miui10Calendar);
         miui10Calendar.setPointList(pointList);
@@ -93,7 +100,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
                 miui10Calendar.toToday();
             }
         });
-
+        final MonthFragment monthFragment=new MonthFragment();
         miui10Calendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date) {
@@ -101,15 +108,20 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
                 year_tv.setText(date.localDate.getYear() + "年");
                 month_tv.setText(date.localDate.getMonthOfYear() + "月");
                 week_tv.setText(weeks[date.localDate.getDayOfWeek() - 1]);
+                nDate=date.localDate.toString();
                 if(simpleDateFormat.format(date1).equals(date.localDate.toString())){
                     back_today_ib.setVisibility(View.GONE);
                 }else {
                     back_today_ib.setVisibility(View.VISIBLE);
                 }
+                //monthFragment.judgeTime();
 
-                  //  Toast.makeText(getActivity(),"你选中的是："+date.localDate.toString(),Toast.LENGTH_SHORT).show();
-
-
+                //monthFragment.initHeartRate();
+                Toast.makeText(getActivity(),"你选中的是："+date.localDate.toString(),Toast.LENGTH_SHORT).show();
+                View view1=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_month,null);
+                monthFragment.heartrate_graph=view1.findViewById(R.id.heartrate_graph);
+                monthFragment.initHeartRate();
+                InitData();
             }
 
             @Override
@@ -139,7 +151,18 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
 
     }
 
-
+    public void InitData(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                monthFragment=new MonthFragment();
+                fragmentManager=getFragmentManager();
+                fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_trend_fl,monthFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        }).start();
+    }
     public void inListener(){
         trend_dayview_ll.setOnClickListener(this);
         trend_weekview_ll.setOnClickListener(this);

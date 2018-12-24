@@ -49,7 +49,7 @@ public class WeekFragment extends Fragment {
         // Inflate the layout for this fragment
        view=inflater.inflate(R.layout.fragment_week, container, false);
         ButterKnife.bind(this,view);
-        axisX.setAxisColor(Color.parseColor("#00000000")).setTextColor(Color.DKGRAY).setHasLines(true);
+        axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
         axisY.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
         initHeartRate();
         initBloodPressure();
@@ -119,7 +119,7 @@ public class WeekFragment extends Fragment {
     //心率纵坐标轴
     private List<AxisValue> getAxisValuesY(){
         List<AxisValue> axisValues = new ArrayList<>();
-        for (int i = 0; i <20; i++) {
+        for (int i = 0; i <20; i=i+2) {
             AxisValue value = new AxisValue();
             value.setLabel(String.valueOf(i * 10));
             axisValues.add(value);
@@ -190,11 +190,13 @@ public class WeekFragment extends Fragment {
         Line line = new Line(pointValues);
         line.setLineColor(Color.MAGENTA)
                 .setLineWidth(3)
-                .setPointColor(Color.MAGENTA)
-                .setCubic(true)
-                .setPointRadius(3)
+                .setPointColor(Color.RED)//点的颜色
+                .setPointRadius(3)//
+                .setCubic(true)//设置是曲线还是折线
+                .setHasPoints(true)
                 .setFill(false)
-                .setHasLabels(true);
+                .setHasLabels(true)
+                .setLabelColor(Color.parseColor("#33B5E5"));
         return line;
     }
     //体温曲线

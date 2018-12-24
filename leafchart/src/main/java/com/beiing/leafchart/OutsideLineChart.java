@@ -25,6 +25,7 @@ import java.util.List;
  */
 
 public class OutsideLineChart extends AbsLeafChart {
+    private List<Line> lines;
 
     private Line line;
 
@@ -57,7 +58,7 @@ public class OutsideLineChart extends AbsLeafChart {
         super(context, attrs, defStyleAttr);
         mScroller = new Scroller(getContext());
         gestureDetector = new GestureDetectorCompat(getContext(), new SimpleGestureListener());
-        maxOverMove = (int) LeafUtil.dp2px(mContext, 100);
+        maxOverMove = (int) LeafUtil.dp2px(mContext, 50);
     }
 
     @Override
@@ -89,8 +90,10 @@ public class OutsideLineChart extends AbsLeafChart {
 
     @Override
     protected void resetPointWeight() {
-        if(line != null){
-            super.resetPointWeight(line);
+        if (lines != null) {
+            for (int i = 0, size = lines.size(); i < size; i++) {
+                super.resetPointWeight(lines.get(i));
+            }
         }
     }
 
@@ -129,22 +132,29 @@ public class OutsideLineChart extends AbsLeafChart {
     protected void onDraw(Canvas canvas) {
         outsideLineRenderer.drawCoordinateLines(canvas, axisX, axisY);
         outsideLineRenderer.drawCoordinateText(canvas, axisX, axisY, mMove);
+        if (lines != null && lines.size() > 0) {
 
-        if(line != null){
-            outsideLineRenderer.drawLines(canvas, line, axisY, mMove);
+            for (int i = 0, size = lines.size(); i < size; i++) {
+                line = lines.get(i);
+                if(line != null) {
+//                    if(line.isCubic()) {
+//                        outsideLineRenderer.drawCubicPath(canvas, line);
+//                    } else {
+//                        leafChartRenderer.drawLines(canvas, line);
+//                    }
+                    outsideLineRenderer.drawLines(canvas, line, axisY, mMove);
 
-            if(line.isFill()){
-                //填充
-                outsideLineRenderer.drawFillArea(canvas, line, axisX, mMove);
+                    if (line.isFill()) {
+                        //填充
+                        outsideLineRenderer.drawFillArea(canvas, line, axisX, mMove);
+                    }
+                }
+                outsideLineRenderer.drawPoints(canvas, line, axisY, mMove);
+                if (line != null && line.isHasLabels()) {
+                    outsideLineRenderer.drawLabels(canvas, line, axisY, mMove);
+                }
             }
-
-            outsideLineRenderer.drawPoints(canvas, line, axisY, mMove);
         }
-
-        if (line != null && line.isHasLabels()) {
-            outsideLineRenderer.drawLabels(canvas, line, axisY, mMove);
-        }
-
     }
 
     @Override
@@ -209,6 +219,7 @@ public class OutsideLineChart extends AbsLeafChart {
 
     private int getMinMove() {
         int minMove = Integer.MIN_VALUE;
+
         if (line != null) {
             List<PointValue> values = line.getValues();
             if (values != null && values.size() > 0) {
@@ -231,12 +242,14 @@ public class OutsideLineChart extends AbsLeafChart {
         showWithAnimation(0);
     }
 
-    public void setChartData(Line chartData) {
-        line = chartData;
-        resetPointWeight();
-    }
-
-    public Line getChartData() {
-        return line;
-    }
+//    public void setChartData(Line chartData) {
+//        line = chartData;
+//        resetPointWeight();
+//    }
+public void setChartData(List<Line> chartDatas) {
+    lines = chartDatas;
+    resetPointWeight();
 }
+    public List<Line> getChartData() {
+        return lines;
+    }}
