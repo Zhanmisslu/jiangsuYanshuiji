@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         getData();
         if (userList.size()!=0){
             account.setText(preferences.getString("Login_User",null));
-            Log.d("Login_User",preferences.getString("Login_User",null));
+            Log.d("Login_User", preferences.getString("Login_User",null));
             password.setText(preferences.getString("Login_Password",null));
         }
         //创建适配器
