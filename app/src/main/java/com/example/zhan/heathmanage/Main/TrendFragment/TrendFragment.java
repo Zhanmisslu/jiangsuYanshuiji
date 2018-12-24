@@ -76,6 +76,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.fragment_trend_ll)LinearLayout fragment_trend_ll;
     int flag=0;
     int dayflag=0;
+    int fragmentflag = -1;
     public static String nDate;
     private final String[] weeks = {"周一", "周二", "周三", "周四", "周五", "周六", "周日",};
     @Override
@@ -118,7 +119,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
 
                 //monthFragment.initHeartRate();
                 Toast.makeText(getActivity(),"你选中的是："+date.localDate.toString(),Toast.LENGTH_SHORT).show();
-//                InitData();
+                InitData();
             }
 
             @Override
@@ -149,11 +150,27 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
     }
 
     public void InitData(){
-                monthFragment=new MonthFragment();
-                fragmentManager=getFragmentManager();
-                fragmentTransaction=fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_trend_fl,monthFragment);
-                fragmentTransaction.commitAllowingStateLoss();
+        if (fragmentflag == 0) {
+            dayFragment = new DayFragment();
+            fragmentManager = getFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_trend_fl, dayFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
+        if (fragmentflag == 1) {
+            weekFragment = new WeekFragment();
+            fragmentManager = getFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_trend_fl, weekFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
+        if (fragmentflag == 2) {
+            monthFragment = new MonthFragment();
+            fragmentManager = getFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_trend_fl, monthFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
 
     }
     public void inListener(){
@@ -169,16 +186,25 @@ public class TrendFragment extends Fragment implements View.OnClickListener{
                 trend_dayview_ib.setImageResource(R.drawable.day_press);
                 trend_dayview_tv.setTextColor(Color.parseColor("#272727"));
                 setSelect(0);
+                fragmentflag = 0;
+                InitData();
+
                 break;
             case R.id.trend_weekview_ll:
                 trend_weekview_ib.setImageResource(R.drawable.week_press);
                 trend_weekview_tv.setTextColor(Color.parseColor("#272727"));
                 setSelect(1);
+                fragmentflag = 1;
+                InitData();
+
                 break;
             case R.id.trend_monthview_ll:
                 trend_monthview_ib.setImageResource(R.drawable.month_press);
                 trend_monthview_tv.setTextColor(Color.parseColor("#272727"));
                 setSelect(2);
+                fragmentflag = 2;
+                InitData();
+
                 break;
             default:break;
         }
