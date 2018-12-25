@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main.MainActivity" />
+        <activity android:name=".Main.Menu.SettingActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Weclome.WelcomeActivity" />
         <activity android:name=".Register.Register2Activity" />
