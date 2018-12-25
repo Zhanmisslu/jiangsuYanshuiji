@@ -9,6 +9,7 @@ package com.example.zhan.heathmanage.Login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +23,10 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Login.Adapters.UsersAdapter;
 import com.example.zhan.heathmanage.Login.Beans.User;
+import com.example.zhan.heathmanage.Login.Servers.server.UserServer;
+import com.example.zhan.heathmanage.Login.Servers.serverImp.UserServerImp;
 import com.example.zhan.heathmanage.Main.MainActivity;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 
 import java.util.ArrayList;
@@ -46,16 +50,19 @@ public class LoginActivity extends BaseActivity {
     private UsersAdapter adapter;//适配器
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    UserServer userServer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        userServer=new UserServerImp(this);
         preferences = getSharedPreferences("UserList", MODE_PRIVATE);
+        //preferences= PreferenceManager.getDefaultSharedPreferences(getApplication());
+
         editor = preferences.edit();
         getData();
         if (userList.size()!=0){
             account.setText(preferences.getString("Login_User",null));
-            Log.d("Login_User", preferences.getString("Login_User",null));
             password.setText(preferences.getString("Login_Password",null));
         }
         //创建适配器
@@ -190,12 +197,11 @@ public class LoginActivity extends BaseActivity {
            Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
        }else {
            setData();
-           editor.putString("Login_User",account.getText().toString());
-           editor.putString("Login_Password",password.getText().toString());
-           editor.commit();
-           Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-           startActivity(intent);
-           Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
+//           editor.putString("Login_User",account.getText().toString());
+//           editor.putString("Login_Password",password.getText().toString());
+//           editor.commit();
+           userServer.FirstLogin(account.getText().toString(),password.getText().toString());
+           //Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
        }
    }
 
@@ -226,5 +232,16 @@ public class LoginActivity extends BaseActivity {
    //adpter回调函数，点击删除按钮更新adpter
     public void  freshAdapter(){
        adapter.notifyDataSetChanged();
+    }
+
+    //登录成功的回调
+    public void LoginCallBack(User user){
+        MyApplication.setUserPhone(user.getPhoneNumber());
+        MyApplication.setUserPassword(user.getPassword());
+        editor.putString("Login_User",user.getPhoneNumber());
+        editor.putString("Login_Password",user.getPassword());
+        editor.commit();
+        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(intent);
     }
 }

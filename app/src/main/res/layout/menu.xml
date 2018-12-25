@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/menu_ll"
     android:background="#fff">
 <LinearLayout
     android:layout_width="match_parent"
@@ -29,6 +30,11 @@
         android:textSize="20dp"
         android:textColor="#643672"/>
 </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -163,15 +169,16 @@
             android:textSize="@dimen/menu_text_size"
             android:text="@string/menu_rocket_text"/>
     </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="57dp"
+        android:layout_height="60dp"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_marginStart="20dp"
             android:layout_width="40dp"
             android:orientation="vertical"
+            android:id="@+id/setting_ll"
             android:layout_marginBottom="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp">

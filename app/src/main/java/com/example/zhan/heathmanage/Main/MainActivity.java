@@ -3,6 +3,7 @@ package com.example.zhan.heathmanage.Main;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,16 +16,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
+import com.example.zhan.heathmanage.Main.Menu.SettingActivity;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.R;
 import com.qiantao.coordinatormenu.CoordinatorMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     public static CoordinatorMenu mCoordinatorMenu;
@@ -49,6 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     LinearLayout tab_trend_ll;
     @BindView(R.id.tab_trend_tv)
     TextView tab_trend_tv;
+    @BindView(R.id.setting_ll) LinearLayout setting_ll;
     //@BindView(R.id.change_theme_ll)LinearLayout change_theme_ll;
     //@BindView(R.id.change_theme_iv)ImageView change_theme_iv;
     //@BindView(R.id.change_theme_tv) TextView change_theme_tv;
@@ -214,5 +219,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             default:break;
         }
+    }
+    @OnClick(R.id.setting_ll)
+    public void setting_ll_Onclick(){
+        Intent intent=new Intent(MainActivity.this, SettingActivity.class);
+        startActivity(intent);
+        Toast.makeText(this,"啦啦啦啦啦",Toast.LENGTH_SHORT).show();
     }
 }
