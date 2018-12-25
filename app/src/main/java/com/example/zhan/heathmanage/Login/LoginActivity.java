@@ -24,6 +24,7 @@ import com.example.zhan.heathmanage.Login.Adapters.UsersAdapter;
 import com.example.zhan.heathmanage.Login.Beans.User;
 import com.example.zhan.heathmanage.Main.MainActivity;
 import com.example.zhan.heathmanage.R;
+import com.example.zhan.heathmanage.Register.RegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,7 @@ public class LoginActivity extends BaseActivity {
         login_recycle.setAdapter(adapter);
 
     }
+    //TODO 查看UserList 和 每项的账号Item_Phone和密码 Item_Password;
     private void  setData(){
         int count = 0;
         //判断是否有重复的账号
@@ -91,8 +93,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
     private List<User> getData(){
-        //TODO 查看UserList 和 每项的账号Item_Phone和密码 Item_Password;
-
         int UserListSize = preferences.getInt("UserListSize",0);
         User user ;
         for (int i = 0 ; i<UserListSize;i++){
@@ -106,6 +106,7 @@ public class LoginActivity extends BaseActivity {
         return userList;
     }
 
+    //TODO 登录中的各种布局的隐藏和显示
     //包裹RecyclerVIew的布局
     @BindView(R.id.login_recyckview_ll)
     LinearLayout login_recyckview_ll;
@@ -178,7 +179,18 @@ public class LoginActivity extends BaseActivity {
        hide_ll.setVisibility(View.VISIBLE);
 
     }
+    //历史登录列表的点击事件
+    @OnClick(R.id.login_recyckview_ll)
+    public void  login_recyckview_ll_OnClick(){
+        //回到原来布局
+        login_recyckview_ll.setVisibility(View.GONE);
+        hide_ll.setVisibility(View.VISIBLE);
+        login_drop_IB.setVisibility(View.VISIBLE);
+        login_up_IB.setVisibility(View.GONE);
+        login_verification_ll.setVisibility(View.GONE);
+    }
 
+    //TODO 登录按钮的点击事件处理 和 注册按钮的点击事件处理
    //密码登录Button点击事件
    @OnClick(R.id.login_buttonByPassword)
     public void login_buttonByPassword_OnClick() {
@@ -199,16 +211,12 @@ public class LoginActivity extends BaseActivity {
        }
    }
 
-   //历史登录列表的点击事件
-   @OnClick(R.id.login_recyckview_ll)
-   public void  login_recyckview_ll_OnClick(){
-       //回到原来布局
-       login_recyckview_ll.setVisibility(View.GONE);
-       hide_ll.setVisibility(View.VISIBLE);
-       login_drop_IB.setVisibility(View.VISIBLE);
-       login_up_IB.setVisibility(View.GONE);
-       login_verification_ll.setVisibility(View.GONE);
-   }
+   //新用户注册按钮
+    @OnClick(R.id.login_newUser)
+    public void login_newUser_OnClick(){
+       Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+       startActivity(intent);
+    }
 
    //adpter回调函数，点击adpter的item项返回账号密码值
    public void ChangeUser(final String Phone , final String Password){

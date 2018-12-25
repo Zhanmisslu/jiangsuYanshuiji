@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
-    tools:context=".Register.RegisterActivity">
+    android:background="#ffff"
+    tools:context=".Register.Register3Activity">
     <LinearLayout
         android:layout_marginTop="20dp"
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <LinearLayout
-            android:id="@+id/register_back"
+            android:id="@+id/register3_back"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -36,7 +36,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="输入手机号码"
+        android:text="填写密码"
         android:textSize="30dp"
         android:textColor="#000"
         android:layout_marginLeft="20dp"/>
@@ -45,19 +45,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="注册即代表马上就要加入我们~"
+        android:text="完成拉完成拉~"
         />
-    <EditText
-        android:id="@+id/register_phone"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="23sp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:inputType="number"
-        />
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:id="@+id/register3_password_img"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:src="@drawable/password_1"/>
+        <EditText
+            android:id="@+id/register3_password"
+            android:textSize="23sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#afafaf"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:id="@+id/register3_password2_img"
+            android:layout_marginLeft="3dp"
+            android:layout_width="31dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:src="@drawable/password_3"/>
+        <EditText
+            android:id="@+id/register3_password2"
+            android:textSize="23sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            />
+    </LinearLayout>
     <TextView
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
@@ -72,11 +109,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/register_next"
+            android:id="@+id/register3_finish"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="#dcdcdc"
-            android:text="下一步"
+            android:text="完成"
             android:enabled="false"
             android:textColor="#bebebe"
             />

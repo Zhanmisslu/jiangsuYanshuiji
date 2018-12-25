@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zhan.heathmanage">
-
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -19,7 +20,9 @@
         </activity>
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Register.RegisterActivity" />
-        <activity android:name=".Weclome.WelcomeActivity"></activity>
+        <activity android:name=".Weclome.WelcomeActivity" />
+        <activity android:name=".Register.Register2Activity" />
+        <activity android:name=".Register.Register3Activity"></activity>
     </application>
 
 </manifest>
