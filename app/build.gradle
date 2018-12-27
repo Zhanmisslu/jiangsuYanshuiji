@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
+MobSDK {
+    appKey "297e6b4fadd5a"
+    appSecret "4e319f3cc3a089d087562213c4424f80"
+    SMSSDK {}
+}
 android {
     compileSdkVersion 28
     defaultConfig {
