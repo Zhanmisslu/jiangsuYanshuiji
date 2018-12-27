@@ -136,4 +136,9 @@ public class WeekLineChartServiceDaoImp implements WeekLineChartServiceDao {
                 .setLabelColor(Color.parseColor("#33B5E5"));
         return line;
     }
+//心率纵坐标
+    @Override
+    public void getHeartRateValuesY() {
+
+    }
 }

@@ -12,16 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login.LoginActivity">
+
+        </activity>
+        <activity android:name=".Main.MainActivity" />
+        <activity android:name=".Main.Menu.SettingActivity" />
+        <activity android:name=".Register.RegisterActivity" />
+        <activity android:name=".Weclome.WelcomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.MainActivity" />
-        <activity android:name=".Main.Menu.SettingActivity" />
-        <activity android:name=".Register.RegisterActivity" />
-        <activity android:name=".Weclome.WelcomeActivity" />
         <activity android:name=".Register.Register2Activity" />
         <activity android:name=".Register.Register3Activity"></activity>
     </application>

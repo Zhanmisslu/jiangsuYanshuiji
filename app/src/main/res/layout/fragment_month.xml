@@ -6,108 +6,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Main.TrendFragment.Fragment.MonthFragment">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:layout_marginTop="20dp"
-    android:orientation="vertical">
-    <TextView
+    <com.example.zhan.heathmanage.BasicsTools.ChildViewPager
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:gravity="center"
-        android:text="血压趋势图"/>
+        android:id="@+id/month_viewPager"
+        android:layout_margin="10dp"
+        android:background="#e9e9e9"
+        android:layout_marginBottom="120dp"
+        android:layout_height="370dp">
+    </com.example.zhan.heathmanage.BasicsTools.ChildViewPager>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="7dp"
-            android:layout_gravity="center"
-            android:background="#33B5E5"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="舒张压"/>
-        <View
-            android:layout_width="30dp"
-            android:layout_height="7dp"
-            android:layout_gravity="center"
-            android:background="#e533cd"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="收缩压"/>
-    </LinearLayout>
-
-    <com.beiing.leafchart.OutsideLineChart
-        android:id="@+id/bloodpressure_graph"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:visibility="visible"
-        app:lc_step="30dp"
-        />
-
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="心率趋势图"/>
-
-        <com.beiing.leafchart.OutsideLineChart
-            android:id="@+id/heartrate_graph"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="260dp"
-            app:lc_step="30dp"/>
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/month_viewPager"
+        android:id="@+id/month_viewGroup"
+        android:gravity="center_horizontal"
+        >
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_below="@+id/month_viewGroup"
+        android:layout_height="200dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="血脂趋势图"/>
-
-
-        <com.beiing.leafchart.OutsideLineChart
-            android:id="@+id/bloodfat_graph"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="260dp"
-            app:lc_step="30dp"/>
+            android:layout_height="match_parent"
+            android:text="建议"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="血氧趋势图"/>
+<!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="300dp"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:orientation="vertical">-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="血压趋势图"/>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<View-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="7dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="#33B5E5"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:text="舒张压"/>-->
+        <!--<View-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="7dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="#e533cd"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:text="收缩压"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<com.beiing.leafchart.OutsideLineChart-->
+        <!--android:id="@+id/bloodpressure_graph"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="260dp"-->
+        <!--android:visibility="visible"-->
+        <!--app:lc_step="30dp"-->
+        <!--/>-->
+
+<!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:orientation="vertical">-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="心率趋势图"/>-->
+
+        <!--<com.beiing.leafchart.OutsideLineChart-->
+            <!--android:id="@+id/heartrate_graph"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:visibility="visible"-->
+            <!--android:layout_height="260dp"-->
+            <!--app:lc_step="30dp"/>-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:orientation="vertical">-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="血脂趋势图"/>-->
 
 
-        <com.beiing.leafchart.OutsideLineChart
-            android:id="@+id/bloodoxygen_graph"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="260dp"
-            app:lc_step="30dp"/>
-    </LinearLayout>
+        <!--<com.beiing.leafchart.OutsideLineChart-->
+            <!--android:id="@+id/bloodfat_graph"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:visibility="visible"-->
+            <!--android:layout_height="260dp"-->
+            <!--app:lc_step="30dp"/>-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:orientation="vertical">-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="血氧趋势图"/>-->
+
+
+        <!--<com.beiing.leafchart.OutsideLineChart-->
+            <!--android:id="@+id/bloodoxygen_graph"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:visibility="visible"-->
+            <!--android:layout_height="260dp"-->
+            <!--app:lc_step="30dp"/>-->
+    <!--</LinearLayout>-->
     <View
         android:layout_width="match_parent"
         android:layout_height="65dp"/>

@@ -8,6 +8,9 @@ public interface WeekLineChartServiceDao {
     public Line getSystolicBPLine();//收缩压曲线
     public Line getBloodFatLine();//血脂曲线
     public Line getBloodOxygenLine();//血氧曲线
+    public void getHeartRateValuesY();//心率纵坐标轴
+
+
 
 
 }

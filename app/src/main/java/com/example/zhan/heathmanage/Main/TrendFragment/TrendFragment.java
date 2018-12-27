@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.AnimationUtils;
+import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
+import com.example.zhan.heathmanage.Main.MainActivity;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.DayFragment;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.MonthFragment;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.WeekFragment;
@@ -32,6 +35,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.zhan.heathmanage.Main.MainActivity.ev;
 
 
 /**
@@ -145,9 +150,28 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
         });
         inListener();
         setSelect(0);
+        getActivity().dispatchTouchEvent(ev);
         return view;
     }
+//    public void aaa(){
+//        getActivity().dispatchTouchEvent()
+//    }
 
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//
+//        switch (ev.getAction()) {
+//            case MotionEvent.ACTION_MOVE://如果是向下滑动，计算出每次滑动的距离与滑动的总距离，将每次滑动的距离作为layout(int l, int t, int r, int b)方法的参数，重新进行布局，达到布局滑动的效果。
+//                break;
+//            case MotionEvent.ACTION_DOWN://获取刚开始触碰的y坐标
+//                ChildViewPager.mRollViewPagerTouching = true;
+//                break;
+//            case MotionEvent.ACTION_UP://将滑动的总距离作为layout(int l, int t, int r, int b)方法的参数，重新进行布局，达到布局自动回弹的效果。
+//                ChildViewPager.mRollViewPagerTouching = false;
+//                break;
+//        }
+//        return super.getActivity().dispatchTouchEvent(ev);
+//    }
     @OnClick(R.id.fragment_trend_ll)
     public void fragment_trend_ll_Onclick() {
         if (flag == 0) {//0的时候是向下的箭头
