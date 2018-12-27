@@ -2,6 +2,8 @@ package com.example.zhan.heathmanage.Register;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +17,8 @@ import com.example.zhan.heathmanage.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -24,13 +28,29 @@ public class RegisterActivity extends BaseActivity {
     //下一步按钮
     @BindView(R.id.register_next)
     Button register_next;
+    EventHandler eh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         OnRegisterChange();//输入编辑框的监听事件
+        eh=new EventHandler(){
+            @Override
+            public void afterEvent(int event, int result, Object data) {//验证码
+                Message msg = new Message();
+                msg.arg1 = event;
+                msg.arg2 = result;
+                msg.obj = data;
+                mHandler.sendMessage(msg);
+            }
+        };
+        SMSSDK.registerEventHandler(eh);
     }
-
+    //下一步按钮的点击事件处理
+    @OnClick(R.id.register_next)
+    public void register_next_OnClick(){
+        SMSSDK.getVerificationCode("86", register_phone.getText().toString());
+    }
     //输入编辑框的监听事件
     public void OnRegisterChange(){
         register_phone.addTextChangedListener(new TextWatcher() {
@@ -60,11 +80,35 @@ public class RegisterActivity extends BaseActivity {
     public void register_back_OnClick(){
         finish();
     }
-    //下一步按钮的点击事件处理
-    @OnClick(R.id.register_next)
-    public void register_next_OnClick(){
-        Intent intent = new Intent(RegisterActivity.this,Register2Activity.class);
-        intent.putExtra("RegisterPhone",register_phone.getText().toString());
-        startActivity(intent);
+
+
+    //验证码发送处理
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int event = msg.arg1;
+            int result = msg.arg2;
+            Object data = msg.obj;
+            if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // TODO 处理成功得到验证码的结果
+                    Toast.makeText(getApplicationContext(),"发送验证码成功",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(RegisterActivity.this,Register2Activity.class);
+                    intent.putExtra("RegisterPhone",register_phone.getText().toString());
+                    startActivity(intent);
+                } else {
+                    // TODO 处理错误的结果
+                    ((Throwable) data).printStackTrace();
+                    Toast.makeText(getApplicationContext(),"请输入正确的手机号码",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterEventHandler(eh);
     }
 }

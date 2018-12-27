@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.mob.MobSDK;
+
 public class MyApplication extends Application {
 
     private static Context context;//上下文 并生成get方法
@@ -19,6 +21,7 @@ public class MyApplication extends Application {
         context =getApplicationContext();
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
+        MobSDK.init(this);
     }
 
     public static String getUserPhone() {
