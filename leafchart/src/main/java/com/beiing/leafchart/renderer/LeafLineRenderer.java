@@ -3,6 +3,7 @@ package com.beiing.leafchart.renderer;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -196,6 +197,7 @@ public class LeafLineRenderer extends AbsRenderer {
      *
      * @param canvas
      */
+    @SuppressLint("WrongConstant")
     public void drawFillArea(Canvas canvas, Line line, Axis axisX) {
         //继续使用前面的 path
         if (line != null && line.getValues().size() > 1 && isShow) {

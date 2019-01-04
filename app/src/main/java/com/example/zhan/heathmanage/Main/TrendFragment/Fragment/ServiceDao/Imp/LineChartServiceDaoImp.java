@@ -21,7 +21,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
         Line line = new Line(pointValues);
@@ -46,7 +46,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
 
@@ -72,7 +72,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
 
@@ -98,7 +98,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
         Line line = new Line(pointValues);
@@ -124,7 +124,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
         Line line = new Line(pointValues);

@@ -18,6 +18,7 @@ import com.beiing.leafchart.bean.Axis;
 import com.beiing.leafchart.bean.AxisValue;
 import com.beiing.leafchart.bean.Line;
 import com.beiing.leafchart.bean.PointValue;
+import com.beiing.leafchart.bean.SlidingLine;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.LineChartServiceDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.WeekLineChartServiceDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
@@ -135,6 +136,7 @@ public class WeekFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(lineChartServiceDao.getHeartRateLine());
         weekheartrate_graph.setChartData(lines);
+        weekheartrate_graph.setSlidingLine(getSlideingLine());
         weekheartrate_graph.showWithAnimation(3000);
     }
 
@@ -146,6 +148,7 @@ public class WeekFragment extends Fragment {
         lines.add(lineChartServiceDao.getDiastolicBPLine());
         lines.add(lineChartServiceDao.getSystolicBPLine());
         weekbloodpressure_graph.setChartData(lines);
+        weekbloodpressure_graph.setSlidingLine(getSlideingLine());
         weekbloodpressure_graph.showWithAnimation(3000);
     }
 
@@ -156,6 +159,7 @@ public class WeekFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(lineChartServiceDao.getBloodOxygenLine());
         weekbloodoxygen_graph.setChartData(lines);
+        weekbloodoxygen_graph.setSlidingLine(getSlideingLine());
         weekbloodoxygen_graph.showWithAnimation(3000);
     }
 
@@ -166,6 +170,7 @@ public class WeekFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(lineChartServiceDao.getBloodFatLine());
         weekbloodfat_graph.setChartData(lines);
+        weekbloodfat_graph.setSlidingLine(getSlideingLine());
         weekbloodfat_graph.showWithAnimation(3000);
     }
 
@@ -197,11 +202,14 @@ public class WeekFragment extends Fragment {
         for (int i = 0; i <= 20; i = i + 2) {
             AxisValue value = new AxisValue();
             value.setLabel(String.valueOf(i * 10));
+
             axisValues.add(value);
         }
         return axisValues;
     }
+    public void getWeekDataByWeekSuccessCallBack(String dayheartrate,String dayblooddiastolic,String daybloodsystolic,String daybloodoxygen,String  daybloodfat){
 
+}
     //    //心率曲线
 //    private Line getHeartRateLine(){
 //        List<PointValue> pointValues = new ArrayList<>();
@@ -366,5 +374,12 @@ public class WeekFragment extends Fragment {
             }
             viewGroup.addView(imageViews[i]);
         }
+    }
+    private SlidingLine getSlideingLine(){
+        SlidingLine slidingLine = new SlidingLine();
+        slidingLine.setSlideLineColor(Color.parseColor("#00000000"))
+                .setSlidePointColor(getResources().getColor(R.color.colorAccent))
+                .setSlidePointRadius(3);
+        return slidingLine;
     }
 }

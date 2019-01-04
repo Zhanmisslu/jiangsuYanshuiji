@@ -19,6 +19,7 @@ import com.beiing.leafchart.bean.Axis;
 import com.beiing.leafchart.bean.AxisValue;
 import com.beiing.leafchart.bean.Line;
 import com.beiing.leafchart.bean.PointValue;
+import com.beiing.leafchart.bean.SlidingLine;
 import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.MonthLineChartServiceDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
@@ -136,6 +137,7 @@ public class MonthFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(monthLineChartServiceDao.getHeartRateLine());
         heartrate_graph.setChartData(lines);
+        heartrate_graph.setSlidingLine(getSlideingLine());
         heartrate_graph.showWithAnimation(3000);
     }
 
@@ -147,6 +149,7 @@ public class MonthFragment extends Fragment {
         lines.add(monthLineChartServiceDao.getDiastolicBPLine());
         lines.add(monthLineChartServiceDao.getSystolicBPLine());
         bloodpressure_graph.setChartData(lines);
+        bloodpressure_graph.setSlidingLine(getSlideingLine());
         bloodpressure_graph.showWithAnimation(3000);
     }
 
@@ -157,6 +160,7 @@ public class MonthFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(monthLineChartServiceDao.getBloodFatLine());
         bloodfat_graph.setChartData(lines);
+        bloodfat_graph.setSlidingLine(getSlideingLine());
         bloodfat_graph.showWithAnimation(3000);
     }
 
@@ -167,6 +171,7 @@ public class MonthFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(monthLineChartServiceDao.getBloodOxygenLine());
         bloodoxygen_graph.setChartData(lines);
+        bloodoxygen_graph.setSlidingLine(getSlideingLine());
         bloodoxygen_graph.showWithAnimation(3000);
     }
 
@@ -237,6 +242,14 @@ public class MonthFragment extends Fragment {
             }
             month_viewGroup.addView(imageViews[i]);
         }
+
+    }
+    private SlidingLine getSlideingLine(){
+        SlidingLine slidingLine = new SlidingLine();
+        slidingLine.setSlideLineColor(Color.parseColor("#00000000"))
+                .setSlidePointColor(getResources().getColor(R.color.colorAccent))
+                .setSlidePointRadius(3);
+        return slidingLine;
     }
 //
 //    //心率曲线
