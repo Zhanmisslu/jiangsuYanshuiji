@@ -56,7 +56,7 @@ public class PersonFragment extends DialogFragment {
         lp.height = getActivity().getWindowManager().getDefaultDisplay().getHeight() * 2/3;
         window.setAttributes(lp);
 
-        updateUseServer = new UpdateUserServerImp(this);
+        updateUseServer = new UpdateUserServerImp(0,this);
         initView(dialog);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override

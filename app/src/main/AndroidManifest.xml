@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MyApplication"
@@ -22,7 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.LoginActivity"></activity>
+        <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Main.Menu.SettingActivity" />
         <activity android:name=".Register.RegisterActivity" />
@@ -35,7 +35,8 @@
         </activity>
         <activity android:name=".Register.Register2Activity" />
         <activity android:name=".Register.Register3Activity" />
-        <activity android:name=".Main.Menu.UserActivity"></activity>
+        <activity android:name=".Main.Menu.UserActivity" />
+        <activity android:name=".Main.Menu.UpdateNameActivity"></activity>
     </application>
 
 </manifest>

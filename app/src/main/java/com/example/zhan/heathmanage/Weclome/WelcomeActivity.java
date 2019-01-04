@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Login.LoginActivity;
@@ -28,12 +29,17 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 Intent intent;
-                if(TextUtils.isEmpty(pref.getString("Login_User",""))){
+                Log.d("asda",pref.getString("Login_Weight",""));
+                if(TextUtils.isEmpty(pref.getString("Login_Weight",""))||pref.getString("Login_Weight","").equals("null")){
                     intent=new Intent(WelcomeActivity.this, LoginActivity.class);
                 }else {
                     MyApplication.setUserPhone(pref.getString("Login_User",""));
                     MyApplication.setUserPassword(pref.getString("Login_Password",""));
                     MyApplication.setUserWeight(pref.getString("Login_Weight",""));
+                    MyApplication.setUserAge(pref.getString("Login_Age",""));
+                    MyApplication.setUserHigh(pref.getString("Login_Height",""));
+                    MyApplication.setUserNickName(pref.getString("Login_NickName",""));
+                    MyApplication.setUserSex(pref.getString("Login_Sex",""));
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
 
                 }

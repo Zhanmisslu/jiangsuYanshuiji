@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
 import com.example.zhan.heathmanage.Main.Menu.SettingActivity;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.qiantao.coordinatormenu.CoordinatorMenu;
 
@@ -57,16 +59,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     //@BindView(R.id.change_theme_ll)LinearLayout change_theme_ll;
     //@BindView(R.id.change_theme_iv)ImageView change_theme_iv;
     //@BindView(R.id.change_theme_tv) TextView change_theme_tv;
-
-
+    @BindView(R.id.menu_nickName)
+    TextView menu_nickName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         inListener();
-
         mCoordinatorMenu=findViewById(R.id.mainactivity_menu);
+        if (!MyApplication.getUserNickName().equals("null")){
+            menu_nickName.setText(MyApplication.getUserNickName());
+        }
         setSelect(0);
 
     }
@@ -225,11 +229,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     /*
        以下是菜单栏控件的管理
      */
+
     //个人信息按钮
     @OnClick(R.id.menu_user_ll)
     public void menu_user_ll_OnClick(){
         Intent intent = new Intent(this, UserActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,2);
     }
     //设置按钮
     @OnClick(R.id.menu_setting_ll)
@@ -238,8 +243,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         startActivity(intent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==2){
+            menu_nickName.setText(MyApplication.getUserNickName());
+        }
+    }
 
-//    public interface MyTouchListener {
+    //    public interface MyTouchListener {
 //        public void onTouchEvent(MotionEvent event);
 //    }
 //
