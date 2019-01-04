@@ -3,6 +3,7 @@ package com.beiing.leafchart.renderer;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 
 public class OutsideLineRenderer extends AbsRenderer {
-
+    private static final float LINE_SMOOTHNESS = 0.16f;
     /**填充画笔**/
     private Paint fillPaint;
 
@@ -110,6 +111,7 @@ public class OutsideLineRenderer extends AbsRenderer {
      *
      * @param canvas
      */
+    @SuppressLint("WrongConstant")
     public void drawLines(Canvas canvas, Line line, Axis axisY, int moveX) {
         if(line != null && isShow){
             linePaint.setColor(line.getLineColor());
@@ -133,11 +135,117 @@ public class OutsideLineRenderer extends AbsRenderer {
         }
     }
 
+    @SuppressLint("WrongConstant")
+    public void drawCubicPath(Canvas canvas, Line line,Axis axisY, int moveX) {
+        if (line != null && isShow) {
+            linePaint.setColor(line.getLineColor());
+            linePaint.setStrokeWidth(LeafUtil.dp2px(mContext, line.getLineWidth()));
+            linePaint.setStyle(Paint.Style.STROKE);
+            Path path = line.getPath();
 
+            float prePreviousPointX = Float.NaN;
+            float prePreviousPointY = Float.NaN;
+            float previousPointX = Float.NaN;
+            float previousPointY = Float.NaN;
+            float currentPointX = Float.NaN;
+            float currentPointY = Float.NaN;
+            float nextPointX = Float.NaN;
+            float nextPointY = Float.NaN;
+            List<PointValue> values = line.getValues();
+            final int lineSize = values.size();
+            for (int valueIndex = 0; valueIndex < lineSize; valueIndex++) {
+                if (Float.isNaN(currentPointX)) {
+                    PointValue linePoint = values.get(valueIndex);
+                    currentPointX = linePoint.getOriginX();
+                    currentPointY = linePoint.getOriginY();
+                }
+                if (Float.isNaN(previousPointX)) {// Not a Number
+                    if (valueIndex > 0) {
+                        PointValue linePoint = values.get(valueIndex - 1);
+                        previousPointX = linePoint.getOriginX();
+                        previousPointY = linePoint.getOriginY();
+                    } else {
+                        previousPointX = currentPointX;
+                        previousPointY = currentPointY;
+                    }
+                }
+
+                if (Float.isNaN(prePreviousPointX)) {
+                    if (valueIndex > 1) {
+                        PointValue linePoint = values.get(valueIndex - 2);
+                        prePreviousPointX = linePoint.getOriginX();
+                        prePreviousPointY = linePoint.getOriginY();
+                    } else {
+                        prePreviousPointX = previousPointX;
+                        prePreviousPointY = previousPointY;
+                    }
+                }
+
+                // nextPoint is always new one or it is equal currentPoint.
+                if (valueIndex < lineSize - 1) {
+                    PointValue linePoint = values.get(valueIndex + 1);
+                    nextPointX = linePoint.getOriginX();
+                    nextPointY = linePoint.getOriginY();
+                } else {
+                    nextPointX = currentPointX;
+                    nextPointY = currentPointY;
+                }
+
+                if (valueIndex == 0) {
+                    // Move to start point.
+                    path.moveTo(currentPointX+moveX, currentPointY);
+                } else {
+                    // Calculate control points.
+                    final float firstDiffX = (currentPointX - prePreviousPointX);
+                    final float firstDiffY = (currentPointY - prePreviousPointY);
+                    final float secondDiffX = (nextPointX - previousPointX);
+                    final float secondDiffY = (nextPointY - previousPointY);
+                    final float firstControlPointX = previousPointX + (LINE_SMOOTHNESS * firstDiffX);
+                    final float firstControlPointY = previousPointY + (LINE_SMOOTHNESS * firstDiffY);
+                    final float secondControlPointX = currentPointX - (LINE_SMOOTHNESS * secondDiffX);
+                    final float secondControlPointY = currentPointY - (LINE_SMOOTHNESS * secondDiffY);
+
+
+                    if (currentPointY == previousPointY) {
+                        path.lineTo(currentPointX+moveX, currentPointY);
+                    } else {
+                        path.cubicTo(firstControlPointX+ moveX, firstControlPointY, secondControlPointX+ moveX, secondControlPointY,
+                                currentPointX+moveX, currentPointY);
+                    }
+
+                }
+
+                // Shift values by one back to prevent recalculation of values that have
+                // been already calculated.
+                prePreviousPointX = previousPointX;
+                prePreviousPointY = previousPointY;
+                previousPointX = currentPointX;
+                previousPointY = currentPointY;
+                currentPointX = nextPointX;
+                currentPointY = nextPointY;
+                measure = new PathMeasure(path, false);
+                linePaint.setPathEffect(createPathEffect(measure.getLength(), phase, 0.0f));
+                canvas.save(Canvas.CLIP_SAVE_FLAG);
+                canvas.clipRect(axisY.getStartX(), 0, mWidth, mHeight);
+                canvas.drawPath(path, linePaint);
+                canvas.restore();
+            }//for
+
+
+//            measure = new PathMeasure(path, false);
+//            linePaint.setPathEffect(createPathEffect(measure.getLength(), phase, 0.0f));
+//            canvas.save(Canvas.CLIP_SAVE_FLAG);
+//            canvas.clipRect(axisY.getStartX(), 0, mWidth, mHeight);
+//            canvas.drawPath(path, linePaint);
+//            canvas.restore();
+        }
+
+    }
     /**
      * 填充
      * @param canvas
      */
+    @SuppressLint("WrongConstant")
     public void drawFillArea(Canvas canvas, Line line, Axis axisX, int moveX) {
         //继续使用前面的 path
         if(line != null && line.getValues().size() > 1 && isShow){
@@ -174,6 +282,7 @@ public class OutsideLineRenderer extends AbsRenderer {
      * 画圆点
      * @param canvas
      */
+    @SuppressLint("WrongConstant")
     public void drawPoints(Canvas canvas, Line line, Axis axisY, int moveX) {
         if (line != null && line.isHasPoints() && isShow) {
             List<PointValue> values = line.getValues();
@@ -198,6 +307,7 @@ public class OutsideLineRenderer extends AbsRenderer {
         }
     }
 
+    @SuppressLint("WrongConstant")
     public void drawLabels(Canvas canvas, ChartData chartData, Axis axisY, int moveX) {
         if(isAnimateEnd){
             if (chartData != null) {

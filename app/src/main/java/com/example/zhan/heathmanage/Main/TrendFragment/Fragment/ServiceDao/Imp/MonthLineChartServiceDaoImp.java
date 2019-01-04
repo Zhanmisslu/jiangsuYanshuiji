@@ -20,6 +20,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
         Line line = new Line(pointValues);
@@ -45,6 +46,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
 
@@ -71,7 +73,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
 
@@ -98,7 +100,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
 
@@ -124,7 +126,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             int var = (int) (Math.random() * 100);
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
-            pointValue.setShowLabel(true);
+            pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
 

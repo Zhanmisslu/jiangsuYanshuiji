@@ -8,14 +8,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center"
             android:text="血脂趋势图"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
 
         <com.beiing.leafchart.OutsideLineChart
             android:id="@+id/bloodfat_graph"

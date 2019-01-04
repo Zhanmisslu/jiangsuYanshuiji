@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,8 +30,10 @@ import com.necer.listener.OnCalendarChangedListener;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,7 +125,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                 miui10Calendar.toToday();
             }
         });
-
+        nDate=simpleDateFormat.format(date1);
         miui10Calendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date) {
@@ -131,6 +134,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                 month_tv.setText(date.localDate.getMonthOfYear() + "月");
                 week_tv.setText(weeks[date.localDate.getDayOfWeek() - 1]);
                 nDate = date.localDate.toString();
+
                 if (simpleDateFormat.format(date1).equals(date.localDate.toString())) {
                     back_today_ib.setVisibility(View.GONE);
                 } else {
@@ -151,6 +155,11 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
         inListener();
         setSelect(0);
         getActivity().dispatchTouchEvent(ev);
+        String starttime=getWeekStartTime();
+        String endtime=getWeekEndTime();
+        Log.v("starttime=",starttime);
+        Log.v("endtime=",endtime);
+
         return view;
     }
 //    public void aaa(){
@@ -314,4 +323,29 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
         trend_weekview_tv.setTextColor(Color.parseColor("#898989"));
         trend_monthview_tv.setTextColor(Color.parseColor("#898989"));
     }
+
+    /**
+     * start
+     * 本周开始时间戳
+     */
+    public static String getWeekStartTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd", Locale.getDefault());
+        Calendar cal = Calendar.getInstance();
+        // 获取星期日开始时间戳
+        cal.set(Calendar. DAY_OF_WEEK, Calendar.SUNDAY);
+        return simpleDateFormat.format(cal.getTime());
+    }
+
+    /**
+     * end
+     * 本周结束时间戳
+     */
+    public static String getWeekEndTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd", Locale.getDefault());
+        Calendar cal = Calendar.getInstance();
+        // 获取星期六结束时间戳
+        cal.set(Calendar. DAY_OF_WEEK, Calendar.SATURDAY );
+        return simpleDateFormat.format(cal.getTime());
+    }
+
 }
