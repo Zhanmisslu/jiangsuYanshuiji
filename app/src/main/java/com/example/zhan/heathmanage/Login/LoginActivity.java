@@ -247,9 +247,17 @@ public class LoginActivity extends BaseActivity {
         MyApplication.setUserPhone(user.getPhoneNumber());
         MyApplication.setUserPassword(user.getPassword());
         MyApplication.setUserWeight(user.getUserWeight());
+        MyApplication.setUserAge(user.getUserAge());
+        MyApplication.setUserHigh(user.getUserHeight());
+        MyApplication.setUserNickName(user.getUserNickName());
+        MyApplication.setUserSex(user.getUserSex());
         editor.putString("Login_Weight",user.getUserWeight());
         editor.putString("Login_User",user.getPhoneNumber());
         editor.putString("Login_Password",user.getPassword());
+        editor.putString("Login_Age",user.getUserAge());
+        editor.putString("Login_Height",user.getUserHeight());
+        editor.putString("Login_NickName",user.getUserNickName());
+        editor.putString("Login_Sex",user.getUserSex());
         editor.commit();
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);

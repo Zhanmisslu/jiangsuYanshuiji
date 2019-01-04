@@ -13,6 +13,10 @@ public class MyApplication extends Application {
     private static String UserPhone;
     private static String UserPassword;
     private static String UserWeight="";
+    private static String UserHigh;
+    private static String UserAge;
+    private static String UserSex;
+    private static String UserNickName;
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -23,6 +27,38 @@ public class MyApplication extends Application {
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
         MobSDK.init(this);
+    }
+
+    public static String getUserHigh() {
+        return UserHigh;
+    }
+
+    public static void setUserHigh(String userHigh) {
+        UserHigh = userHigh;
+    }
+
+    public static String getUserAge() {
+        return UserAge;
+    }
+
+    public static void setUserAge(String userAge) {
+        UserAge = userAge;
+    }
+
+    public static String getUserSex() {
+        return UserSex;
+    }
+
+    public static void setUserSex(String userSex) {
+        UserSex = userSex;
+    }
+
+    public static String getUserNickName() {
+        return UserNickName;
+    }
+
+    public static void setUserNickName(String userNickName) {
+        UserNickName = userNickName;
     }
 
     public static String getUserWeight() {
