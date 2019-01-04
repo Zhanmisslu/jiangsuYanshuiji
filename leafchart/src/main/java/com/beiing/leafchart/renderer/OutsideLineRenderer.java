@@ -319,6 +319,7 @@ public class OutsideLineRenderer extends AbsRenderer {
                     canvas.clipRect(axisY.getStartX(), 0, mWidth, mHeight);
                     for (int i = 0; i < size; i++) {
                         PointValue point = values.get(i);
+                        //if (!point.isShowLabel()) continue;
                         String label = point.getLabel();
                         Rect bounds = new Rect();
                         int length = label.length();
