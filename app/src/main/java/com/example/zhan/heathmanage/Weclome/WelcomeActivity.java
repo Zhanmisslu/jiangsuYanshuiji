@@ -33,6 +33,7 @@ public class WelcomeActivity extends BaseActivity {
                 }else {
                     MyApplication.setUserPhone(pref.getString("Login_User",""));
                     MyApplication.setUserPassword(pref.getString("Login_Password",""));
+                    MyApplication.setUserWeight(pref.getString("Login_Weight",""));
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
 
                 }

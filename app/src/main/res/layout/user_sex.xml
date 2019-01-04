@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/sex_man"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="男"
+        android:background="#fff"
+        android:textColor="#838383"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+    <Button
+        android:id="@+id/sex_woman"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="女"
+        android:background="#fff"
+        android:textColor="#838383"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+
+    <Button
+        android:id="@+id/sex_back"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="取消"
+        android:background="#fff"
+        android:textColor="#838383"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+</LinearLayout>

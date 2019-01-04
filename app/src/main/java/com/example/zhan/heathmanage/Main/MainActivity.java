@@ -7,27 +7,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
 import com.example.zhan.heathmanage.Main.Menu.SettingActivity;
+import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.R;
 import com.qiantao.coordinatormenu.CoordinatorMenu;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     LinearLayout tab_trend_ll;
     @BindView(R.id.tab_trend_tv)
     TextView tab_trend_tv;
-    @BindView(R.id.setting_ll) LinearLayout setting_ll;
+    @BindView(R.id.menu_setting_ll) LinearLayout setting_ll;
     public static MotionEvent ev;
     //@BindView(R.id.change_theme_ll)LinearLayout change_theme_ll;
     //@BindView(R.id.change_theme_iv)ImageView change_theme_iv;
@@ -226,12 +222,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             default:break;
         }
     }
-    @OnClick(R.id.setting_ll)
+    /*
+       以下是菜单栏控件的管理
+     */
+    //个人信息按钮
+    @OnClick(R.id.menu_user_ll)
+    public void menu_user_ll_OnClick(){
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+    //设置按钮
+    @OnClick(R.id.menu_setting_ll)
     public void setting_ll_Onclick(){
         Intent intent=new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
-        Toast.makeText(this,"啦啦啦啦啦",Toast.LENGTH_SHORT).show();
     }
+
+
 //    public interface MyTouchListener {
 //        public void onTouchEvent(MotionEvent event);
 //    }

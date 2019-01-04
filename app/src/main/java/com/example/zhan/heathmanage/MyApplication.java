@@ -12,6 +12,7 @@ public class MyApplication extends Application {
     private static Context context;//上下文 并生成get方法
     private static String UserPhone;
     private static String UserPassword;
+    private static String UserWeight="";
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -22,6 +23,14 @@ public class MyApplication extends Application {
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
         MobSDK.init(this);
+    }
+
+    public static String getUserWeight() {
+        return UserWeight;
+    }
+
+    public static void setUserWeight(String userWeight) {
+        UserWeight = userWeight;
     }
 
     public static String getUserPhone() {

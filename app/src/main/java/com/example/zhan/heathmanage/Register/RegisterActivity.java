@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
+import com.example.zhan.heathmanage.Login.Servers.server.UserServer;
+import com.example.zhan.heathmanage.Login.Servers.serverImp.UserServerImp;
 import com.example.zhan.heathmanage.R;
 
 import butterknife.BindView;
@@ -29,11 +31,14 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.register_next)
     Button register_next;
     EventHandler eh;
+    //登录接口
+    UserServer userServer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         OnRegisterChange();//输入编辑框的监听事件
+        userServer = new UserServerImp(this);
         eh=new EventHandler(){
             @Override
             public void afterEvent(int event, int result, Object data) {//验证码
@@ -49,7 +54,7 @@ public class RegisterActivity extends BaseActivity {
     //下一步按钮的点击事件处理
     @OnClick(R.id.register_next)
     public void register_next_OnClick(){
-        SMSSDK.getVerificationCode("86", register_phone.getText().toString());
+       userServer.FirstLogin(1,register_phone.getText().toString(),"");
     }
     //输入编辑框的监听事件
     public void OnRegisterChange(){
@@ -105,7 +110,10 @@ public class RegisterActivity extends BaseActivity {
             }
         }
     };
-
+    //手机号判重复后的回调函数
+    public void registerBack(){
+        SMSSDK.getVerificationCode("86", register_phone.getText().toString());
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

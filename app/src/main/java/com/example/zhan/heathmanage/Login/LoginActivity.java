@@ -212,7 +212,7 @@ public class LoginActivity extends BaseActivity {
 //           editor.putString("Login_User",account.getText().toString());
 //           editor.putString("Login_Password",password.getText().toString());
 //           editor.commit();
-           userServer.FirstLogin(account.getText().toString(),password.getText().toString());
+           userServer.FirstLogin(0,account.getText().toString(),password.getText().toString());
            //Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
        }
    }
@@ -246,6 +246,8 @@ public class LoginActivity extends BaseActivity {
     public void LoginCallBack(User user){
         MyApplication.setUserPhone(user.getPhoneNumber());
         MyApplication.setUserPassword(user.getPassword());
+        MyApplication.setUserWeight(user.getUserWeight());
+        editor.putString("Login_Weight",user.getUserWeight());
         editor.putString("Login_User",user.getPhoneNumber());
         editor.putString("Login_Password",user.getPassword());
         editor.commit();

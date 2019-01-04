@@ -14,8 +14,10 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.HintPopupWindow;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.Fragment.PersonFragment;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.Main.MainActivity;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.john.waveview.WaveView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -38,6 +40,7 @@ public class EvaluteFragment extends Fragment {
     private HintPopupWindow hintPopupWindow;
     private SeekBar fragment_evaluate_seekbar;
     private WaveView fragment_evaluate_waveview;
+    private SharedPreferences preferences;
     public EvaluteFragment() {
         // Required empty public constructor
     }
@@ -47,6 +50,7 @@ public class EvaluteFragment extends Fragment {
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_evalute, container, false);
         evalutefragment_iv=view.findViewById(R.id.evalutefragment_iv);
+        preferences = getActivity().getSharedPreferences("UserList", MODE_PRIVATE);
         /*
          rv_view
          */
@@ -70,17 +74,18 @@ public class EvaluteFragment extends Fragment {
                 return true;
             }
         });
+        //头像点击视图初始化
         InitView();
+        //水波视图初始化
         InitWaveView();
-
+        //评价圆圈视图初始化
         initRingView();
-
+        //填写个人信息视图初始化
+        initPessonView();
         return view;
     }
-    public void InitWaveView(){
-        fragment_evaluate_waveview=view.findViewById(R.id.fragment_evaluate_waveview);
-        fragment_evaluate_waveview.setProgress(100);
-    }
+
+    //头像视图
     public void InitView() {
 
         //下面的操作是初始化弹出数据
@@ -106,7 +111,12 @@ public class EvaluteFragment extends Fragment {
         //具体初始化逻辑看下面的图
         hintPopupWindow = new HintPopupWindow(getActivity(), strList, clickList);
     }
-
+    //水波视图
+    public void InitWaveView(){
+        fragment_evaluate_waveview=view.findViewById(R.id.fragment_evaluate_waveview);
+        fragment_evaluate_waveview.setProgress(100);
+    }
+    //圆圈视图
     RingView rv_view;
     ArgbEvaluator evaluator;
     private int startColor = 0XFFfb5338;
@@ -166,6 +176,13 @@ public class EvaluteFragment extends Fragment {
 
             }
         },(int)(f*animDuration));
+    }
+
+    public void initPessonView(){
+       if (preferences.getString("Login_Weight",null).equals(null)||preferences.getString("Login_Weight",null).equals("null")){
+           PersonFragment personFragment = new PersonFragment();
+           personFragment.show(getActivity().getSupportFragmentManager(),"personFragment");
+       }
     }
 }
 

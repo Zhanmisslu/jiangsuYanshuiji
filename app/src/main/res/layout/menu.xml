@@ -36,6 +36,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/menu_user_ll"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -178,7 +179,7 @@
             android:layout_marginStart="20dp"
             android:layout_width="40dp"
             android:orientation="vertical"
-            android:id="@+id/setting_ll"
+            android:id="@+id/menu_setting_ll"
             android:layout_marginBottom="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp">

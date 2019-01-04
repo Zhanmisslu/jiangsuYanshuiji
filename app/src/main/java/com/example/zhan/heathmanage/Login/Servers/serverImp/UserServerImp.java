@@ -11,6 +11,7 @@ import com.example.zhan.heathmanage.Login.Beans.User;
 import com.example.zhan.heathmanage.Login.LoginActivity;
 import com.example.zhan.heathmanage.Login.Servers.server.UserServer;
 import com.example.zhan.heathmanage.MyApplication;
+import com.example.zhan.heathmanage.Register.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,11 +25,13 @@ import okhttp3.Response;
 public class UserServerImp implements UserServer {
     User user= new User();
     private LoginActivity loginActivity;
-
+    private RegisterActivity registerActivity;
     public UserServerImp(LoginActivity loginActivity) {
         this.loginActivity = loginActivity;
     }
-
+    public UserServerImp(RegisterActivity registerActivity) {
+        this.registerActivity = registerActivity;
+    }
     @Override
     public void Register(String UserPhone, String UserPassword) {
       String URL = Net.Register;
@@ -50,13 +53,15 @@ public class UserServerImp implements UserServer {
     }
 
     @Override
-    public void FirstLogin(final String UserPhone, final String UserPassword) {
+    public void FirstLogin(final int i,final String UserPhone, final String UserPassword) {
         final String url=Net.PasswordLogin+"?userPhone="+UserPhone+"&userPassword="+ UserPassword;
         OKHttp.sendOkhttpGetRequest(url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                // Toast.makeText(MyApplication.getContext(),"登陆失败，请检查网络连接",Toast.LENGTH_SHORT).show();
+                Looper.prepare();
                 Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
 
             @Override
@@ -70,19 +75,33 @@ public class UserServerImp implements UserServer {
                     if(warning.equals("0")){
                         user.setPhoneNumber(UserPhone);
                         user.setPassword(UserPassword);
-                        loginActivity.LoginCallBack(user);
+                        String weight = jsonObject1.getString("userWeight");
+                        user.setUserWeight(weight);
+                        if (i == 0){
+                            loginActivity.LoginCallBack(user);
+                        }
                         Looper.prepare();
                         Toast.makeText(MyApplication.getContext(),"登录成功",Toast.LENGTH_SHORT).show();
                         Looper.loop();
 
                     }else if(warning.equals("1")){
-                        Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"密码错误",Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        if (i==0){
+                            Looper.prepare();
+                            Toast.makeText(MyApplication.getContext(),"密码错误",Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }else if (i==1){
+                            Looper.prepare();
+                            Toast.makeText(MyApplication.getContext(),"该账号已经注册过",Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
                     }else if(warning.equals("2")){
-                        Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"该账号未注册",Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        if (i==0){
+                            Looper.prepare();
+                            Toast.makeText(MyApplication.getContext(),"该账号未注册",Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }else if (i==1){
+                            registerActivity.registerBack();
+                        }
                     }
 
                 } catch (JSONException e) {
