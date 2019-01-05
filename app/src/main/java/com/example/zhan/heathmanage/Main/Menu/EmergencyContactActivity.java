@@ -12,8 +12,10 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
@@ -32,9 +34,15 @@ public class EmergencyContactActivity extends BaseActivity {
     EditText emergency_phone_et;
     @BindView(R.id.emergency_user_et)
     EditText emergency_user_et;
+    @BindView(R.id.emergency_contactaffirm_ll)LinearLayout emergency_contactaffirm_ll;
+    @BindView(R.id.emergency_contact_ll)LinearLayout emergency_contact_ll;
+    @BindView(R.id.emergency_user_tv)TextView emergency_user_tv;
+    @BindView(R.id.emergency_phone_tv)TextView emergency_phone_tv;
     private static final int PICK_CONTACT = 1;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 2;
     private Intent mIntent;
+    String name = "";
+    String phoneNumber = "";
     EmergencyContactDao emergencyContactDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +100,7 @@ public class EmergencyContactActivity extends BaseActivity {
         if (contactData == null) {
             return;
         }
-        String name = "";
-        String phoneNumber = "";
+
 
         Uri contactUri = data.getData();
         Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
@@ -128,15 +135,23 @@ public class EmergencyContactActivity extends BaseActivity {
 
             emergency_user_et.setText(name);
             emergency_phone_et.setText(phoneNumber);
+
+
+
         }
     }
 
     @OnClick(R.id.affirm__bt)
     public void affirm__bt_OnClick() {
+        emergency_contact_ll.setVisibility(View.GONE);
+        emergency_contactaffirm_ll.setVisibility(View.VISIBLE);
+        emergency_user_tv.setText(name);
+        emergency_phone_tv.setText(phoneNumber);
        // emergencyContactDao.ChangeUserEmergency(emergency_phone_et.getText().toString(),emergency_user_et.getText().toString());
     }
     public void callback(){
         Toast.makeText(MyApplication.getContext(),"修改成功",Toast.LENGTH_LONG).show();
+
     };
 
 

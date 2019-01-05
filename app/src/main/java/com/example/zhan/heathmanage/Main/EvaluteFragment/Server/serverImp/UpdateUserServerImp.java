@@ -119,6 +119,7 @@ public class UpdateUserServerImp implements UpdateUseServer {
                                 String waring=jsonObject1.getString("waring");
                                 if(waring.equals("0")){
                                     Looper.prepare();
+                                    userActivity.imagecallback();
                                     Toast.makeText(MyApplication.getContext(),"成功修改头像",Toast.LENGTH_LONG).show();
                                     Looper.loop();
                                 }

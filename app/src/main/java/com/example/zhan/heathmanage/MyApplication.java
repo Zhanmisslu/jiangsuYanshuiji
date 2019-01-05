@@ -3,6 +3,7 @@ package com.example.zhan.heathmanage;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 
 import com.mob.MobSDK;
@@ -17,7 +18,7 @@ public class MyApplication extends Application {
     private static String UserAge;
     private static String UserSex;
     private static String UserNickName;
-    private static String UserPhoto;
+    private static Bitmap UserPhoto;
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -30,11 +31,11 @@ public class MyApplication extends Application {
         MobSDK.init(this);
     }
 
-    public static String getUserPhoto() {
+    public static Bitmap getUserPhoto() {
         return UserPhoto;
     }
 
-    public static void setUserPhoto(String userPhoto) {
+    public static void setUserPhoto(Bitmap userPhoto) {
         UserPhoto = userPhoto;
     }
 

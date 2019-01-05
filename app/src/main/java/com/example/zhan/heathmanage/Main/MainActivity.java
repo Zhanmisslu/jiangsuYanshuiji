@@ -268,6 +268,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==2){
             menu_nickName.setText(MyApplication.getUserNickName());
+            main_user_iv.setImageBitmap(MyApplication.getUserPhoto());
         }
     }
 

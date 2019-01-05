@@ -91,6 +91,7 @@ public class EvaluteFragment extends Fragment {
         initPessonView();
         return view;
     }
+    
 
     //头像视图
     public void InitView() {

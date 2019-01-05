@@ -67,6 +67,11 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emergency_contact_ll"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
@@ -149,24 +154,38 @@
         android:layout_marginLeft="20dp"
         android:layout_height="1px"
         android:background="#bebebe"></View>
+        <Button
+            android:id="@+id/affirm__bt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:text="确认添加"
+            android:textColor="#ffffff" />
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/emergency_contactaffirm_ll"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/user" />
+            android:background="@drawable/people" />
 
         <TextView
             android:id="@+id/emergency_user_tv"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:gravity="center_vertical"
@@ -175,22 +194,22 @@
 
         <TextView
             android:id="@+id/emergency_phone_tv"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:gravity="center_vertical"
             android:text="18248617820"
             android:textSize="15dp" />
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="40dp"
+            android:textSize="15dp"
+            android:text="管理"
+            android:textColor="#f28704"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/affirm__bt"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:text="确认添加"
-        android:textColor="#ffffff" />
 </LinearLayout>

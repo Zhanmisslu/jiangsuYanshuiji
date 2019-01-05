@@ -79,7 +79,7 @@ public class UserActivity extends BaseActivity {
     private static Bitmap bm;
     public static String img;
     private static String UserImage;
-
+    private static Bitmap image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -349,7 +349,9 @@ public class UserActivity extends BaseActivity {
                     public void onSuccess(ResultData data) {
                         bm=data.GetBitmap();
                         UserImage=convertIconToString(bm);
+
                         dealCropPhoto(data.addScaleCompress(164, 164).GetBitmap());
+                        image=data.addScaleCompress(164, 164).GetBitmap();
                     }
 
                     @Override
@@ -396,13 +398,17 @@ public class UserActivity extends BaseActivity {
                 Glide.with(getContext())
                         .load(Image)
                         .asBitmap()
+                        .error(R.drawable.head)
                         .into(menu_user_head_img);
 
                 editor.putString("UserPhoto",Image);
-                MyApplication.setUserPhoto(preferences.getString("UserPhoto",""));
+                MyApplication.setUserPhoto(image);
                 editor.commit();
             }
         });
 
+    }
+    public void imagecallback(){
+        MyApplication.setUserPhoto(image);
     }
 }
