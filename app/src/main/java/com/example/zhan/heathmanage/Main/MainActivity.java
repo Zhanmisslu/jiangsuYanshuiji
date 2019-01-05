@@ -4,6 +4,7 @@ import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -16,20 +17,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
+import com.example.zhan.heathmanage.Main.Menu.EmergencyContactActivity;
 import com.example.zhan.heathmanage.Main.Menu.SettingActivity;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.qiantao.coordinatormenu.CoordinatorMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.zhan.heathmanage.MyApplication.getContext;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     public static CoordinatorMenu mCoordinatorMenu;
@@ -54,6 +60,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     LinearLayout tab_trend_ll;
     @BindView(R.id.tab_trend_tv)
     TextView tab_trend_tv;
+    @BindView(R.id.main_user_iv)
+    RoundedImageView main_user_iv;
     @BindView(R.id.menu_setting_ll) LinearLayout setting_ll;
     public static MotionEvent ev;
     //@BindView(R.id.change_theme_ll)LinearLayout change_theme_ll;
@@ -61,16 +69,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     //@BindView(R.id.change_theme_tv) TextView change_theme_tv;
     @BindView(R.id.menu_nickName)
     TextView menu_nickName;
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        preferences = getSharedPreferences("UserList", MODE_PRIVATE);
         inListener();
         mCoordinatorMenu=findViewById(R.id.mainactivity_menu);
         if (!MyApplication.getUserNickName().equals("null")){
             menu_nickName.setText(MyApplication.getUserNickName());
         }
+        Glide.with(getContext())
+                .load(preferences.getString("UserPhoto",""))
+                .asBitmap()
+                .error(R.drawable.head)
+                .into(main_user_iv);
         setSelect(0);
 
     }
@@ -242,7 +257,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         Intent intent=new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
     }
-
+    //紧急联系人
+    @OnClick(R.id.menu_emergencyuser_ll)
+    public void menu_emergencyuser_ll_OnClick(){
+        Intent intent=new Intent(MainActivity.this, EmergencyContactActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

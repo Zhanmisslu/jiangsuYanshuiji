@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/menu_ll"
     android:background="#fff">
@@ -13,10 +13,11 @@
     android:orientation="horizontal"
     >
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/main_user_iv"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:riv_oval="true"
         android:layout_marginTop="47dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:src="@drawable/head"/>
@@ -64,6 +65,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:id="@+id/menu_emergencyuser_ll"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"

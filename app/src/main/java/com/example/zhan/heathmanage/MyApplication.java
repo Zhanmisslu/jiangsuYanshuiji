@@ -17,6 +17,7 @@ public class MyApplication extends Application {
     private static String UserAge;
     private static String UserSex;
     private static String UserNickName;
+    private static String UserPhoto;
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -27,6 +28,14 @@ public class MyApplication extends Application {
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
         MobSDK.init(this);
+    }
+
+    public static String getUserPhoto() {
+        return UserPhoto;
+    }
+
+    public static void setUserPhoto(String userPhoto) {
+        UserPhoto = userPhoto;
     }
 
     public static String getUserHigh() {

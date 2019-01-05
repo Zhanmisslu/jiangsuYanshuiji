@@ -7,5 +7,10 @@ public class Net {
     public final static String ChangeUserInfo = Head +"ChangeUserInfo";//修改个人信息
     public final static String GetDataByDay = Head + "GetDataByDay";//日视图的数据
     public final static String GetDataByWeek = Head + "GetDataByWeek";//周视图的数据
-    public final static String ChangeUserNickName = Head + "ChangeUserNickName";//周视图的数据
+    public final static String ChangeUserNickName = Head + "ChangeUserNickName";//修改昵称
+    public final static String ChangeUserImage = Head + "ChangeUserPhoto";//修改头像
+    public final static String ShowUserInfo = Head + "ShowUserInfo";//获取用户信息
+    public final static String ChangeUserEmergency = Head + "ChangeUserEmergency";//修改紧急联系人
+
+
 }

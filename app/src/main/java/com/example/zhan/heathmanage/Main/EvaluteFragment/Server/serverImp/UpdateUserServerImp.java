@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Main.EvaluteFragment.Server.serverImp;
 
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.zhan.heathmanage.Internet.Net;
@@ -12,10 +13,17 @@ import com.example.zhan.heathmanage.Main.Menu.UpdateNameActivity;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.MyApplication;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UpdateUserServerImp implements UpdateUseServer {
@@ -72,8 +80,110 @@ public class UpdateUserServerImp implements UpdateUseServer {
 
            @Override
            public void onResponse(Call call, Response response) throws IOException {
+
                updateNameActivity.callback();
            }
        });
     }
+
+    @Override
+    public void UpdateImage(final String UsePhone, final String UsePhoto) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient mOkHttpClient=new OkHttpClient();
+                    RequestBody formBody = new FormBody.Builder()
+                            .add("userPhoto", UsePhoto)
+                            .add("userPhone",UsePhone)
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(Net.ChangeUserImage)
+                            .post(formBody)
+                            .build();
+                    Call call = mOkHttpClient.newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Looper.prepare();
+                            Toast.makeText(MyApplication.getContext(),"修改失败，请检查网络",Toast.LENGTH_LONG).show();
+                            Looper.loop();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String res=response.body().string();
+                            try {
+                                JSONObject jsonObject=new JSONObject(res);
+                                JSONObject jsonObject1=jsonObject.getJSONObject("ChangeUserPhoto");
+                                String waring=jsonObject1.getString("waring");
+                                if(waring.equals("0")){
+                                    Looper.prepare();
+                                    Toast.makeText(MyApplication.getContext(),"成功修改头像",Toast.LENGTH_LONG).show();
+                                    Looper.loop();
+                                }
+                                if(waring.equals("1")){
+                                    Looper.prepare();
+                                    Toast.makeText(MyApplication.getContext(),"修改头像失败",Toast.LENGTH_LONG).show();
+                                    Looper.loop();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    public void GetUserMessage() {
+        String URL = Net.ShowUserInfo+"?userPhone="+MyApplication.getUserPhone();
+        Log.v("zjc",URL);
+        OKHttp.sendOkhttpGetRequest(URL, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Looper.prepare();
+                Toast.makeText(MyApplication.getContext(),"修改失败，请检查网络",Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String res=response.body().string();
+                try {
+                    JSONObject jsonObject=new JSONObject(res);
+                    JSONObject jsonObject1=jsonObject.getJSONObject("ShowUserInfo");
+                    String waring=jsonObject1.getString("warning");
+                    if(waring.equals("0")){
+                        String NickName=jsonObject1.getString("userNickName");
+                        String Height=jsonObject1.getString("userHeight");
+                        String Weight=jsonObject1.getString("userWeight");
+                        String Age=jsonObject1.getString("userAge");
+                        String Sex=jsonObject1.getString("userSex");
+                        String Image=jsonObject1.getString("userPhoto");
+
+                        userActivity.getUserMessageCallBack(NickName,Height,Weight,Age,Sex,Image);
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"成功加载信息",Toast.LENGTH_LONG).show();
+                        Looper.loop();
+
+                    }
+                    if(waring.equals("1")){
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"没有此用户",Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
 }

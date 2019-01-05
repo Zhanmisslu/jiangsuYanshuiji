@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.BasicsTools.HintPopupWindow;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Fragment.PersonFragment;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.Main.MainActivity;
+import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.john.waveview.WaveView;
@@ -28,6 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.zhan.heathmanage.MyApplication.getContext;
 
 
 /**
@@ -65,7 +68,11 @@ public class EvaluteFragment extends Fragment {
                     }
                 }
             });
-
+        Glide.with(getContext())
+                .load(preferences.getString("UserPhoto",""))
+                .asBitmap()
+                .error(R.drawable.head)
+                .into(evalutefragment_iv);
         evalutefragment_iv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
