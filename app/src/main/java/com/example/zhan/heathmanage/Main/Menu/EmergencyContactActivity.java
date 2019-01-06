@@ -4,15 +4,22 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,21 +41,38 @@ public class EmergencyContactActivity extends BaseActivity {
     EditText emergency_phone_et;
     @BindView(R.id.emergency_user_et)
     EditText emergency_user_et;
-    @BindView(R.id.emergency_contactaffirm_ll)LinearLayout emergency_contactaffirm_ll;
-    @BindView(R.id.emergency_contact_ll)LinearLayout emergency_contact_ll;
-    @BindView(R.id.emergency_user_tv)TextView emergency_user_tv;
-    @BindView(R.id.emergency_phone_tv)TextView emergency_phone_tv;
+    @BindView(R.id.affirm__bt)
+    Button affirm__bt;
+    @BindView(R.id.emergency_contactaffirm_ll)
+    LinearLayout emergency_contactaffirm_ll;
+    @BindView(R.id.emergency_contact_ll)
+    LinearLayout emergency_contact_ll;
+    @BindView(R.id.emergency_user_tv)
+    TextView emergency_user_tv;
+    @BindView(R.id.emergency_phone_tv)
+    TextView emergency_phone_tv;
     private static final int PICK_CONTACT = 1;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 2;
     private Intent mIntent;
     String name = "";
     String phoneNumber = "";
     EmergencyContactDao emergencyContactDao;
+    private SharedPreferences pref;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_contact);
-        emergencyContactDao=new EmergencyContactDaoImp(this);
+        emergencyContactDao = new EmergencyContactDaoImp(this);
+        pref=getSharedPreferences("UserList", MODE_PRIVATE);
+        editor = pref.edit();
+        EditTextLinsten();
+        if (!MyApplication.getEmergencyPhone().equals("null")) {
+            emergency_contact_ll.setVisibility(View.GONE);
+            emergency_contactaffirm_ll.setVisibility(View.VISIBLE);
+            emergency_phone_tv.setText(MyApplication.getEmergencyPhone());
+            emergency_user_tv.setText(MyApplication.getEmergencyName());
+        }
     }
 
     @OnClick(R.id.goto_addresslist_bt)
@@ -136,23 +160,66 @@ public class EmergencyContactActivity extends BaseActivity {
             emergency_user_et.setText(name);
             emergency_phone_et.setText(phoneNumber);
 
-
-
         }
     }
 
     @OnClick(R.id.affirm__bt)
     public void affirm__bt_OnClick() {
-        emergency_contact_ll.setVisibility(View.GONE);
-        emergency_contactaffirm_ll.setVisibility(View.VISIBLE);
-        emergency_user_tv.setText(name);
-        emergency_phone_tv.setText(phoneNumber);
-       // emergencyContactDao.ChangeUserEmergency(emergency_phone_et.getText().toString(),emergency_user_et.getText().toString());
-    }
-    public void callback(){
-        Toast.makeText(MyApplication.getContext(),"修改成功",Toast.LENGTH_LONG).show();
 
-    };
+        emergencyContactDao.ChangeUserEmergency(MyApplication.getUserPhone(), emergency_phone_et.getText().toString(), emergency_user_et.getText().toString());
+    }
+
+    public void callback(final String EmergencyPhone, final String EmergencyName) {
+        Handler handler = new Handler(getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                editor.putString("EmergencyPhone",EmergencyPhone);
+                editor.putString("EmergencyName",EmergencyName);
+                MyApplication.setEmergencyPhone(EmergencyPhone);
+                MyApplication.setEmergencyName(EmergencyName);
+                editor.commit();
+                emergency_contact_ll.setVisibility(View.GONE);
+                emergency_contactaffirm_ll.setVisibility(View.VISIBLE);
+                emergency_user_tv.setText(name);
+                emergency_phone_tv.setText(phoneNumber);
+                Toast.makeText(MyApplication.getContext(), "修改成功", Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    ;
+
+    public void EditTextLinsten() {
+        emergency_phone_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (i2 + i == 11) {
+                    affirm__bt.setEnabled(true);
+                    affirm__bt.setBackgroundColor(Color.parseColor("#15bdff"));
+                    affirm__bt.setTextColor(Color.parseColor("#f5f5f5"));
+                } else {
+                    affirm__bt.setEnabled(false);
+                    affirm__bt.setBackgroundColor(Color.parseColor("#dcdcdc"));
+                    affirm__bt.setTextColor(Color.parseColor("#bebebe"));
+                }
+                if (i2 == 0) {
+                    emergency_user_et.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
 
 
 }

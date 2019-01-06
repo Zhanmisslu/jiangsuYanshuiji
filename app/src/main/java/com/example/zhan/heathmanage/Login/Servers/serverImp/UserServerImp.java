@@ -80,11 +80,17 @@ public class UserServerImp implements UserServer {
                         String userSex = jsonObject1.getString("userSex");
                         String userNickName = jsonObject1.getString("userNickName");
                         String userAge =  jsonObject1.getString("userAge");
+                        String userPhoto=jsonObject1.getString("userPhoto");
+                        String emergencyPhone=jsonObject1.getString("userEmergency");
+                        String emergencyName=jsonObject1.getString("userEmergencyName");
+                        user.setEmergencyName(emergencyName);
+                        user.setEmergencyPhone(emergencyPhone);
                         user.setUserWeight(weight);
                         user.setUserNickName(userNickName);
                         user.setUserHeight(userHeight);
                         user.setUserSex(userSex);
                         user.setUserAge(userAge);
+                        user.setPhoto(userPhoto);
                         if (i == 0){
                             loginActivity.LoginCallBack(user);
                         }

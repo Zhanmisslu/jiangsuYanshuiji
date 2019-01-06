@@ -27,8 +27,8 @@ public class EmergencyContactDaoImp implements EmergencyContactDao {
     }
 
     @Override
-    public void ChangeUserEmergency(String Userphone, String UserName) {
-        String URL = Net.ChangeUserEmergency+"?userPhone="+ Userphone+"&userEmergency="+UserName;
+    public void ChangeUserEmergency(String Userphone, final String EmergencyPhone, final String EmergencyName) {
+        String URL = Net.ChangeUserEmergency+"?userPhone="+ Userphone+"&userEmergency="+EmergencyPhone+"&userEmergencyName="+EmergencyName;
         Log.v("zjc",URL);
 
         OKHttp.sendOkhttpGetRequest(URL, new Callback() {
@@ -45,9 +45,9 @@ public class EmergencyContactDaoImp implements EmergencyContactDao {
                 try {
                     JSONObject jsonObject=new JSONObject(res);
                     JSONObject jsonObject1=jsonObject.getJSONObject("ChangeUserEmergency");
-                    String waring=jsonObject1.getString("waring");
+                    String waring=jsonObject1.getString("warning");
                     if(waring.equals("0")) {
-                        emergencyContactActivity.callback();
+                        emergencyContactActivity.callback( EmergencyPhone, EmergencyName);
                     }else {
                         Looper.prepare();
                         Toast.makeText(MyApplication.getContext(),"修改失败",Toast.LENGTH_LONG).show();

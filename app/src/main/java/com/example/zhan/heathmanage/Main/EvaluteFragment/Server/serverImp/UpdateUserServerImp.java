@@ -44,6 +44,11 @@ public class UpdateUserServerImp implements UpdateUseServer {
     public UpdateUserServerImp(UpdateNameActivity updateNameActivity){
         this.updateNameActivity=updateNameActivity;
     }
+
+    public UpdateUserServerImp(UserActivity userActivity) {
+        this.userActivity = userActivity;
+    }
+
     @Override
     public void UpdateUser(String userHeight, String userWeight, String userSex, String userAge) {
        String URL = Net.ChangeUserInfo +"?userPhone="+ MyApplication.getUserPhone()
@@ -94,8 +99,8 @@ public class UpdateUserServerImp implements UpdateUseServer {
                 try {
                     OkHttpClient mOkHttpClient=new OkHttpClient();
                     RequestBody formBody = new FormBody.Builder()
-                            .add("userPhoto", UsePhoto)
-                            .add("userPhone",UsePhone)
+                            .add("userPhone", UsePhone)
+                            .add("userPhoto",UsePhoto)
                             .build();
                     Request request = new Request.Builder()
                             .url(Net.ChangeUserImage)
@@ -116,10 +121,12 @@ public class UpdateUserServerImp implements UpdateUseServer {
                             try {
                                 JSONObject jsonObject=new JSONObject(res);
                                 JSONObject jsonObject1=jsonObject.getJSONObject("ChangeUserPhoto");
-                                String waring=jsonObject1.getString("waring");
+                                String waring=jsonObject1.getString("warning");
                                 if(waring.equals("0")){
                                     Looper.prepare();
-                                    userActivity.imagecallback();
+                                    String image=jsonObject1.getString("userPhoto");
+                                    MyApplication.setPhoto(image);
+                                    userActivity.imagecallback(image);
                                     Toast.makeText(MyApplication.getContext(),"成功修改头像",Toast.LENGTH_LONG).show();
                                     Looper.loop();
                                 }

@@ -10,6 +10,16 @@ public class User {
     private String UserAge;
     private String UserNickName;
     private String UserWeight;
+    private String EmergencyPhone;
+    private String EmergencyName;
+
+    public String getEmergencyName() {
+        return EmergencyName;
+    }
+
+    public void setEmergencyName(String emergencyName) {
+        EmergencyName = emergencyName;
+    }
 
     public String getPhoto() {
         return Photo;
@@ -81,5 +91,13 @@ public class User {
 
     public void setUserWeight(String userWeight) {
         UserWeight = userWeight;
+    }
+
+    public String getEmergencyPhone() {
+        return EmergencyPhone;
+    }
+
+    public void setEmergencyPhone(String emergencyPhone) {
+        EmergencyPhone = emergencyPhone;
     }
 }

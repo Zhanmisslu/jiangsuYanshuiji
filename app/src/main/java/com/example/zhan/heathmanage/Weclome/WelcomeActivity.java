@@ -40,6 +40,9 @@ public class WelcomeActivity extends BaseActivity {
                     MyApplication.setUserHigh(pref.getString("Login_Height",""));
                     MyApplication.setUserNickName(pref.getString("Login_NickName",""));
                     MyApplication.setUserSex(pref.getString("Login_Sex",""));
+                    MyApplication.setPhoto(pref.getString("UserPhoto",""));
+                    MyApplication.setEmergencyPhone(pref.getString("EmergencyPhone",""));
+                    MyApplication.setEmergencyName(pref.getString("EmergencyName",""));
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
 
                 }

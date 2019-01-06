@@ -69,7 +69,7 @@ public class EvaluteFragment extends Fragment {
                 }
             });
         Glide.with(getContext())
-                .load(preferences.getString("UserPhoto",""))
+                .load(MyApplication.getPhoto())
                 .asBitmap()
                 .error(R.drawable.head)
                 .into(evalutefragment_iv);
@@ -91,7 +91,17 @@ public class EvaluteFragment extends Fragment {
         initPessonView();
         return view;
     }
-    
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Glide.with(getContext())
+                .load(preferences.getString("UserPhoto",""))
+                .asBitmap()
+                .error(R.drawable.head)
+                .into(evalutefragment_iv);
+        //evalutefragment_iv.setImageBitmap(MyApplication.getUserPhoto());
+    }
 
     //头像视图
     public void InitView() {

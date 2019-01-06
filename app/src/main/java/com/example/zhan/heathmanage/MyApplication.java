@@ -19,6 +19,9 @@ public class MyApplication extends Application {
     private static String UserSex;
     private static String UserNickName;
     private static Bitmap UserPhoto;
+    private static String Photo;
+    private static String EmergencyPhone;
+    private static String EmergencyName;
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -29,6 +32,30 @@ public class MyApplication extends Application {
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
         MobSDK.init(this);
+    }
+
+    public static String getEmergencyName() {
+        return EmergencyName;
+    }
+
+    public static void setEmergencyName(String emergencyName) {
+        EmergencyName = emergencyName;
+    }
+
+    public static String getEmergencyPhone() {
+        return EmergencyPhone;
+    }
+
+    public static void setEmergencyPhone(String emergencyPhone) {
+        EmergencyPhone = emergencyPhone;
+    }
+
+    public static String getPhoto() {
+        return Photo;
+    }
+
+    public static void setPhoto(String photo) {
+        Photo = photo;
     }
 
     public static Bitmap getUserPhoto() {

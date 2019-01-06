@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             menu_nickName.setText(MyApplication.getUserNickName());
         }
         Glide.with(getContext())
-                .load(preferences.getString("UserPhoto",""))
+                .load(MyApplication.getPhoto())
                 .asBitmap()
                 .error(R.drawable.head)
                 .into(main_user_iv);
@@ -263,16 +263,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         Intent intent=new Intent(MainActivity.this, EmergencyContactActivity.class);
         startActivity(intent);
     }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==2){
             menu_nickName.setText(MyApplication.getUserNickName());
-            main_user_iv.setImageBitmap(MyApplication.getUserPhoto());
+//            main_user_iv.setImageBitmap(MyApplication.getUserPhoto());
+            Glide.with(getContext())
+                    .load(MyApplication.getPhoto())
+                    .asBitmap()
+                    .error(R.drawable.head)
+                    .into(main_user_iv);
         }
     }
 
-    //    public interface MyTouchListener {
+
+//    public interface MyTouchListener {
 //        public void onTouchEvent(MotionEvent event);
 //    }
 //

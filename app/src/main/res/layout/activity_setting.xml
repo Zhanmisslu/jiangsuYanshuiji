@@ -54,7 +54,9 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:id="@+id/setting_userimage_iv"
             android:layout_gravity="center_vertical"
+            app:riv_oval="true"
             android:background="@drawable/head"
              />
         <ImageView

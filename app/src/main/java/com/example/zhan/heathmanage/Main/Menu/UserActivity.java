@@ -89,9 +89,9 @@ public class UserActivity extends BaseActivity {
         updateUseServer.GetUserMessage();
         picName = Calendar.getInstance().getTimeInMillis() + ".png";
         preferences = getSharedPreferences("UserList", MODE_PRIVATE);
-
+        //image=MyApplication.getUserPhoto();
         editor = preferences.edit();
-        img=preferences.getString("UserPhoto","");
+
         setMessage();
     }
     //设置个人信息
@@ -195,7 +195,7 @@ public class UserActivity extends BaseActivity {
     public void menu_user_finish_OnClick(){
         updateUseServer.UpdateUser(menu_user_high.getText().toString(),menu_user_weight.getText().toString()
                 ,menu_user_sex.getText().toString(),menu_user_age.getText().toString());
-        updateUseServer.UpdateImage(MyApplication.getUserPhone(),UserImage);
+
 
     }
 
@@ -349,9 +349,9 @@ public class UserActivity extends BaseActivity {
                     public void onSuccess(ResultData data) {
                         bm=data.GetBitmap();
                         UserImage=convertIconToString(bm);
-
                         dealCropPhoto(data.addScaleCompress(164, 164).GetBitmap());
                         image=data.addScaleCompress(164, 164).GetBitmap();
+                        updateUseServer.UpdateImage(MyApplication.getUserPhone(),UserImage);
                     }
 
                     @Override
@@ -380,7 +380,7 @@ public class UserActivity extends BaseActivity {
         byte[] bytes = baos.toByteArray();return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
     public void getUserMessageCallBack(final String NickName, final String Height, final String Weight, final String Age, final String Sex, final String Image){
-        this.img=Image;
+
         Handler handler = new Handler(getMainLooper());
         handler.post(new Runnable() {
             @Override public void run() {
@@ -401,14 +401,22 @@ public class UserActivity extends BaseActivity {
                         .error(R.drawable.head)
                         .into(menu_user_head_img);
 
-                editor.putString("UserPhoto",Image);
-                MyApplication.setUserPhoto(image);
-                editor.commit();
+//                editor.putString("UserPhoto",Image);
+//                MyApplication.setPhoto(Image);
+               // editor.commit();
             }
         });
 
     }
-    public void imagecallback(){
-        MyApplication.setUserPhoto(image);
+    public void imagecallback(final String Image){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                editor.putString("UserPhoto", Image);
+                editor.commit();
+                MyApplication.setPhoto(Image);
+            }
+        }).start();
+
     }
 }
