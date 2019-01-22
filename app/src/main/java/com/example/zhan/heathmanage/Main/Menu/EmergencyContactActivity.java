@@ -77,6 +77,7 @@ public class EmergencyContactActivity extends BaseActivity {
 
     @OnClick(R.id.goto_addresslist_bt)
     public void goto_addresslist_bt_OnClick() {
+        //跳转到系统的通讯录列表
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, PICK_CONTACT);
 
@@ -125,13 +126,17 @@ public class EmergencyContactActivity extends BaseActivity {
             return;
         }
 
-
+    //目标联系人的uri
         Uri contactUri = data.getData();
+        //解读内容
         Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
+       //判断查询结果是否为空
         if (cursor.moveToFirst()) {
+            //返回指定列的数据 姓名
             name = cursor
                     .getString(cursor
                             .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            //返回指定列的数据 有没有电话号码
             String hasPhone = cursor
                     .getString(cursor
                             .getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));

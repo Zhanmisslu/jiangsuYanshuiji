@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,11 @@ import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineC
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.MonthLineChartServiceDao;
 import com.example.zhan.heathmanage.R;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,12 +75,19 @@ public class MonthFragment extends Fragment {
         month_viewPager = (ChildViewPager) view.findViewById(R.id.month_viewPager);
         month_viewGroup = (ViewGroup) view.findViewById(R.id.month_viewGroup);
         axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
-        axisY.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
+        axisY.setAxisColor(Color.parseColor("#e9e9e9")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(false);
         monthLineChartServiceDao = new MonthLineChartServiceDaoImp();
         InitPageAdapter();
+
+
         initPointer();
         initEvent();
         getActivity().dispatchTouchEvent(ev);
+
+        String str = "2007-01-18";
+        String a;
+        a=str.substring(5,str.length());
+        Log.v("zjc",a);
         return view;
     }
     private void initEvent() {
@@ -137,7 +150,7 @@ public class MonthFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(monthLineChartServiceDao.getHeartRateLine());
         heartrate_graph.setChartData(lines);
-        heartrate_graph.setSlidingLine(getSlideingLine());
+      //  heartrate_graph.setSlidingLine(getSlideingLine());
         heartrate_graph.showWithAnimation(3000);
     }
 
@@ -149,7 +162,7 @@ public class MonthFragment extends Fragment {
         lines.add(monthLineChartServiceDao.getDiastolicBPLine());
         lines.add(monthLineChartServiceDao.getSystolicBPLine());
         bloodpressure_graph.setChartData(lines);
-        bloodpressure_graph.setSlidingLine(getSlideingLine());
+      //  bloodpressure_graph.setSlidingLine(getSlideingLine());
         bloodpressure_graph.showWithAnimation(3000);
     }
 
@@ -160,7 +173,7 @@ public class MonthFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(monthLineChartServiceDao.getBloodFatLine());
         bloodfat_graph.setChartData(lines);
-        bloodfat_graph.setSlidingLine(getSlideingLine());
+      //  bloodfat_graph.setSlidingLine(getSlideingLine());
         bloodfat_graph.showWithAnimation(3000);
     }
 
@@ -171,7 +184,7 @@ public class MonthFragment extends Fragment {
         List<Line> lines = new ArrayList<>();
         lines.add(monthLineChartServiceDao.getBloodOxygenLine());
         bloodoxygen_graph.setChartData(lines);
-        bloodoxygen_graph.setSlidingLine(getSlideingLine());
+     //   bloodoxygen_graph.setSlidingLine(getSlideingLine());
         bloodoxygen_graph.showWithAnimation(3000);
     }
 
@@ -179,8 +192,7 @@ public class MonthFragment extends Fragment {
     public List<AxisValue> getAxisValuesX() {
         List<AxisValue> axisValues = new ArrayList<>();
         AxisValue value = new AxisValue();
-        value.setLabel(" ");
-        axisValues.add(value);
+
         for (int i = 1; i <= 31; i++) {
             value = new AxisValue();
             value.setLabel(i + "日");
@@ -221,7 +233,13 @@ public class MonthFragment extends Fragment {
         //监听页面的状态，0--静止  1--滑动   2--滑动完成
         @Override
         public void onPageScrollStateChanged(int state) {
-
+            if(state==0){
+                Log.v("页面状态:静止",String.valueOf(state));
+            }else if (state==1){
+                Log.v("页面状态:滑动",String.valueOf(state));
+            }else if(state==2){
+                Log.v("页面状态:滑动完成",String.valueOf(state));
+            }
         }
     }
 
@@ -244,13 +262,13 @@ public class MonthFragment extends Fragment {
         }
 
     }
-    private SlidingLine getSlideingLine(){
-        SlidingLine slidingLine = new SlidingLine();
-        slidingLine.setSlideLineColor(Color.parseColor("#00000000"))
-                .setSlidePointColor(getResources().getColor(R.color.colorAccent))
-                .setSlidePointRadius(3);
-        return slidingLine;
-    }
+//    private SlidingLine getSlideingLine(){
+//        SlidingLine slidingLine = new SlidingLine();
+//        slidingLine.setSlideLineColor(Color.parseColor("#00000000"))
+//                .setSlidePointColor(getResources().getColor(R.color.colorAccent))
+//                .setSlidePointRadius(3);
+//        return slidingLine;
+//    }
 //
 //    //心率曲线
 //    public Line getHeartRateLine() {

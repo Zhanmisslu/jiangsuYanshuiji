@@ -101,6 +101,7 @@ public class OutsideLineRenderer extends AbsRenderer {
                     float textW = coordPaint.measureText(value.getLabel());
                     float pointx = value.getPointX() - 1.1f * textW;
                     canvas.drawText(value.getLabel(), pointx , value.getPointY(), coordPaint);
+
                 }
             }
         }
@@ -298,7 +299,8 @@ public class OutsideLineRenderer extends AbsRenderer {
                 canvas.drawCircle(point.getOriginX() + moveX, point.getOriginY(),
                         radius , labelPaint);
                 labelPaint.setStyle(Paint.Style.STROKE);
-                labelPaint.setColor(Color.WHITE);
+                //点的外圈颜色
+                labelPaint.setColor(Color.GREEN);
                 labelPaint.setStrokeWidth(strokeWidth);
                 canvas.drawCircle(point.getOriginX() + moveX, point.getOriginY(),
                         radius , labelPaint);
@@ -316,12 +318,13 @@ public class OutsideLineRenderer extends AbsRenderer {
                     List<PointValue> values = chartData.getValues();
                     int size = values.size();
                     canvas.save(Canvas.CLIP_SAVE_FLAG);
-                    canvas.clipRect(axisY.getStartX(), 0, mWidth, mHeight);
+                    canvas.clipRect(axisY.getStartX(), 0, mWidth, mHeight);//显示裁剪的区域
                     for (int i = 0; i < size; i++) {
                         PointValue point = values.get(i);
                         //if (!point.isShowLabel()) continue;
-                        String label = point.getLabel();
+                        String label = point.getLabel();//获得标签
                         Rect bounds = new Rect();
+                        //标签里面数字的长度
                         int length = label.length();
                         labelPaint.getTextBounds(label, 0, length, bounds);
 
@@ -329,8 +332,8 @@ public class OutsideLineRenderer extends AbsRenderer {
                         float textH = bounds.height();
                         float left, top, right, bottom;
                         if(length == 1){
-                            left = point.getOriginX() - textW * 2.2f;
-                            right = point.getOriginX() + textW * 2.2f;
+                            left = point.getOriginX() - textW * 1.0f;
+                            right = point.getOriginX() + textW * 1.0f;
                         }  else if(length == 2){
                             left = point.getOriginX() - textW * 1.0f;
                             right = point.getOriginX() + textW * 1.0f;
@@ -362,11 +365,24 @@ public class OutsideLineRenderer extends AbsRenderer {
                         labelPaint.setStyle(Paint.Style.FILL);
                         canvas.drawRoundRect(rectF, labelRadius, labelRadius, labelPaint);
 
-                        //drawText
-                        labelPaint.setColor(Color.WHITE);
-                        float xCoordinate = left + (right - left - textW) / 2 + moveX;
-                        float yCoordinate = bottom - (bottom - top - textH) / 2 ;
-                        canvas.drawText(point.getLabel(), xCoordinate, yCoordinate, labelPaint);
+                        //drawText  标签里的文字的颜色
+                        labelPaint.setColor(Color.GRAY);
+                        if(i==0){
+                            float xCoordinate = left + (right - left - textW) / 2 + moveX-25;
+                            float yCoordinate = bottom - (bottom - top - textH) / 2;
+                            canvas.drawText(point.getLabel(), xCoordinate, yCoordinate, labelPaint);
+
+                        }else if(i>=11){
+                            float xCoordinate = left + (right - left - textW) / 2 + moveX+20;
+                            float yCoordinate = bottom - (bottom - top - textH) / 2;
+                            canvas.drawText(point.getLabel(), xCoordinate, yCoordinate, labelPaint);
+                        }
+                        else {
+                            float xCoordinate = left + (right - left - textW) / 2 + moveX;
+                            float yCoordinate = bottom - (bottom - top - textH) / 2;
+                            canvas.drawText(point.getLabel(), xCoordinate, yCoordinate, labelPaint);
+
+                        }
                     }
                     canvas.restore();
                 }

@@ -38,17 +38,10 @@ public class OutsideLineChart extends AbsLeafChart {
     private Line line;
 
     private OutsideLineRenderer outsideLineRenderer;
-    private SlidingLine slidingLine;
 
-    private float moveX;
-    private float moveY;
-    private boolean isDrawMoveLine;
-    float downX;
-    float downY;
+
     int scaledTouchSlop;
 
-    private boolean isCanSelected;
-    private OnPointSelectListener onPointSelectListener;
     private OnChartSelectedListener mOnChartSelectedListener;
 
     /**
@@ -66,9 +59,7 @@ public class OutsideLineChart extends AbsLeafChart {
 
     private GestureDetectorCompat gestureDetector;
 
-    public void setSlidingLine(SlidingLine slidingLine) {
-        this.slidingLine = slidingLine;
-    }
+
 
     public OutsideLineChart(Context context) {
         this(context, null, 0);
@@ -78,9 +69,7 @@ public class OutsideLineChart extends AbsLeafChart {
         this(context, attrs, 0);
     }
 
-    public void setOnPointSelectListener(OnPointSelectListener onPointSelectListener) {
-        this.onPointSelectListener = onPointSelectListener;
-    }
+
 
     public void setmOnChartSelectedListener(OnChartSelectedListener mOnChartSelectedListener) {
         this.mOnChartSelectedListener = mOnChartSelectedListener;
@@ -90,17 +79,16 @@ public class OutsideLineChart extends AbsLeafChart {
         super(context, attrs, defStyleAttr);
         mScroller = new Scroller(getContext());
         gestureDetector = new GestureDetectorCompat(getContext(), new SimpleGestureListener());
-        maxOverMove = (int) LeafUtil.dp2px(mContext, 50);
-        initDefaultSlidingLine();
+        maxOverMove = (int) LeafUtil.dp2px(mContext, 100);
 
         scaledTouchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
         gestureDetector= new GestureDetectorCompat(getContext(), new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent motionEvent) {
-                setCanSelected(true);
-                if (null != mOnChartSelectedListener) {
-                    mOnChartSelectedListener.onChartSelected(true);
-                }
+//                setCanSelected(true);
+//                if (null != mOnChartSelectedListener) {
+//                    mOnChartSelectedListener.onChartSelected(true);
+//                }
                 return false;
             }
 
@@ -146,7 +134,7 @@ public class OutsideLineChart extends AbsLeafChart {
         super.initAttrs(attrs);
         TypedArray ta = mContext.obtainStyledAttributes(attrs, R.styleable.OutsideLineChart);
         try{
-            mStep = (int) ta.getDimension(R.styleable.OutsideLineChart_lc_step, LeafUtil.dp2px(mContext, 30));
+            mStep = (int) ta.getDimension(R.styleable.OutsideLineChart_lc_step, LeafUtil.dp2px(mContext, 50));
         } finally {
             ta.recycle();
         }
@@ -236,97 +224,30 @@ public class OutsideLineChart extends AbsLeafChart {
             }
         }
     }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        if (!isCanSelected) {
-//            return super.onTouchEvent(event);
-//        }
         gestureDetector.onTouchEvent(event);
         int xPosition = (int) event.getX();
-        float x = event.getX();
-        float y = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mScroller.abortAnimation();
                 mLastX = xPosition;
-                downX = event.getX();
-                downY = event.getY();
-                break;
+                return true;
             case MotionEvent.ACTION_MOVE:
-                if (downX - x != 0 && Math.abs(y - downY) < scaledTouchSlop) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                }
                 if(mMove >= 0 && mMove <= maxOverMove || mMove <= 0 && mMove >= -getMinMove()){
                     smoothScrollBy(xPosition - mLastX, 0);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                isDrawMoveLine = false;
-                isCanSelected = false;
-                if (null != mOnChartSelectedListener) {
-                    mOnChartSelectedListener.onChartSelected(false);
-                }
                 if(mMove > 0){
                     smoothScrollTo(startMarginX, 0);
                 } else if(mMove <= -getMinMove()) {
                     smoothScrollTo(-getMinMove(), 0);
                 }
                 break;
-            case MotionEvent.ACTION_CANCEL:
-                isCanSelected = false;
-                if (null != mOnChartSelectedListener) {
-                    mOnChartSelectedListener.onChartSelected(false);
-                }
-                break;
-        }
-        countRoundPoint(x);
-
-        if (slidingLine != null) {
-            if (slidingLine.isOpenSlideSelect()) {
-                return true;
-            }
         }
         mLastX = xPosition;
-        return false;
-    }
-    /**
-     * 计算最接近的点
-     *
-     * @param x
-     */
-    private void countRoundPoint(float x) {
-        int y=0;
-        if (lines != null && lines.size() > 0) {
-            Line line;
-            for (int j = 0, sizes = lines.size(); j < sizes; j++) {
-                line = lines.get(j);
-                if (line != null) {
-                    List<AxisValue> axisXValues = axisX.getValues();
-                    int sizeX = axisXValues.size(); //几条y轴
-                    float xStep = (mWidth - leftPadding - startMarginX) / sizeX;
-                    int loc = Math.round((x - leftPadding - startMarginX) / xStep);
-                    List<PointValue> values = line.getValues();
-                    for (int i = 0, size = values.size(); i < size; i++) {
-                        PointValue pointValue = values.get(i);
-                        pointValue.setShowLabel(false);
-                        int ploc = Math.round(pointValue.getDiffX() / xStep);
-                        if (ploc == loc) {
-
-                            pointValue.setShowLabel(true);
-                            moveX = pointValue.getOriginX();
-                            moveY = pointValue.getOriginY() + LeafUtil.dp2px(mContext, line.getPointRadius());
-                            isDrawMoveLine = true;
-                            y = 0;
-                            if (onPointSelectListener != null) {
-                                onPointSelectListener.onPointSelect(loc, axisXValues.get(loc).getLabel(), pointValue.getLabel());
-                            }
-//                    break;
-                        }
-                    }
-                }
-            }
-        }
+        return true;
     }
     //调用此方法设置滚动的相对偏移
     public void smoothScrollBy(int dx, int dy) {
@@ -399,14 +320,5 @@ public void setChartData(List<Line> chartDatas) {
         return lines;
     }
 
-    private void initDefaultSlidingLine() {
-        slidingLine = new SlidingLine();
-        slidingLine.setDash(true).setSlideLineWidth(1).setSlidePointRadius(3);
-    }
-    @SuppressLint("MissingPermission")
-    public void setCanSelected(boolean canSelected) {
-        isCanSelected = canSelected;
-        Vibrator vib = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
-        vib.vibrate(40);
-    }
+
 }

@@ -8,6 +8,6 @@ public interface MonthLineChartServiceDao {
     public Line getSystolicBPLine();//收缩压曲线
     public Line getBloodFatLine();//血脂曲线
     public Line getBloodOxygenLine();//血氧曲线
-
+    public void getSuggest();
 
 }

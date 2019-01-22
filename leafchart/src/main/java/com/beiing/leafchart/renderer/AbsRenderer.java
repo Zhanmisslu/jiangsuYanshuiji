@@ -7,8 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.view.View;
 
+import com.beiing.leafchart.R;
 import com.beiing.leafchart.bean.Axis;
 import com.beiing.leafchart.bean.AxisValue;
 import com.beiing.leafchart.bean.ChartData;
@@ -218,6 +220,16 @@ public class AbsRenderer {
                     }
                     top = point.getOriginY() - 2.5f * textH;
                     bottom = point.getOriginY() - 0.5f * textH;
+//                    if(i > 0){
+//                        PointValue prePoint = values.get(i - 1);
+//                        RectF rectF = prePoint.getRectF();
+//                        if(left <= rectF.right){
+//                            // 左边与上一个标签重叠
+//                            top = point.getOriginY() + 1.7f*textH;
+//                            bottom = point.getOriginY() + 0.5f*textH;
+//                        }
+//                    }
+
 
                     //控制位置
                     if (left < axisY.getStartX()) {
@@ -263,6 +275,7 @@ public class AbsRenderer {
                     RectF rectF = new RectF(left, top, right, bottom);
                     labelPaint.setColor(chartData.getLabelColor());
                     labelPaint.setStyle(Paint.Style.FILL);
+                  //  labelPaint.setTypeface(Typeface.DEFAULT_BOLD);
                     canvas.drawRoundRect(rectF, labelRadius, labelRadius, labelPaint);
 
                     trianglePaint.setStrokeWidth(3.0f);

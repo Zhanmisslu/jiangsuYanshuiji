@@ -11,6 +11,7 @@ public class Net {
     public final static String ChangeUserImage = Head + "ChangeUserPhoto";//修改头像
     public final static String ShowUserInfo = Head + "ShowUserInfo";//获取用户信息
     public final static String ChangeUserEmergency = Head + "ChangeUserEmergency";//修改紧急联系人
+    public final static String GetSuggest = Head + "ChangeUserEmergency";//月视图获取建议
 
 
 }
