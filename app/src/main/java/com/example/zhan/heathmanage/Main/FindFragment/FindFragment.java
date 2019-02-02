@@ -1,40 +1,64 @@
 package com.example.zhan.heathmanage.Main.FindFragment;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.chaek.android.widget.CaterpillarIndicator;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.AddFriendActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.DynamicActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.ReportActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.SearchActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.AttentionFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.DryCargoFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.HotFragment;
 import com.example.zhan.heathmanage.R;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import rx.functions.Action1;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FindFragment extends Fragment {
+    @BindView(R.id.button)Button button;
     @BindView(R.id.fragment_find_viewpage)ViewPager fragment_find_viewpage;
     @BindView(R.id.fragment_find_titlebar)CaterpillarIndicator fragment_find_titlebar;
     @BindView(R.id.fragment_find_search_et)EditText fragment_find_search_et;
     private List<Fragment> fragmentList = new ArrayList<>();
+    @BindView(R.id.fragment_find_FAM)FloatingActionMenu fragment_find_FAM;
+    private List<FloatingActionMenu> menus = new ArrayList<>();
+    @BindView(R.id.dynamic_FAB)FloatingActionButton dynamic_FAB;
+    @BindView(R.id.report_FAB)FloatingActionButton report_FAB;
+    //@BindView(R.id.fab3)FloatingActionButton fab3;
+    private Handler mUiHandler = new Handler();
+
     public FindFragment() {
         // Required empty public constructor
     }
@@ -48,6 +72,9 @@ public class FindFragment extends Fragment {
        ButterKnife.bind(this,view);
         InitViewPager();
         showSoftInputFromWindow(getActivity(),fragment_find_search_et);
+     //   fragment_find_FAM = (FloatingActionMenu) view.findViewById(R.id.fragment_find_FAM);
+        InitFloatIngActionButton();
+       button.setBackgroundColor(0x66000000);
        return  view;
     }
     public void InitViewPager(){
@@ -86,4 +113,109 @@ public class FindFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, 0);
     }
+    @OnClick(R.id.fragment_find_search_et)
+    public void fragment_find_search_et_Onclick(){
+        Intent intent=new Intent(getActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.addfriend_ib)
+    public void addfriend_ib_Onclick(){
+        Intent intent=new Intent(getActivity(), AddFriendActivity.class);
+        startActivity(intent);
+    }
+    public void InitFloatIngActionButton(){
+        fragment_find_FAM.hideMenuButton(false);
+//        final FloatingActionButton programFab1 = new FloatingActionButton(getActivity());
+//        programFab1.setButtonSize(FloatingActionButton.SIZE_MINI);
+//        programFab1.setLabelText(getString(R.string.lorem_ipsum));
+//        programFab1.setImageResource(R.drawable.ic_edit);
+//        fragment_find_FAM.addMenuButton(programFab1);
+//        programFab1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                programFab1.setLabelColors(ContextCompat.getColor(getActivity(), R.color.grey),
+//                        ContextCompat.getColor(getActivity(), R.color.light_grey),
+//                        ContextCompat.getColor(getActivity(), R.color.white_transparent));
+//                programFab1.setLabelTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+//            }
+//        });
+        fragment_find_FAM.setClosedOnTouchOutside(true);
+        fragment_find_FAM.setOnMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (fragment_find_FAM.isOpened()) {
+//                    //Toast.makeText(getActivity(), fragment_find_FAM.getMenuButtonLabelText(), Toast.LENGTH_SHORT).show();
+//                }
+                fragment_find_FAM.toggle(true);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        menus.add(fragment_find_FAM);
+        dynamic_FAB.setOnClickListener(clickListener);
+        report_FAB.setOnClickListener(clickListener);
+        //fab3.setOnClickListener(clickListener);
+        int delay = 400;
+        for (final FloatingActionMenu menu : menus) {
+            mUiHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    menu.showMenuButton(true);
+                }
+            }, delay);
+            delay += 150;
+        }
+    }
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+            switch (v.getId()) {
+                case R.id.dynamic_FAB:
+                    RxPermissions.getInstance(getActivity())
+                            .request(Manifest.permission.CAMERA,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)//多个权限用","隔开
+                            .subscribe(new Action1<Boolean>() {
+                                @Override
+                                public void call(Boolean aBoolean) {
+                                    if (aBoolean) {
+                                        //当所有权限都允许之后，返回true
+                                        Intent intent=new Intent(getActivity(),DynamicActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        //只要有一个权限禁止，返回false，
+                                        //下一次申请只申请没通过申请的权限
+                                        getActivity().finish();
+                                    }
+                                }
+                            });
+                    break;
+                case R.id.report_FAB:
+                    RxPermissions.getInstance(getActivity())
+                            .request(Manifest.permission.CAMERA,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)//多个权限用","隔开
+                            .subscribe(new Action1<Boolean>() {
+                                @Override
+                                public void call(Boolean aBoolean) {
+                                    if (aBoolean) {
+                                        //当所有权限都允许之后，返回true
+                                        Intent intent=new Intent(getActivity(),ReportActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        //只要有一个权限禁止，返回false，
+                                        //下一次申请只申请没通过申请的权限
+                                        getActivity().finish();
+                                    }
+                                }
+                            });
+                    break;
+
+            }
+        }
+    };
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
+    android:orientation="vertical"
+    tools:context=".Main.FindFragment.Activity.SearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#eaeaea"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/search" />
+
+            <EditText
+                android:id="@+id/activity_search_et"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:imeOptions="actionSearch"
+                android:layout_marginLeft="10dp"
+                android:background="#eaeaea"
+                android:hint="搜索动态、话题、文章、用户" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/activity_cancel_ib"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/cancel"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/activity_back_tv"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="取消" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_marginTop="10dp"
+        android:background="#e6e6e6" />
+</LinearLayout>

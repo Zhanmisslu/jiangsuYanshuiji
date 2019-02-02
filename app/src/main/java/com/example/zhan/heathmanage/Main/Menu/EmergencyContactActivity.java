@@ -205,6 +205,10 @@ public class EmergencyContactActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //charSequence  输入框中改变后的字符串信息
+                //i 输入框中改变后的字符串的起始位置
+                //i1 输入框中改变前的字符串的位置 默认为0
+                //i2 输入框中改变后的一共输入字符串的数量
                 if (i2 + i == 11) {
                     affirm__bt.setEnabled(true);
                     affirm__bt.setBackgroundColor(Color.parseColor("#15bdff"));

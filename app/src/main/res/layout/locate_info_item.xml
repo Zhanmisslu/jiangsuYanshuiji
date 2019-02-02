@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="82dp"
+    android:layout_margin="1dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/location_ll"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/locate_info_adress"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:textSize="17dp"
+            android:gravity="left|center"
+            android:text="北京" />
+
+        <RadioButton
+            android:id="@+id/locate_info_rb"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:buttonTint="@color/green"
+            android:saveEnabled="true"
+
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="#e7e4e4" />
+</LinearLayout>

@@ -11,7 +11,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/coordinatormenu" />
             <option value="$PROJECT_DIR$/leafchart" />
+            <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/ncalendar" />
+            <option value="$PROJECT_DIR$/photoPicker" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

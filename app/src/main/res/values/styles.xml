@@ -1,4 +1,5 @@
 <resources>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur magna tortor, semper eu feugiat eu, vehicula vitae lacus.</string>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
@@ -25,4 +26,15 @@
     <string name="menu_game_text">骚年来盘昆特牌</string>
     <string name="menu_mouse_text">竜が私が敌を喰らう</string>
     <string name="menu_rocket_text">要上天</string>
+    <style name="MenuButtonsSmall">
+        <item name="fab_size">mini</item>
+        <item name="fab_colorNormal">#1565C0</item>
+        <item name="fab_colorPressed">#2272CD</item>
+        <item name="fab_colorRipple">#62B2FF</item>
+    </style>
+    <style name="MenuButtonsSmall.Green">
+        <item name="fab_colorNormal">#43A047</item>
+        <item name="fab_colorPressed">#2E7D32</item>
+        <item name="fab_colorRipple">#1B5E20</item>
+    </style>
 </resources>

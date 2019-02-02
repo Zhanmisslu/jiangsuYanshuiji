@@ -7,6 +7,7 @@ MobSDK {
 }
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.example.zhan.heathmanage"
         minSdkVersion 15
@@ -14,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk { //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+        }
     }
     buildTypes {
         release {
@@ -22,6 +26,8 @@ android {
         }
     }
     buildToolsVersion '28.0.0'
+
+
 }
 
 dependencies {
@@ -59,5 +65,22 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     //viewpage指示器
     implementation 'com.chaek.android:caterpillarindicator:1.2.0'
+    //悬浮按钮
+    //implementation 'com.azhon:suspension-fab:1.1.0'
+    //    implementation project(':suspension-fab')
+    implementation project(':library')
+    //高德地图
+    implementation 'com.amap.api:location:latest.integration'
+    implementation('com.commit451:PhotoView:1.2.4') {//图片缩放
+        exclude module: 'support-v4'
+    }
+    implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:search:latest.integration'
+    implementation project(':photoPicker')
+    //    //工具类开源库
+    implementation 'com.blankj:utilcode:1.19.0'
+    implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    implementation 'io.reactivex:rxjava:1.2.3'
+    implementation 'io.reactivex:rxandroid:1.2.1'
 
 }

@@ -7,4 +7,11 @@
     <color name="textColorPrimary">#616161</color>
     <color name="viewBackground">@android:color/white</color>
     <color name="colorDayNightChange">@android:color/holo_orange_dark</color>
+    <color name="app_primary">#1976D2</color>
+    <color name="app_primary_dark">#1565C0</color>
+    <color name="grey">#DDDDDD</color>
+    <color name="light_grey">#EEEEEE</color>
+    <color name="white_transparent">#99FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="green">#00ff40</color>
 </resources>
