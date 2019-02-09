@@ -87,7 +87,7 @@ public class FindFragment extends Fragment {
         titleList.add(new CaterpillarIndicator.TitleInfo("关注"));
         titleList.add(new CaterpillarIndicator.TitleInfo("热门"));
         titleList.add(new CaterpillarIndicator.TitleInfo("干货"));
-        fragment_find_titlebar.init(0,titleList,fragment_find_viewpage);
+        fragment_find_titlebar.init(1,titleList,fragment_find_viewpage);
     }
     private class BaseFragmentAdapter extends FragmentStatePagerAdapter {
 

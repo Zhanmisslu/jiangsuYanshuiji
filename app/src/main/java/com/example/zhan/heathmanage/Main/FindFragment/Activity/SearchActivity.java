@@ -55,7 +55,7 @@ public class SearchActivity extends BaseActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
+            //每输入一个字，就去访问后台拿数据
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (i2 > 0) {
@@ -63,6 +63,7 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     activity_cancel_ib.setVisibility(View.GONE);
                 }
+
             }
 
             @Override

@@ -12,6 +12,12 @@ public class Net {
     public final static String ShowUserInfo = Head + "ShowUserInfo";//获取用户信息
     public final static String ChangeUserEmergency = Head + "ChangeUserEmergency";//修改紧急联系人
     public final static String GetSuggest = Head + "ChangeUserEmergency";//月视图获取建议
+    public final static String GetPeopleList = Head + "ChangeUserEmergency";//获取可能感兴趣的人
+    public final static String Attention = Head + "ChangeUserEmergency";//关注按钮
+    public final static String Search = Head + "ChangeUserEmergency";//搜索框
+    public final static String GetHotList= Head + "ShowHotPosting";//热门列表
+
+
 
 
 }
