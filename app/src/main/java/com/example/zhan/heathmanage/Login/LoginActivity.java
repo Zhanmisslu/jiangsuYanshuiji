@@ -254,6 +254,8 @@ public class LoginActivity extends BaseActivity {
         MyApplication.setPhoto(user.getPhoto());
         MyApplication.setEmergencyPhone(user.getEmergencyPhone());
         MyApplication.setEmergencyName(user.getEmergencyName());
+        MyApplication.setUserId(user.getUserId());
+        editor.putString("Login_Id",user.getUserId());
         editor.putString("Login_Weight",user.getUserWeight());
         editor.putString("Login_User",user.getPhoneNumber());
         editor.putString("Login_Password",user.getPassword());

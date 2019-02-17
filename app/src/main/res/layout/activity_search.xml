@@ -62,4 +62,11 @@
         android:layout_height="1sp"
         android:layout_marginTop="10dp"
         android:background="#e6e6e6" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/Search_rv">
+
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

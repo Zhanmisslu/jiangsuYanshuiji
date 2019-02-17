@@ -157,8 +157,8 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
     }
 
     @Override
-    public void getSuggest() {
-        String url= Net.GetSuggest;
+    public void getSuggest(String userPhone,String month) {
+        String url= Net.GetSuggest+"?userPhone="+userPhone+"&month="+month;
         OKHttp.sendOkhttpGetRequest(url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

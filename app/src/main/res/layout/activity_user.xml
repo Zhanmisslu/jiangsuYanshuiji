@@ -40,12 +40,12 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/menu_user_head_img"
-            android:layout_width="57dp"
+            android:layout_width="51dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            app:riv_oval="true"
             android:layout_marginTop="50dp"
-            android:src="@drawable/head" />
+            android:src="@drawable/head"
+            app:riv_oval="true" />
         <TextView
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"

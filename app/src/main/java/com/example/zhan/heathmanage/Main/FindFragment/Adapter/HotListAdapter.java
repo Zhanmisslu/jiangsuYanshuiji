@@ -1,5 +1,6 @@
 package com.example.zhan.heathmanage.Main.FindFragment.Adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.InvitationInfoActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.HotInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.HotFragment;
 import com.example.zhan.heathmanage.MyApplication;
@@ -23,6 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 import static com.example.zhan.heathmanage.MyApplication.getContext;
 
 public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListViewHolder> {
@@ -51,7 +54,7 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotListAdapter.HotListViewHolder hotListViewHolder, int i) {
+    public void onBindViewHolder(@NonNull HotListAdapter.HotListViewHolder hotListViewHolder, final int i) {
         hotListViewHolder.contenttitle_tv.setText(HotList.get(i).getContent());
         hotListViewHolder.nickname_tv.setText(HotList.get(i).getNickName());
         hotListViewHolder.supportNum_tv.setText(HotList.get(i).getSupportNum());
@@ -68,7 +71,15 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
         hotListViewHolder.content_cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(hotFragment.getActivity(), InvitationInfoActivity.class);
+                intent .putExtra("userimage",HotList.get(i).getImage());
+                intent.putExtra("picture1",HotList.get(i).getPciture());
+                intent.putExtra("nickname",HotList.get(i).getNickName());
+                intent.putExtra("supportnum",HotList.get(i).getSupportNum());
+                intent.putExtra("content",HotList.get(i).getContent());
+                intent.putExtra("time",HotList.get(i).getTime());
+                intent.putExtra("postingId",HotList.get(i).getPostingId());
+                hotFragment.startActivity(intent);
             }
         });
         if (i % 2==0) {

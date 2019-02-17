@@ -83,6 +83,8 @@ public class UserServerImp implements UserServer {
                         String userPhoto=jsonObject1.getString("userPhoto");
                         String emergencyPhone=jsonObject1.getString("userEmergency");
                         String emergencyName=jsonObject1.getString("userEmergencyName");
+                        String userid=jsonObject1.getString("userId");
+                        user.setUserId(userid);
                         user.setEmergencyName(emergencyName);
                         user.setEmergencyPhone(emergencyPhone);
                         user.setUserWeight(weight);

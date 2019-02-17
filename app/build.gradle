@@ -19,6 +19,9 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
         }
     }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -82,5 +85,6 @@ dependencies {
     implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     implementation 'io.reactivex:rxjava:1.2.3'
     implementation 'io.reactivex:rxandroid:1.2.1'
-
+    //加载框
+    implementation 'com.zyao89:zloading:1.2.0'
 }

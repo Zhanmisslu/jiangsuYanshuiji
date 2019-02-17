@@ -10,6 +10,7 @@ import com.example.zhan.heathmanage.Main.FindFragment.Adapter.PeopleListAdapter;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.PeopleListDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.PeopleListDaoImp;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 
 import java.util.ArrayList;
@@ -21,21 +22,28 @@ import butterknife.OnClick;
 public class AddFriendActivity extends BaseActivity {
     @BindView(R.id.peoplelist_rv)RecyclerView peoplelist_rv;
     PeopleListAdapter peopleListAdapter;
-    PeopleListDao peopleListDao=new PeopleListDaoImp();
+    PeopleListDao peopleListDao;
   //  List<PeopleInfo> peopleInfoList =new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
-
-        peopleListDao.getPeopleList();
+        peopleListDao=new PeopleListDaoImp(this);
+        peopleListDao.getPeopleList(MyApplication.getUserId());
 
     }
-    public void InitPeopleList(List<PeopleInfo> peopleInfoList){
+    public void InitPeopleList(final List<PeopleInfo> peopleInfoList){
         peopleListAdapter=new PeopleListAdapter(this,peopleInfoList,this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        peoplelist_rv.setLayoutManager(layoutManager);
-        peoplelist_rv.setAdapter(peopleListAdapter);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                peoplelist_rv.setLayoutManager(layoutManager);
+                peoplelist_rv.setAdapter(peopleListAdapter);
+            }
+        });
+
 
     }
 

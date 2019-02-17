@@ -4,6 +4,7 @@ public class PeopleInfo {
     private String PeopleImage;
     private String PeopleNickName;
     private String Phone;
+    private String userid;
 
     public String getPhone() {
         return Phone;
@@ -27,5 +28,13 @@ public class PeopleInfo {
 
     public void setPeopleNickName(String peopleNickName) {
         PeopleNickName = peopleNickName;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

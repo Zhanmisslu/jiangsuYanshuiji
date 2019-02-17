@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.AddFriendActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.PeopleListDao;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.PeopleListDaoImp;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -42,11 +43,12 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListAdapter.Pe
     @Override
     public PeopleListAdapter.PeopleListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.peoplelist_item,viewGroup,false);
+        peopleListDao=new PeopleListDaoImp();
         return new PeopleListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PeopleListAdapter.PeopleListViewHolder peopleListViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final PeopleListAdapter.PeopleListViewHolder peopleListViewHolder, final int position) {
         peopleListViewHolder.nickname_tv.setText(peopleInfoList.get(position).getPeopleNickName());
         Glide.with(getContext())
                 .load(peopleInfoList.get(position).getPeopleImage())
@@ -58,7 +60,7 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListAdapter.Pe
             public void onClick(View view) {
                 peopleListViewHolder.attention_bt.setVisibility(View.GONE);
                 peopleListViewHolder.haveattention_bt.setVisibility(View.VISIBLE);
-                peopleListDao.attention();
+                peopleListDao.attention(MyApplication.getUserId(),peopleInfoList.get(position).getUserid());
             }
         });
         peopleListViewHolder.haveattention_bt.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +68,7 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListAdapter.Pe
             public void onClick(View view) {
                 peopleListViewHolder.attention_bt.setVisibility(View.VISIBLE);
                 peopleListViewHolder.haveattention_bt.setVisibility(View.GONE);
+                peopleListDao.RemoveConcern(MyApplication.getUserId(),peopleInfoList.get(position).getUserid());
             }
         });
     }

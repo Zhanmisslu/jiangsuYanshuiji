@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/Search_item_ll"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Search_item_tv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"
+            android:text="啦啦啦啦"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#d4d4d4" />
+    </LinearLayout>
+</LinearLayout>

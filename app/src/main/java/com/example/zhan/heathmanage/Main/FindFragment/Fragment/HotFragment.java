@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Main.FindFragment.Fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,9 @@ import com.example.zhan.heathmanage.Main.FindFragment.Bean.HotInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.FindView;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.HotDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.HotDaoImp;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
+import com.zyao89.view.zloading.ZLoadingDialog;
 
 import java.nio.Buffer;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.os.Looper.getMainLooper;
+import static com.zyao89.view.zloading.Z_TYPE.DOUBLE_CIRCLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +41,7 @@ public class HotFragment extends Fragment implements FindView {
     SwipeRefreshLayout fragment_hot_srl;
     HotDao hotDao;
     HotListAdapter hotListAdapter;
-
+    ZLoadingDialog dialog;
     //private static List<HotInfo> HotList;
     public HotFragment() {
         // Required empty public constructor
@@ -51,12 +55,15 @@ public class HotFragment extends Fragment implements FindView {
         View view = inflater.inflate(R.layout.fragment_hot, container, false);
         ButterKnife.bind(this, view);
         // HotList=new ArrayList<>();
+        dialog = new ZLoadingDialog(getActivity());
+        Init();
         hotDao = new HotDaoImp(this);
         hotDao.getHotList();
         fragment_hot_srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // HotList=new ArrayList<>();
+                Init();
                 hotDao.getHotList();
                 fragment_hot_srl.setRefreshing(false);
             }
@@ -74,14 +81,28 @@ public class HotFragment extends Fragment implements FindView {
 
         return view;
     }
+    public void Init(){
+
+
+        dialog.setLoadingBuilder(DOUBLE_CIRCLE)
+                .setLoadingColor(Color.parseColor("#ff5305"))
+                .setHintText("正在加载中...")
+//                                .setHintTextSize(16) // 设置字体大小
+                .setHintTextColor(Color.GRAY)  // 设置字体颜色
+//                                .setDurationTime(0.5) // 设置动画时间百分比
+
+                .setDialogBackgroundColor(Color.parseColor("#cc111111")) // 设置背景色
+                .show();
+    }
 
     @Override
     public void InitHotList(final List<HotInfo> HotList) {
-        hotListAdapter = new HotListAdapter(HotList);
+        hotListAdapter = new HotListAdapter(this,HotList);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 fragment_hot_rv.setAdapter(hotListAdapter);
+                dialog.dismiss();
             }
         });
 

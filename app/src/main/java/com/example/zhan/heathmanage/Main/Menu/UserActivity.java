@@ -55,7 +55,7 @@ import static com.anlia.photofactory.factory.PhotoFactory.ERROR_CROP_DATA;
 import static com.example.zhan.heathmanage.MyApplication.getContext;
 
 public class UserActivity extends BaseActivity {
-    private Button sex_man,sex_woman,sex_back;
+    private Button sex_man, sex_woman, sex_back;
     @BindView(R.id.menu_user_sex)
     TextView menu_user_sex;
     @BindView(R.id.menu_user_sex_img)
@@ -63,29 +63,30 @@ public class UserActivity extends BaseActivity {
     @BindView(R.id.menu_user_age)
     EditText menu_user_age;
     @BindView(R.id.menu_user_weight)
-    EditText  menu_user_weight;
+    EditText menu_user_weight;
     @BindView(R.id.menu_user_high)
-    EditText  menu_user_high;
+    EditText menu_user_high;
     @BindView(R.id.menu_user_nick)
-    TextView  menu_user_nick;
+    TextView menu_user_nick;
     @BindView(R.id.menu_user_head_img)
     RoundedImageView menu_user_head_img;
-    UpdateUseServer updateUseServer ;
+    UpdateUseServer updateUseServer;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     private PhotoFactory photoFactory;
     private final String TAG = "UserActivity";
-    private String picName;
+    private static String picName;
     private static Bitmap bm;
     public static String img;
     private static String UserImage;
     private static Bitmap image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        updateUseServer = new UpdateUserServerImp(1,this);
-        photoFactory=new PhotoFactory(this);
+        updateUseServer = new UpdateUserServerImp(1, this);
+        // photoFactory=new PhotoFactory(this);
         updateUseServer.GetUserMessage();
         picName = Calendar.getInstance().getTimeInMillis() + ".png";
         preferences = getSharedPreferences("UserList", MODE_PRIVATE);
@@ -94,25 +95,26 @@ public class UserActivity extends BaseActivity {
 
         setMessage();
     }
+
     //设置个人信息
-    public void setMessage(){
-        if (!MyApplication.getUserNickName().equals("null")){
+    public void setMessage() {
+        if (!MyApplication.getUserNickName().equals("null")) {
             menu_user_nick.setText(MyApplication.getUserNickName());
         }
-        if (!MyApplication.getUserWeight().equals("null")){
+        if (!MyApplication.getUserWeight().equals("null")) {
             menu_user_weight.setText(MyApplication.getUserWeight());
         }
 
-        if (!MyApplication.getUserHigh().equals("null")){
+        if (!MyApplication.getUserHigh().equals("null")) {
             menu_user_high.setText(MyApplication.getUserHigh());
         }
-        if (!MyApplication.getUserAge().equals("null")){
+        if (!MyApplication.getUserAge().equals("null")) {
             menu_user_age.setText(MyApplication.getUserAge());
         }
-        if (MyApplication.getUserSex().equals("男")){
+        if (MyApplication.getUserSex().equals("男")) {
             menu_user_sex_img.setImageResource(R.drawable.man_click);
             menu_user_sex.setText(MyApplication.getUserSex());
-        }else if (MyApplication.getUserSex().equals("女")){
+        } else if (MyApplication.getUserSex().equals("女")) {
             menu_user_sex_img.setImageResource(R.drawable.woman_click);
             menu_user_sex.setText(MyApplication.getUserSex());
         }
@@ -120,21 +122,22 @@ public class UserActivity extends BaseActivity {
 
     //修改头像
     @OnClick(R.id.menu_user_head_img)
-    public void menu_user_head_img_OnClick(){
+    public void menu_user_head_img_OnClick() {
         uploadHeadImage();
     }
+
     @OnClick(R.id.menu_user_nick)
-    public void menu_user_nick_OnClick(){
-        Intent intent = new Intent(this,UpdateNameActivity.class);
-        intent.putExtra("nick",menu_user_nick.getText().toString());
-        startActivityForResult(intent,1);
+    public void menu_user_nick_OnClick() {
+        Intent intent = new Intent(this, UpdateNameActivity.class);
+        intent.putExtra("nick", menu_user_nick.getText().toString());
+        startActivityForResult(intent, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode ==1){
+        if (resultCode == 1) {
             String nick = data.getStringExtra("Nick");
             menu_user_nick.setText(nick);
         }
@@ -142,11 +145,11 @@ public class UserActivity extends BaseActivity {
 
     //修改性别
     @OnClick(R.id.menu_user_sex)
-    public void menu_user_sex_OnClick(){
+    public void menu_user_sex_OnClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);//创建对话框
-        View view = getLayoutInflater().from(this).inflate(R.layout.user_sex,null);
+        View view = getLayoutInflater().from(this).inflate(R.layout.user_sex, null);
         builder.setView(view);
-        final AlertDialog   dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         setdialog(dialog);
 
         sex_man = view.findViewById(R.id.sex_man);
@@ -158,7 +161,7 @@ public class UserActivity extends BaseActivity {
                 menu_user_sex.setText("男");
                 menu_user_sex_img.setImageResource(R.drawable.man_click);
                 dialog.dismiss();
-        }
+            }
         });
         sex_woman.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,46 +178,48 @@ public class UserActivity extends BaseActivity {
             }
         });
     }
+
     //绘画底部弹窗
-    public void setdialog(AlertDialog dialog){
+    public void setdialog(AlertDialog dialog) {
         //创建dialog
         dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
         dialog.show();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//设置dialog背景为透明
-        Window window =dialog.getWindow();
+        Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM); //设置弹窗在底部
         window.setWindowAnimations(R.style.AnimBottom);//动画
-        WindowManager m =getWindowManager();
-        Display d =m.getDefaultDisplay();//为获取屏幕宽、高
-        WindowManager.LayoutParams p =dialog.getWindow().getAttributes(); //获取对话框当前的参数值
-        p.width =d.getWidth();//宽度设置为屏幕
+        WindowManager m = getWindowManager();
+        Display d = m.getDefaultDisplay();//为获取屏幕宽、高
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); //获取对话框当前的参数值
+        p.width = d.getWidth();//宽度设置为屏幕
         dialog.getWindow().setAttributes(p); //设置生效
     }
+
     //个人信息修改按钮
     @OnClick(R.id.menu_user_finish)
-    public void menu_user_finish_OnClick(){
-        updateUseServer.UpdateUser(menu_user_high.getText().toString(),menu_user_weight.getText().toString()
-                ,menu_user_sex.getText().toString(),menu_user_age.getText().toString());
+    public void menu_user_finish_OnClick() {
+        updateUseServer.UpdateUser(menu_user_high.getText().toString(), menu_user_weight.getText().toString()
+                , menu_user_sex.getText().toString(), menu_user_age.getText().toString());
 
 
     }
 
     //Server的回调函数
-    public void callback(){
+    public void callback() {
         MyApplication.setUserWeight(menu_user_weight.getText().toString());
         MyApplication.setUserAge(menu_user_age.getText().toString());
         MyApplication.setUserHigh(menu_user_high.getText().toString());
         MyApplication.setUserNickName(menu_user_nick.getText().toString());
         MyApplication.setUserSex(menu_user_sex.getText().toString());
-        editor.putString("Login_Weight",menu_user_weight.getText().toString());
-        editor.putString("Login_Age",menu_user_age.getText().toString());
-        editor.putString("Login_Height",menu_user_high.getText().toString());
-        editor.putString("Login_NickName",menu_user_nick.getText().toString());
-        editor.putString("Login_Sex",menu_user_sex.getText().toString());
+        editor.putString("Login_Weight", menu_user_weight.getText().toString());
+        editor.putString("Login_Age", menu_user_age.getText().toString());
+        editor.putString("Login_Height", menu_user_high.getText().toString());
+        editor.putString("Login_NickName", menu_user_nick.getText().toString());
+        editor.putString("Login_Sex", menu_user_sex.getText().toString());
         editor.commit();
         finish();
         Looper.prepare();
-        Toast.makeText(this,"修改信息成功",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "修改信息成功", Toast.LENGTH_SHORT).show();
         Looper.loop();
     }
 
@@ -284,7 +289,7 @@ public class UserActivity extends BaseActivity {
 
                             @Override
                             public void onError(String error) {
-
+                                Log.v("aaaa", error);
                             }
                         });
 
@@ -297,25 +302,24 @@ public class UserActivity extends BaseActivity {
             public void onClick(View v) {
                 //权限判断
                 photoFactory = new PhotoFactory(UserActivity.this, Environment.getExternalStorageDirectory() + "/" + "DCIM", picName);
-                photoFactory.FromGallery()
-                        .StartForResult(new PhotoFactory.OnResultListener() {
-                            @Override
-                            public void onCancel() {
-                                Log.e(TAG, "取消从相册选择");
-                            }
+                photoFactory.FromGallery().StartForResult(new PhotoFactory.OnResultListener() {
+                    @Override
+                    public void onCancel() {
+                        Log.e(TAG, "取消从相册选择");
+                    }
 
-                            @Override
-                            public void onSuccess(ResultData resultData) {
-                                dealSelectPhoto(resultData);
+                    @Override
+                    public void onSuccess(ResultData resultData) {
+                        dealSelectPhoto(resultData);
 //                            Uri uri = resultData.GetUri();
 //                            imgPhoto.setImageURI(uri);
-                            }
+                    }
 
-                            @Override
-                            public void onError(String error) {
+                    @Override
+                    public void onError(String error) {
 
-                            }
-                        });
+                    }
+                });
                 popupWindow.dismiss();
             }
         });
@@ -326,6 +330,7 @@ public class UserActivity extends BaseActivity {
             }
         });
     }
+
     private void dealSelectPhoto(ResultData resultData) {
         Uri uri = resultData
                 .setExceptionListener(new ResultData.OnExceptionListener() {
@@ -347,11 +352,11 @@ public class UserActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(ResultData data) {
-                        bm=data.GetBitmap();
-                        UserImage=convertIconToString(bm);
+                        bm = data.GetBitmap();
+                        UserImage = convertIconToString(bm);
                         dealCropPhoto(data.addScaleCompress(164, 164).GetBitmap());
-                        image=data.addScaleCompress(164, 164).GetBitmap();
-                        updateUseServer.UpdateImage(MyApplication.getUserPhone(),UserImage);
+                        image = data.addScaleCompress(164, 164).GetBitmap();
+                        updateUseServer.UpdateImage(MyApplication.getUserPhone(), UserImage);
                     }
 
                     @Override
@@ -364,26 +369,31 @@ public class UserActivity extends BaseActivity {
                     }
                 });
     }
+
     private void dealCropPhoto(Bitmap bitmap) {
         menu_user_head_img.setImageBitmap(bitmap);
     }
-    public  String convertIconToString(Bitmap bitmap)
-    {
+
+    public String convertIconToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);  int options = 100;
-        while ( baos.toByteArray().length / 1024>500) { //循环判断如果压缩后图片是否大于1000kb,大于继续压缩
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 500) { //循环判断如果压缩后图片是否大于1000kb,大于继续压缩
             baos.reset();//重置baos即清空baos
             bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10
-            Log.i("Compress",baos.toByteArray().length+"");
+            Log.i("Compress", baos.toByteArray().length + "");
         }
-        byte[] bytes = baos.toByteArray();return Base64.encodeToString(bytes, Base64.DEFAULT);
+        byte[] bytes = baos.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
-    public void getUserMessageCallBack(final String NickName, final String Height, final String Weight, final String Age, final String Sex, final String Image){
+
+    public void getUserMessageCallBack(final String NickName, final String Height, final String Weight, final String Age, final String Sex, final String Image) {
 
         Handler handler = new Handler(getMainLooper());
         handler.post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 menu_user_nick.setText(NickName);
                 menu_user_high.setText(Height);
                 menu_user_weight.setText(Weight);
@@ -403,12 +413,13 @@ public class UserActivity extends BaseActivity {
 
 //                editor.putString("UserPhoto",Image);
 //                MyApplication.setPhoto(Image);
-               // editor.commit();
+                // editor.commit();
             }
         });
 
     }
-    public void imagecallback(final String Image){
+
+    public void imagecallback(final String Image) {
         new Thread(new Runnable() {
             @Override
             public void run() {

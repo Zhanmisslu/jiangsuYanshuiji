@@ -2,6 +2,7 @@ package com.example.zhan.heathmanage.Main.FindFragment.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -25,6 +26,7 @@ public class SearchActivity extends BaseActivity {
     EditText activity_search_et;
     @BindView(R.id.activity_cancel_ib)
     ImageButton activity_cancel_ib;
+    @BindView(R.id.Search_rv)RecyclerView Search_rv;
     InputMethodManager manager;//输入法管理器
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     activity_cancel_ib.setVisibility(View.GONE);
                 }
+
 
             }
 

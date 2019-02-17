@@ -60,11 +60,15 @@ public class HotDaoImp implements HotDao {
                     for (int i=0;i<jsonArray.length();i++){
                         hotInfo=new HotInfo();
                         JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                        String postingId=jsonObject1.getString("postingId");
                         String nickname = jsonObject1.getString("userNickName");
                         String image = jsonObject1.getString("userPhoto");
                         String supportNum=jsonObject1.getString("postingLike");
                         String content=jsonObject1.getString("postingContent");
                         String picture=jsonObject1.getString("postingImg");
+                        String time=jsonObject1.getString("postingTime");
+                        hotInfo.setTime(time);
+                        hotInfo.setPostingId(postingId);
                         hotInfo.setImage(image);
                         hotInfo.setNickName(nickname);
                         hotInfo.setSupportNum(supportNum);
@@ -80,5 +84,10 @@ public class HotDaoImp implements HotDao {
 
             }
         });
+    }
+
+    @Override
+    public void GetPostList(String postingId) {
+        //String url=Net.
     }
 }

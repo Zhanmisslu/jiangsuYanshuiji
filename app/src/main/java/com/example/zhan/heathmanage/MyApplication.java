@@ -22,6 +22,7 @@ public class MyApplication extends Application {
     private static String Photo;
     private static String EmergencyPhone;
     private static String EmergencyName;
+    private static String UserId;
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -32,6 +33,14 @@ public class MyApplication extends Application {
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
         MobSDK.init(this);
+    }
+
+    public static String getUserId() {
+        return UserId;
+    }
+
+    public static void setUserId(String userId) {
+        UserId = userId;
     }
 
     public static String getEmergencyName() {

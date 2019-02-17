@@ -43,6 +43,7 @@ public class WelcomeActivity extends BaseActivity {
                     MyApplication.setPhoto(pref.getString("UserPhoto",""));
                     MyApplication.setEmergencyPhone(pref.getString("EmergencyPhone",""));
                     MyApplication.setEmergencyName(pref.getString("EmergencyName",""));
+                    MyApplication.setUserId(pref.getString("Login_Id",""));
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
 
                 }

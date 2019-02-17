@@ -6,6 +6,24 @@ public class HotInfo {
     private String pciture;//图片
     private String Content;//内容
     private String SupportNum;//赞的数量
+    private String PostingId;
+    private String Time;
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+    public String getPostingId() {
+        return PostingId;
+    }
+
+    public void setPostingId(String postingId) {
+        PostingId = postingId;
+    }
 
     public String getImage() {
         return Image;
