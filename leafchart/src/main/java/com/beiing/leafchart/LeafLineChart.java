@@ -16,6 +16,7 @@ import com.beiing.leafchart.bean.PointValue;
 import com.beiing.leafchart.bean.SlidingLine;
 import com.beiing.leafchart.renderer.LeafLineRenderer;
 import com.beiing.leafchart.support.LeafUtil;
+import com.beiing.leafchart.support.Mode;
 import com.beiing.leafchart.support.OnChartSelectedListener;
 import com.beiing.leafchart.support.OnPointSelectListener;
 
@@ -106,6 +107,38 @@ public class LeafLineChart extends AbsLeafChart {
             for (int i = 0, size = lines.size(); i < size; i++) {
                 super.resetPointWeight(lines.get(i));
             }
+        }
+    }
+
+    @Override
+    protected void resetAsixX() {
+        if (axisX != null) {
+            List<AxisValue> values = axisX.getValues();
+            int sizeX = values.size(); //几条y轴
+            float xStep = (mWidth - leftPadding - startMarginX) / sizeX;
+            for (int i = 0; i < sizeX; i++) {
+                AxisValue axisValue = values.get(i);
+                axisValue.setPointY(mHeight);
+                if (i == 0) {
+                    axisValue.setPointX(leftPadding + startMarginX);
+                } else {
+                    axisValue.setPointX(leftPadding + startMarginX + xStep * i);
+                }
+            }
+
+
+            switch (coordinateMode) {
+                case Mode.ACROSS:
+                case Mode.X_ACROSS:
+                    axisX.setStartX(leftPadding * 0.5f);
+                    break;
+
+                case Mode.INTERSECT:
+                case Mode.Y_ACROSS:
+                    axisX.setStartX(leftPadding);
+                    break;
+            }
+            axisX.setStartY(mHeight - bottomPadding).setStopX(mWidth).setStopY(mHeight - bottomPadding);
         }
     }
 

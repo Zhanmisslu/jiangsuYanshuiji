@@ -87,4 +87,8 @@ dependencies {
     implementation 'io.reactivex:rxandroid:1.2.1'
     //加载框
     implementation 'com.zyao89:zloading:1.2.0'
+    implementation project(':photoview')
+    //点赞
+    implementation 'com.sackcentury:shinebutton:0.2.0'
+
 }

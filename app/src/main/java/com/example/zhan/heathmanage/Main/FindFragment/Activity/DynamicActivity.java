@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,13 +29,17 @@ import com.yuyh.library.imgsel.ImageLoader;
 import com.yuyh.library.imgsel.ImgSelActivity;
 import com.yuyh.library.imgsel.ImgSelConfig;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.functions.Action1;
+import uk.co.senab.photoview.PhotoView;
 
 public class DynamicActivity extends BaseActivity {
+
     @BindView(R.id.dynamic_back_ib)
     ImageButton dynamic_back_ib;
     @BindView(R.id.content_et)EditText content_et;
@@ -45,6 +51,8 @@ public class DynamicActivity extends BaseActivity {
     private int REQUEST_CODE = 120;
     int flag=0;
     public static String textData="不显示位置";
+    List<Bitmap> imageList;
+    File file ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +61,7 @@ public class DynamicActivity extends BaseActivity {
     }
     private void initView() {
 
-
+        imageList=new ArrayList<>();
         ninePicturesAdapter = new NinePicturesAdapter(this, 9, new NinePicturesAdapter.OnClickAddListener() {
             @Override
             public void onClickAdd(int positin) {
@@ -108,9 +116,19 @@ public class DynamicActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            //图片的路径
             List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
+
             if (ninePicturesAdapter != null) {
                 ninePicturesAdapter.addAll(pathList);
+            }
+
+            for (int i=0;i<pathList.size();i++){
+                file = new File(pathList.get(i));
+                if(file.exists()){
+                    Bitmap bm = BitmapFactory.decodeFile(pathList.get(i));
+                    imageList.add(bm);
+                }
             }
         }
         if(requestCode==100){

@@ -23,6 +23,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="20dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
             android:text="详情"
@@ -93,6 +94,23 @@
                             android:textColor="#989898"
                             android:textSize="12sp" />
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/Invitation_attention_bt"
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/shape"
+                        android:text="关注" />
+
+                    <Button
+                        android:id="@+id/Invitation_haveattention_bt"
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/shape"
+                        android:text="已关注"
+                        android:visibility="gone" />
                     <!--<ImageView-->
                     <!--android:id="@+id/detail_page_focus"-->
                     <!--android:layout_width="30dp"-->
@@ -123,27 +141,39 @@
                     android:textColor="#6e6e6e"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:id="@+id/InvitationInfo_picture1_iv"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="10dp" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/InvitationInfo_picture1_iv"-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:layout_marginTop="10dp" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="20dp"
-                    android:background="#e6e6e6" />
             </LinearLayout>
+            <com.bm.library.PhotoView
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/InvitationInfosmall_picture_pv"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/detail_page_above_container"
+                android:src="@mipmap/ddd"
+                android:scaleType="fitXY"
+                />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/view4"
+                android:layout_below="@+id/InvitationInfosmall_picture_pv"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
+                android:background="#e6e6e6" />
 
             <LinearLayout
                 android:id="@+id/detail_page_comment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/detail_page_above_container"
+                android:layout_below="@+id/view4"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -179,6 +209,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="58dp"
+        android:id="@+id/InvitationInfo_content_ll"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         android:elevation="2dp"
@@ -189,6 +220,7 @@
             android:id="@+id/InvitationInfo_postcontent_tv"
             android:layout_width="0dp"
             android:layout_height="34dp"
+
             android:layout_marginLeft="12dp"
             android:layout_marginRight="22dp"
             android:layout_weight="1"
@@ -209,12 +241,32 @@
         <!--android:textSize="14sp"-->
         <!--android:layout_marginLeft="10dp"-->
         <!--android:text="32"/>-->
-
-        <ImageView
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:id="@+id/InvitationInfo_support_sb"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/support" />
+            android:layout_centerInParent="true"
+            android:src="@android:color/darker_gray"
+            app:allow_random_color="false"
+            app:big_shine_color="#FF6666"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="#FF6666"
+            app:click_animation_duration="200"
+            app:enable_flashing="false"
+            app:shine_animation_duration="1500"
+            app:shine_count="15"
+            app:shine_distance_multiple="1.5"
+            app:shine_turn_angle="10"
+            app:siShape="@raw/like"
+            app:small_shine_color="#CC9999"
+            app:small_shine_offset_angle="20" />
+        <!--<ImageView-->
+        <!--android:layout_width="22dp"-->
+        <!--android:layout_height="22dp"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:tag="nosupport"-->
+        <!--android:id="@+id/InvitationInfo_support_iv"-->
+        <!--android:background="@drawable/support_nopress" />-->
 
         <TextView
             android:id="@+id/InvitationInfo_supportnum_tv"
@@ -227,5 +279,11 @@
             android:textSize="14sp" />
 
     </LinearLayout>
-
+    <com.bm.library.PhotoView
+        android:id="@+id/InvitationInfobig_picture_pv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ddd"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
 </RelativeLayout>

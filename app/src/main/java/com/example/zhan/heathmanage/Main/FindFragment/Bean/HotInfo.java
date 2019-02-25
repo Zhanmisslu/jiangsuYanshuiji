@@ -8,6 +8,15 @@ public class HotInfo {
     private String SupportNum;//赞的数量
     private String PostingId;
     private String Time;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getTime() {
         return Time;

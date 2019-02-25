@@ -1,5 +1,6 @@
 package com.example.zhan.heathmanage.Main.FindFragment.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -15,22 +16,32 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bm.library.Info;
+import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Adapter.CommentExpandAdapter;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.CommentDetailBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.ReplyDetailBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.AttentionDao;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.HotDao;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.PeopleListDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.AttentionDaoImp;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.HotDaoImp;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.PeopleListDaoImp;
 import com.example.zhan.heathmanage.Main.FindFragment.View.CommentExpandableListView;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,8 +56,8 @@ public class InvitationInfoActivity extends BaseActivity {
     TextView InvitationInfo_content_tv;
     @BindView(R.id.InvitationInfo_image_riv)
     RoundedImageView InvitationInfo_image_riv;
-    @BindView(R.id.InvitationInfo_picture1_iv)
-    ImageView InvitationInfo_picture1_iv;
+    @BindView(R.id.InvitationInfosmall_picture_pv)
+    PhotoView InvitationInfosmall_picture_pv;
     @BindView(R.id.InvitationInfo_supportnum_tv)
     TextView InvitationInfo_supportnum_tv;
     @BindView(R.id.InvitationInfo_postcontent_tv)
@@ -55,35 +66,144 @@ public class InvitationInfoActivity extends BaseActivity {
     CommentExpandableListView InvitationInfo_CommentExpandableListView;
     @BindView(R.id.InvitationInfo_time_tv)
     TextView InvitationInfo_time_tv;
+    @BindView(R.id.Invitation_attention_bt)
+    Button Invitation_attention_bt;
+    @BindView(R.id.Invitation_haveattention_bt)
+    Button Invitation_haveattention_bt;
+    @BindView(R.id.InvitationInfo_support_sb)
+    ShineButton InvitationInfo_support_sb;
+    @BindView(R.id.InvitationInfobig_picture_pv)
+    PhotoView InvitationInfobig_picture_pv;
     private CommentExpandAdapter commentExpandAdapter;
-    private List<CommentDetailBean> commentsList;
+    private List<CommentDetailBean> commentsList = new ArrayList<>();
     private BottomSheetDialog dialog;
     private String nickname;
+    @BindView(R.id.InvitationInfo_content_ll)LinearLayout InvitationInfo_content_ll;
     AttentionDao attentionDao;
+    PeopleListDao peopleListDao;
+    HotDao hotDao;
     String image;
     String picture1;
     String content;
     String supportnum;
     String time;
     String postingId;
+    Info mRectF;
+    public static String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_info);
-        attentionDao=new AttentionDaoImp(this);
+        attentionDao = new AttentionDaoImp(this);
         // getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);        setContentView(R.layout.activity_invitation_info);
         nickname = getIntent().getStringExtra("nickname");
         image = getIntent().getStringExtra("userimage");
         picture1 = getIntent().getStringExtra("picture1");
         content = getIntent().getStringExtra("content");
         supportnum = getIntent().getStringExtra("supportnum");
-        time=getIntent().getStringExtra("time");
-        postingId=getIntent().getStringExtra("postingId");
-       // attentionDao.getReplyList();
+        time = getIntent().getStringExtra("time");
+        postingId = getIntent().getStringExtra("postingId");
+        userId = getIntent().getStringExtra("userId");
+        peopleListDao = new PeopleListDaoImp();
+        hotDao = new HotDaoImp(this);
+        // attentionDao.getReplyList();
         attentionDao.getAllCommnetList(postingId);
+        hotDao.GetFollowStatus(MyApplication.getUserId(), userId);
         InitView();
+        InvitationInfo_support_sb.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(View view, boolean checked) {
+                if(checked==true) {// 已经点赞
+                    attentionDao.Support(postingId);
+                    supportnum= String.valueOf((Integer.valueOf(supportnum)+1));
+                    InvitationInfo_supportnum_tv.setText(supportnum);
+                }else {
+                    attentionDao.CancelLikePosting(postingId);
+                    supportnum= String.valueOf((Integer.valueOf(supportnum)-1));
+                    InvitationInfo_supportnum_tv.setText(supportnum);
+                }
+            }
+        });
+        //设置不可以双指缩放移动放大等操作，跟普通的image一模一样,默认情况下就是disenable()状态
+        InvitationInfosmall_picture_pv.disenable();
+        InvitationInfosmall_picture_pv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InvitationInfosmall_picture_pv.setVisibility(View.GONE);
+                InvitationInfobig_picture_pv.setVisibility(View.VISIBLE);
+                InvitationInfo_content_ll.setVisibility(View.GONE);
+
+                //获取img1的信息
+                mRectF = InvitationInfosmall_picture_pv.getInfo();
+                //让img2从img1的位置变换到他本身的位置
+                InvitationInfobig_picture_pv.animaFrom(mRectF);
+            }
+        });
+        InvitationInfobig_picture_pv.enable();
+        InvitationInfobig_picture_pv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InvitationInfobig_picture_pv.animaTo(mRectF, new Runnable() {
+                    @Override
+                    public void run() {
+                        InvitationInfobig_picture_pv.setVisibility(View.GONE);
+                        InvitationInfosmall_picture_pv.setVisibility(View.VISIBLE);
+                        InvitationInfo_content_ll.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+
 
     }
+    @Override
+    public void onBackPressed() {
+        if (InvitationInfobig_picture_pv.getVisibility() == View.VISIBLE) {
+            InvitationInfobig_picture_pv.animaTo(mRectF, new Runnable() {
+                @Override
+                public void run() {
+                    InvitationInfobig_picture_pv.setVisibility(View.GONE);
+                    InvitationInfosmall_picture_pv.setVisibility(View.VISIBLE);
+                    InvitationInfo_content_ll.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+//    @OnClick(R.id.InvitationInfo_support_iv)
+//    public void InvitationInfo_support_iv_Onclick() {
+////        InvitationInfo_support_iv.setImageResource(R.drawable.support);
+////        //   InvitationInfo_support_iv.setBackground();
+////        attentionDao.Support(postingId);
+////        if(InvitationInfo_support_iv.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.support).getConstantState())){
+////            attentionDao.CancelLikePosting(postingId);
+////        }
+////        if (InvitationInfo_support_iv.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.support_nopress).getConstantState())){
+////            attentionDao.Support(postingId);
+////        }
+////        if(InvitationInfo_support_iv.getTag().equals("nosupport")){
+////            attentionDao.Support(postingId);
+////            InvitationInfo_support_iv.setTag("support");
+////            InvitationInfo_support_iv.setImageResource(R.drawable.support);
+////
+////        }else {
+////            attentionDao.CancelLikePosting(postingId);
+////            InvitationInfo_support_iv.setTag("nosupport");
+////            InvitationInfo_support_iv.setImageResource(R.drawable.support_nopress);
+////        }
+//    }
+
+//    public void Judge() {
+//        if(InvitationInfo_support_iv.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.support).getConstantState())){
+//            attentionDao.CancelLikePosting(postingId);
+//        }
+//        if (InvitationInfo_support_iv.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.support_nopress).getConstantState())){
+//            attentionDao.Support(postingId);
+//        }
+//    }
 
     public void InitView() {
         InvitationInfo_nickname_tv.setText(nickname);
@@ -99,13 +219,27 @@ public class InvitationInfoActivity extends BaseActivity {
                 .load(picture1)
                 .asBitmap()
                 .error(R.drawable.welcome)
-                .into(InvitationInfo_picture1_iv);
+                .into(InvitationInfosmall_picture_pv);
+        Glide.with(getContext())
+                .load(picture1)
+                .asBitmap()
+                .error(R.drawable.welcome)
+                .into(InvitationInfobig_picture_pv);
 
         //获取评论的列表
         //commentsList = generateTestData();
 //        initExpandableListView(commentsList);
 
     }
+
+
+    @OnClick(R.id.InvitationInfo_image_riv)
+    public void InvitationInfo_image_riv_Onclick() {
+        Intent intent = new Intent(InvitationInfoActivity.this, PersonalActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
 
     @OnClick(R.id.invitationinfo_back_ib)
     public void invitationinfo_back_ib_Onclick() {
@@ -118,7 +252,7 @@ public class InvitationInfoActivity extends BaseActivity {
     }
 
     public void initExpandableListView(final List<CommentDetailBean> commentList) {
-        commentsList=commentList;
+        commentsList = commentList;
         InvitationInfo_CommentExpandableListView.setGroupIndicator(null);
         //默认展开所有回复
         commentExpandAdapter = new CommentExpandAdapter(this, commentList);
@@ -194,11 +328,11 @@ public class InvitationInfoActivity extends BaseActivity {
 
                     //commentOnWork(commentContent);
                     dialog.dismiss();
-                    CommentDetailBean detailBean = new CommentDetailBean(MyApplication.getUserNickName(), commentContent, "刚刚",MyApplication.getPhoto());
+                    CommentDetailBean detailBean = new CommentDetailBean(MyApplication.getUserNickName(), commentContent, "刚刚", MyApplication.getPhoto());
                     commentExpandAdapter.addTheCommentData(detailBean);
                     Toast.makeText(InvitationInfoActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
                     //上传评论
-                    attentionDao.Comment(MyApplication.getUserPhone(),postingId,commentContent);
+                    attentionDao.Comment(MyApplication.getUserPhone(), postingId, commentContent);
                 } else {
                     Toast.makeText(InvitationInfoActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -252,7 +386,7 @@ public class InvitationInfoActivity extends BaseActivity {
                     ReplyDetailBean detailBean = new ReplyDetailBean(MyApplication.getUserNickName(), commentsList.get(position).getNickName(), replyContent);
                     commentExpandAdapter.addTheReplyData(detailBean, position);
                     InvitationInfo_CommentExpandableListView.expandGroup(position);
-                    attentionDao.Reply(commentsList.get(position).getId(),commentsList.get(position).getPostingCommentId(),replyContent);
+                    attentionDao.Reply(commentsList.get(position).getId(), commentsList.get(position).getPostingCommentId(), replyContent);
                     Toast.makeText(InvitationInfoActivity.this, "回复成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(InvitationInfoActivity.this, "回复内容不能为空", Toast.LENGTH_SHORT).show();
@@ -308,7 +442,7 @@ public class InvitationInfoActivity extends BaseActivity {
                     InvitationInfo_CommentExpandableListView.expandGroup(grounpostion);
                     //attentionDao.Reply(commentsList.get(grounpostion).getReplyList().get(childposition).getId(),commentsList.get(grounpostion).getReplyList().get(childposition).getReplyCommentId(),replyContent);
 
-                  //  Toast.makeText(InvitationInfoActivity.this, "回复成功", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(InvitationInfoActivity.this, "回复成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(InvitationInfoActivity.this, "回复内容不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -338,5 +472,62 @@ public class InvitationInfoActivity extends BaseActivity {
             }
         });
         dialog.show();
+    }
+
+    @OnClick(R.id.Invitation_attention_bt)
+    public void Invitation_attention_bt_Onclick() {
+        if (MyApplication.getUserId().equals(userId)) {
+            Invitation_attention_bt.setVisibility(View.GONE);
+        } else {
+            peopleListDao.attention(MyApplication.getUserId(), userId);
+            Invitation_attention_bt.setVisibility(View.GONE);
+            Invitation_haveattention_bt.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @OnClick(R.id.Invitation_haveattention_bt)
+    public void Invitation_haveattention_bt_Onclick() {
+        if (MyApplication.getUserId().equals(userId)) {
+            Invitation_attention_bt.setVisibility(View.GONE);
+        } else {
+            peopleListDao.RemoveConcern(MyApplication.getUserId(), userId);
+            Invitation_attention_bt.setVisibility(View.VISIBLE);
+            Invitation_haveattention_bt.setVisibility(View.GONE);
+        }
+    }
+
+    //相互关注
+    public void Concern() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Invitation_haveattention_bt.setVisibility(View.VISIBLE);
+                Invitation_attention_bt.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    //没有关注
+    public void NoConcern() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Invitation_attention_bt.setVisibility(View.VISIBLE);
+                Invitation_haveattention_bt.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    public void Self() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Invitation_attention_bt.setVisibility(View.GONE);
+                Invitation_haveattention_bt.setVisibility(View.GONE);
+            }
+        });
     }
 }

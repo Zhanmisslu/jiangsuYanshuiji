@@ -219,5 +219,8 @@ public class LocationListActivity extends BaseActivity implements AMapLocationLi
         if (resultCode==100){
             pos=getIntent().getIntExtra("pos",-1);
         }
+        if (resultCode==200){
+            pos=getIntent().getIntExtra("pos",-1);
+        }
     }
 }

@@ -211,6 +211,7 @@ public class UserActivity extends BaseActivity {
         MyApplication.setUserHigh(menu_user_high.getText().toString());
         MyApplication.setUserNickName(menu_user_nick.getText().toString());
         MyApplication.setUserSex(menu_user_sex.getText().toString());
+
         editor.putString("Login_Weight", menu_user_weight.getText().toString());
         editor.putString("Login_Age", menu_user_age.getText().toString());
         editor.putString("Login_Height", menu_user_high.getText().toString());
@@ -410,7 +411,9 @@ public class UserActivity extends BaseActivity {
                         .asBitmap()
                         .error(R.drawable.head)
                         .into(menu_user_head_img);
-
+                MyApplication.setPhoto(Image);
+                editor.putString("UserPhoto", Image);
+                editor.commit();
 //                editor.putString("UserPhoto",Image);
 //                MyApplication.setPhoto(Image);
                 // editor.commit();

@@ -79,6 +79,7 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
                 intent.putExtra("content",HotList.get(i).getContent());
                 intent.putExtra("time",HotList.get(i).getTime());
                 intent.putExtra("postingId",HotList.get(i).getPostingId());
+                intent.putExtra("userId",HotList.get(i).getUserId());
                 hotFragment.startActivity(intent);
             }
         });
@@ -86,12 +87,12 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(hotListViewHolder.picture_iv.getLayoutParams());
 //            lp.setMargins(0,100,0,0);
             //LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) hotListViewHolder.picture_iv.getLayoutParams();
-            lp.height=450;
+            lp.height=350;
             hotListViewHolder.picture_iv.setLayoutParams(lp);
             } else {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(hotListViewHolder.picture_iv.getLayoutParams());
 //            lp.setMargins(0,0,0,0);
-            lp.height=700;
+            lp.height=500;
             hotListViewHolder.picture_iv.setLayoutParams(lp);
         }
 

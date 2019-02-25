@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.chaek.android.widget.CaterpillarIndicator;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.AddFriendActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.DynamicActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.PublishPostingActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.PublishTextActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.ReportActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.SearchActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.AttentionFragment;
@@ -47,7 +49,7 @@ import rx.functions.Action1;
  * A simple {@link Fragment} subclass.
  */
 public class FindFragment extends Fragment {
-    @BindView(R.id.button)Button button;
+   // @BindView(R.id.button)Button button;
     @BindView(R.id.fragment_find_viewpage)ViewPager fragment_find_viewpage;
     @BindView(R.id.fragment_find_titlebar)CaterpillarIndicator fragment_find_titlebar;
     @BindView(R.id.fragment_find_search_et)EditText fragment_find_search_et;
@@ -58,7 +60,7 @@ public class FindFragment extends Fragment {
     @BindView(R.id.report_FAB)FloatingActionButton report_FAB;
     //@BindView(R.id.fab3)FloatingActionButton fab3;
     private Handler mUiHandler = new Handler();
-
+    List<CaterpillarIndicator.TitleInfo> titleList;
     public FindFragment() {
         // Required empty public constructor
     }
@@ -74,7 +76,15 @@ public class FindFragment extends Fragment {
         showSoftInputFromWindow(getActivity(),fragment_find_search_et);
      //   fragment_find_FAM = (FloatingActionMenu) view.findViewById(R.id.fragment_find_FAM);
         InitFloatIngActionButton();
-       button.setBackgroundColor(0x66000000);
+      // button.setBackgroundColor(0x66000000);
+        dynamic_FAB.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent=new Intent(getActivity(), PublishTextActivity.class);
+                getActivity().startActivity(intent);
+                return false;
+            }
+        });
        return  view;
     }
     public void InitViewPager(){
@@ -83,7 +93,7 @@ public class FindFragment extends Fragment {
         fragmentList.add(new DryCargoFragment());
         BaseFragmentAdapter baseFragmentAdapter=new BaseFragmentAdapter(getFragmentManager());
         fragment_find_viewpage.setAdapter(baseFragmentAdapter);
-        List<CaterpillarIndicator.TitleInfo> titleList=new ArrayList<>();
+        titleList=new ArrayList<>();
         titleList.add(new CaterpillarIndicator.TitleInfo("关注"));
         titleList.add(new CaterpillarIndicator.TitleInfo("热门"));
         titleList.add(new CaterpillarIndicator.TitleInfo("干货"));
@@ -123,6 +133,13 @@ public class FindFragment extends Fragment {
         Intent intent=new Intent(getActivity(), AddFriendActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //fragment_find_titlebar.init(0,titleList,fragment_find_viewpage);
+    }
+
     public void InitFloatIngActionButton(){
         fragment_find_FAM.hideMenuButton(false);
 //        final FloatingActionButton programFab1 = new FloatingActionButton(getActivity());
@@ -184,7 +201,7 @@ public class FindFragment extends Fragment {
                                 public void call(Boolean aBoolean) {
                                     if (aBoolean) {
                                         //当所有权限都允许之后，返回true
-                                        Intent intent=new Intent(getActivity(),DynamicActivity.class);
+                                        Intent intent=new Intent(getActivity(),PublishPostingActivity.class);
                                         startActivity(intent);
                                     } else {
                                         //只要有一个权限禁止，返回false，

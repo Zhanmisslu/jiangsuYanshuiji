@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Main.FindFragment.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.AddFriendActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.PersonalActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.PeopleListDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.PeopleListDaoImp;
@@ -69,6 +71,14 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListAdapter.Pe
                 peopleListViewHolder.attention_bt.setVisibility(View.VISIBLE);
                 peopleListViewHolder.haveattention_bt.setVisibility(View.GONE);
                 peopleListDao.RemoveConcern(MyApplication.getUserId(),peopleInfoList.get(position).getUserid());
+            }
+        });
+        peopleListViewHolder.people_riv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(addFriendActivity, PersonalActivity.class);
+                intent.putExtra("userId",peopleInfoList.get(position).getUserid());
+                addFriendActivity.startActivity(intent);
             }
         });
     }

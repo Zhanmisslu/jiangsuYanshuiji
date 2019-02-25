@@ -6,10 +6,12 @@ import android.widget.Toast;
 
 import com.example.zhan.heathmanage.Internet.Net;
 import com.example.zhan.heathmanage.Internet.OKHttp;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.AttentionActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.InvitationInfoActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.AttentionInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.CommentDetailBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.HotInfo;
+import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.ReplyDetailBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.AttentionFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.AttentionDao;
@@ -37,6 +39,14 @@ public class AttentionDaoImp implements AttentionDao {
     List<ReplyDetailBean> replyDetailBeanList;
     AttentionInfo attentionInfo;
     List<AttentionInfo>attentionInfoList;
+    AttentionActivity attentionActivity;
+    List<PeopleInfo> attentionList;//关注的好友列表
+    PeopleInfo peopleInfo;
+
+    public AttentionDaoImp(AttentionActivity attentionActivity) {
+        this.attentionActivity = attentionActivity;
+    }
+
     public AttentionDaoImp(List<AttentionInfo> attentionList, AttentionFragment attentionFragment) {
         AttentionList = attentionList;
         this.attentionFragment = attentionFragment;
@@ -316,7 +326,7 @@ public class AttentionDaoImp implements AttentionDao {
 
     @Override
     public void Reply(String userId, String CommentId, String replyContent) {
-        String url=Net.Reply+"?userId="+userId+"&CommentId="+CommentId+"&replyContent="+replyContent;
+        String url=Net.Reply+"?userId="+userId+"&commentId="+CommentId+"&replyContent="+replyContent;
         Log.v("zjc",url);
         OKHttp.sendOkhttpGetRequest(url, new Callback() {
             @Override
@@ -398,6 +408,90 @@ public class AttentionDaoImp implements AttentionDao {
                         }
                         attentionFragment.InitAttentionList(attentionInfoList);
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void CancelLikePosting(String postingId) {
+        String url=Net.CancelLikePosting+"?postingId="+postingId;
+        Log.v("zjc",url);
+        OKHttp.sendOkhttpGetRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Looper.prepare();
+                Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String ResponseData=response.body().string();
+                try {
+                    JSONObject jsonObject=new JSONObject(ResponseData);
+                    JSONObject jsonObject1=jsonObject.getJSONObject("CancelLikePosting");
+                    String warning=jsonObject1.getString("warning");
+                    if (warning.equals("0")){
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"取消赞成功",Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }else {
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"取消赞失败",Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void GetFollowUserList(String userId) {
+        String url=Net.GetFollowUserList+"?userId="+userId;
+        attentionList=new ArrayList<>();
+        Log.v("zjc",url);
+        OKHttp.sendOkhttpGetRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Looper.prepare();
+                Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String ResponseData=response.body().string();
+                try {
+                    JSONObject jsonObject=new JSONObject(ResponseData);
+                    JSONArray jsonArray=jsonObject.getJSONArray("GetFollowUserList");
+                    JSONObject jsonObject2=jsonArray.getJSONObject(0);
+                    String warning=jsonObject2.getString("warning");
+                    if(warning.equals("1")){//你暂时还没有关注
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"暂无数据",Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }else {
+                        //JSONArray jsonArray=jsonObject.getJSONArray("GetFollowUserList");
+                        for (int i=0;i<jsonArray.length();i++){
+                            peopleInfo=new PeopleInfo();
+                            JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                            String nickname = jsonObject1.getString("friendNickName");
+                            String image = jsonObject1.getString("friendPhoto");
+                            String userid=jsonObject1.getString("friendId");
+                            peopleInfo.setPeopleImage(image);
+                            peopleInfo.setUserid(userid);
+                            peopleInfo.setPeopleNickName(nickname);
+                            attentionList.add(peopleInfo);
+                        }
+                        attentionActivity.InitList(attentionList);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

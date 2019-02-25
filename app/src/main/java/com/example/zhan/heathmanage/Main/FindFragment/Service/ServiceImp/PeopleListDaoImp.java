@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.Internet.Net;
 import com.example.zhan.heathmanage.Internet.OKHttp;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.AddFriendActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.PersonalActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.PeopleListDao;
 import com.example.zhan.heathmanage.MyApplication;
@@ -26,9 +27,13 @@ public class PeopleListDaoImp implements PeopleListDao {
     AddFriendActivity addFriendActivity;
     PeopleInfo peopleInfo=new PeopleInfo();
     List<PeopleInfo> peopleInfoList;
-
+    PersonalActivity personalActivity;
     public PeopleListDaoImp() {
 
+    }
+
+    public PeopleListDaoImp(PersonalActivity personalActivity) {
+        this.personalActivity = personalActivity;
     }
 
     public PeopleListDaoImp(AddFriendActivity addFriendActivity) {

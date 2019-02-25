@@ -38,6 +38,10 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
     private Context context;
     private int pageIndex = 1;
 
+    public CommentExpandAdapter(Context context) {
+        this.context = context;
+    }
+
     public CommentExpandAdapter(Context context, List<CommentDetailBean> commentBeanList) {
         this.context = context;
         this.commentBeanList = commentBeanList;

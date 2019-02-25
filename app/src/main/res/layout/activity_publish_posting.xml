@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main.FindFragment.Activity.PublishPostingActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/title_ll"
+        android:layout_marginTop="10dp"
+        android:paddingTop="20dp">
+
+        <ImageButton
+            android:id="@+id/publishposting_back_ib"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="新动态"
+            android:textColor="#ea404040"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="48dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:id="@+id/publishposting_bt"
+            android:text="发布"
+            android:background="@drawable/shape_green"
+            android:textColor="#fff"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/title_ll"
+        android:id="@+id/view1"
+        android:background="#b1b1b1">
+    </View>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_below="@+id/view1"
+        android:background="@null"
+        android:id="@+id/publishcontent_et"
+        android:gravity="top"
+        android:hint="来吧，尽情发挥吧" />
+
+    <View
+        android:id="@+id/view_gad"
+        android:layout_width="match_parent"
+        android:background="#b1b1b1"
+        android:layout_height="1px"
+        android:layout_below="@+id/publishcontent_et" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/view_gad"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/publish_image_rl"
+        android:layout_height="100dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/publish_image_iv"
+            android:src="@drawable/selector_image_add"/>
+    </RelativeLayout>
+    <!--<com.example.zhan.heathmanage.Main.FindFragment.View.NoScrollGridView-->
+        <!--android:id="@+id/gridview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/view_gad"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:numColumns="3"-->
+        <!--android:scrollbars="none"-->
+        <!--android:verticalSpacing="6dp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/publish_tv"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@drawable/selector_orange_maincolor"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="13dp"-->
+    <!--android:text="提交"-->
+    <!--android:textSize="14sp" />-->
+    <View
+        android:id="@+id/view_3"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/publish_image_rl"
+        android:layout_alignParentStart="true"
+        android:background="#b1b1b1"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentLeft="true" />
+
+    <LinearLayout
+        android:id="@+id/tool_ll"
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:layout_below="@+id/view_3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true">
+
+        <LinearLayout
+            android:id="@+id/publishloaction_ll"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/publishlocation_iv"
+                android:layout_gravity="center"
+                android:background="@drawable/location" />
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:id="@+id/publishaddress_tv"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:text="所在位置"
+                android:textSize="15dp" />
+
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/right" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#b1b1b1"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="20dp"
+            />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/remind_ll"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="58dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:background="@drawable/aite" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_weight="1"-->
+
+                <!--android:gravity="left|center"-->
+                <!--android:text="提醒谁看"-->
+                <!--android:textSize="15dp" />-->
+            <!--<ImageButton-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:background="@drawable/right" />-->
+        <!--</LinearLayout>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentStart="true"
+            android:background="#b1b1b1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentLeft="true" />
+    </LinearLayout>
+</RelativeLayout>

@@ -2,6 +2,8 @@ package com.example.zhan.heathmanage.Main.FindFragment.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.example.zhan.heathmanage.Main.FindFragment.util.ImageLoaderUtils;
 import com.example.zhan.heathmanage.Main.FindFragment.util.ViewHolderUtil;
 import com.example.zhan.heathmanage.R;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +29,8 @@ public class NinePicturesAdapter extends BaseAblistViewAdapter<String> {
     private boolean isDelete = false;//当前是否显示删除按钮
     private OnClickAddListener onClickAddListener;
     private boolean isAdd=true;//当前是否显示添加按钮
-
-
+    public List<Bitmap> ImageList=new ArrayList<>();
+    File file ;
     public NinePicturesAdapter(Context context, int picturnNum, OnClickAddListener onClickAddListener) {
         super(context);
         this.picturnNum = picturnNum;
@@ -43,6 +47,12 @@ public class NinePicturesAdapter extends BaseAblistViewAdapter<String> {
         final ImageView imageView = ViewHolderUtil.get(convertView, R.id.img_photo);
         ImageView imgDelete = ViewHolderUtil.get(convertView, R.id.img_delete);
         final String url = getData().get(position);
+       // ImageList=new ArrayList<>();
+//            file = new File(url);
+//            if(file.exists()){
+//                Bitmap bm = BitmapFactory.decodeFile(url);
+//                ImageList.add(bm);
+//            }
         //显示图片
         if (TextUtils.isEmpty(url) && showAdd) {
             ImageLoaderUtils.display(mContext, imageView, R.drawable.addpicture);

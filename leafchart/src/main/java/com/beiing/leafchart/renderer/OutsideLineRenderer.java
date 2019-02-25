@@ -368,7 +368,7 @@ public class OutsideLineRenderer extends AbsRenderer {
                         //drawText  标签里的文字的颜色
                         labelPaint.setColor(Color.GRAY);
                         if(i==0){
-                            float xCoordinate = left + (right - left - textW) / 2 + moveX-25;
+                            float xCoordinate = left + (right - left - textW) / 2 + moveX-18;
                             float yCoordinate = bottom - (bottom - top - textH) / 2;
                             canvas.drawText(point.getLabel(), xCoordinate, yCoordinate, labelPaint);
 

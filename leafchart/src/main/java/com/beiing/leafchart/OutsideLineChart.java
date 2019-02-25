@@ -177,7 +177,7 @@ public class OutsideLineChart extends AbsLeafChart {
                 if(i == 0){
                     axisValue.setPointX(leftPadding + startMarginX);
                 } else {
-                    axisValue.setPointX(leftPadding + startMarginX + xStep * i);
+                    axisValue.setPointX(leftPadding + startMarginX + xStep * i*2);
                 }
             }
             switch (coordinateMode){

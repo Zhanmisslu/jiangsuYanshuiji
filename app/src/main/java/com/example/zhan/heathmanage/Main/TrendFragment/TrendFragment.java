@@ -28,6 +28,7 @@ import com.necer.entity.NDate;
 import com.necer.listener.OnCalendarChangedListener;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -100,7 +101,16 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
     int flag = 0;
     int dayflag = 0;
     int fragmentflag = -1;
+    public static String StartDay;
+    public static String EndDay;
+    public static String StartDay1;
+    public static String EndDay1;
     public static String nDate;
+    public static String Month;
+    public static String Month1;
+    public static String Day;
+    int monthflag=-1;//月的标识
+    int weekflag=-1;//周的标识
     private final String[] weeks = {"周一", "周二", "周三", "周四", "周五", "周六", "周日",};
 
     @Override
@@ -126,14 +136,17 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
             }
         });
         nDate=simpleDateFormat.format(date1);
+
         miui10Calendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date) {
+                Month1=month_tv.getText().toString().replace("月","");
 
                 year_tv.setText(date.localDate.getYear() + "年");
                 month_tv.setText(date.localDate.getMonthOfYear() + "月");
                 week_tv.setText(weeks[date.localDate.getDayOfWeek() - 1]);
                 nDate = date.localDate.toString();
+                Month= String.valueOf(date.localDate.getMonthOfYear());
 
                 if (simpleDateFormat.format(date1).equals(date.localDate.toString())) {
                     back_today_ib.setVisibility(View.GONE);
@@ -143,8 +156,24 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                 //monthFragment.judgeTime();
 
                 //monthFragment.initHeartRate();
-                Toast.makeText(getActivity(), "你选中的是：" + date.localDate.toString(), Toast.LENGTH_SHORT).show();
+                StartDay1=StartDay;
+                EndDay1=EndDay;
+                StartDay=getWeekStartTime(stringtoCalendar(nDate));
+                EndDay=getWeekEndTime(stringtoCalendar(nDate));
+                if(StartDay.equals(StartDay1)){
+                    weekflag=0;
+                }else {
+                    weekflag=1;
+                }
+
+                //Toast.makeText(getActivity(), "你选中的是：" + date.localDate.toString(), Toast.LENGTH_SHORT).show();
+                if(Month1.equals(Month)){
+                    monthflag=0;//一样的月份不需要重画
+                }else {
+                    monthflag=1;//不一样的月份
+                }
                 InitData();
+
             }
 
             @Override
@@ -155,10 +184,11 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
         inListener();
         setSelect(0);
         getActivity().dispatchTouchEvent(ev);
-        String starttime=getWeekStartTime();
-        String endtime=getWeekEndTime();
-        Log.v("starttime=",starttime);
-        Log.v("endtime=",endtime);
+//        String a=Month;
+//        String starttime=getWeekStartTime();
+//        String endtime=getWeekEndTime();
+//        Log.v("starttime=",starttime);
+//        Log.v("endtime=",endtime);
 
         return view;
     }
@@ -206,14 +236,14 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
             fragmentTransaction.replace(R.id.fragment_trend_fl, dayFragment);
             fragmentTransaction.commitAllowingStateLoss();
         }
-        if (fragmentflag == 1) {
+        if (fragmentflag == 1&&weekflag==1) {
             weekFragment = new WeekFragment();
             fragmentManager = getFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();//开启一系列对fragment的操作
             fragmentTransaction.replace(R.id.fragment_trend_fl, weekFragment);
             fragmentTransaction.commitAllowingStateLoss();
         }
-        if (fragmentflag == 2) {
+        if (fragmentflag == 2 && monthflag==1) {
             monthFragment = new MonthFragment();
             fragmentManager = getFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
@@ -323,29 +353,52 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
         trend_weekview_tv.setTextColor(Color.parseColor("#898989"));
         trend_monthview_tv.setTextColor(Color.parseColor("#898989"));
     }
+    public static Calendar dataToCalendar(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    public static Calendar stringtoCalendar(String Date){
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = null;
+        try {
+            date = sdf.parse(Date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+        return calendar;
+    }
+
 
     /**
      * start
      * 本周开始时间戳
      */
-    public static String getWeekStartTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd", Locale.getDefault());
-        Calendar cal = Calendar.getInstance();
+    public static String getWeekStartTime(Calendar calendar) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd");
+       // Calendar cal = calendar.getInstance();
         // 获取星期日开始时间戳
-        cal.set(Calendar. DAY_OF_WEEK, Calendar.SUNDAY);
-        return simpleDateFormat.format(cal.getTime());
+        calendar.set(calendar. DAY_OF_WEEK, calendar.SUNDAY);
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     /**
      * end
      * 本周结束时间戳
      */
-    public static String getWeekEndTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd", Locale.getDefault());
-        Calendar cal = Calendar.getInstance();
+    public static String getWeekEndTime(Calendar calendar) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd");
+
+        //Calendar cal = calendar.getInstance();
         // 获取星期六结束时间戳
-        cal.set(Calendar. DAY_OF_WEEK, Calendar.SATURDAY );
-        return simpleDateFormat.format(cal.getTime());
+        calendar.set(calendar. DAY_OF_WEEK, calendar.SATURDAY );
+        return simpleDateFormat.format(calendar.getTime());
     }
 
 }

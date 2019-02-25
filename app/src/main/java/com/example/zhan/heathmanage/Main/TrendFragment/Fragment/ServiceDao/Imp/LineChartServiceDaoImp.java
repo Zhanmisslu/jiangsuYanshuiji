@@ -1,24 +1,51 @@
 package com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp;
 
 import android.graphics.Color;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.beiing.leafchart.bean.Axis;
 import com.beiing.leafchart.bean.AxisValue;
 import com.beiing.leafchart.bean.Line;
 import com.beiing.leafchart.bean.PointValue;
+import com.example.zhan.heathmanage.Internet.Net;
+import com.example.zhan.heathmanage.Internet.OKHttp;
+import com.example.zhan.heathmanage.Main.TrendFragment.Bean.MonthInfo;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.WeekFragment;
+import com.example.zhan.heathmanage.MyApplication;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 public class LineChartServiceDaoImp implements LineChartServiceDao {
+    MonthInfo monthInfo;
+    List<MonthInfo> monthInfoList;
+    WeekFragment weekFragment;
+
+    public LineChartServiceDaoImp(WeekFragment weekFragment) {
+        this.weekFragment = weekFragment;
+    }
+
     @Override
-    public Line getHeartRateLine() {
+    public Line getHeartRateLine(List<MonthInfo> monthInfoList) {
+        int length=monthInfoList.size();
+        float a=length;
         List<PointValue> pointValues = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i / 7f);
-            int var = (int) (Math.random() * 100);
+            pointValue.setX( i / (a-1));
+            float var = Float.parseFloat(monthInfoList.get(i).getHeartRate());
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
             pointValue.setShowLabel(false);
@@ -38,12 +65,14 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
     }
 
     @Override
-    public Line getDiastolicBPLine() {
+    public Line getDiastolicBPLine(List<MonthInfo> monthInfoList) {
+        int length=monthInfoList.size();
+        float a=length;
         List<PointValue> pointValues = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i / 7f);
-            int var = (int) (Math.random() * 100);
+            pointValue.setX( i / (a-1));
+            float var = Float.parseFloat(monthInfoList.get(i).getDiastolicBP());
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
             pointValue.setShowLabel(false);
@@ -64,12 +93,14 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
     }
 
     @Override
-    public Line getSystolicBPLine() {
+    public Line getSystolicBPLine(List<MonthInfo> monthInfoList) {
+        int length=monthInfoList.size();
+        float a=length;
         List<PointValue> pointValues = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i  / 7f);
-            int var = (int) (Math.random() * 100);
+            pointValue.setX( i  / (a-1));
+            float var = Float.parseFloat(monthInfoList.get(i).getSystolicBP());
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
             pointValue.setShowLabel(false);
@@ -90,12 +121,14 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
     }
 
     @Override
-    public Line getBloodFatLine() {
+    public Line getBloodFatLine(List<MonthInfo> monthInfoList) {
+        int length=monthInfoList.size();
+        float a=length;
         List<PointValue> pointValues = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i / 7f);
-            int var = (int) (Math.random() * 100);
+            pointValue.setX( i / (a-1));
+            float var = Float.parseFloat(monthInfoList.get(i).getBloodFat());
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
             pointValue.setShowLabel(false);
@@ -115,13 +148,14 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
     }
 
     @Override
-    public Line getBloodOxygenLine() {
-
+    public Line getBloodOxygenLine(List<MonthInfo> monthInfoList) {
+        int length=monthInfoList.size();
+        float a=length;
         List<PointValue> pointValues = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i < length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i  / 7f);
-            int var = (int) (Math.random() * 100);
+            pointValue.setX( i  / (a-1));
+            float var = Float.parseFloat(monthInfoList.get(i).getBloodOxygen());
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);
             pointValue.setShowLabel(false);
@@ -207,5 +241,50 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             axisValues.add(value);
         }
         return axisValues;
+    }
+
+    @Override
+    public void GetWeekData(String UserPhone, String StartDay, String EndDay) {
+        monthInfoList=new ArrayList<>();
+        final String url= Net.GetDataByWeek+"?userPhone="+UserPhone+"&startDay="+StartDay+"&finalDay="+EndDay;
+        Log.v("zjc",url);
+        OKHttp.sendOkhttpGetRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Looper.prepare();
+                Toast.makeText(MyApplication.getContext(),"网络访问失败，请检查网络",Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String ResponseData=response.body().string();
+                Log.v("zjc",url);
+                try {
+                    JSONObject jsonObject=new JSONObject(ResponseData);
+                    JSONArray jsonArray=jsonObject.getJSONArray("GetDataByWeek");
+                    for(int i=0;i<jsonArray.length();i++){
+                        monthInfo=new MonthInfo();
+                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                        String dayDataTime=jsonObject1.getString("dayDataTime");
+                        String dayHeartRate=jsonObject1.getString("dayHeartRate");
+                        String dayDbp=jsonObject1.getString("dayDbp");
+                        String dayBloodOxygen=jsonObject1.getString("dayBloodOxygen");
+                        String dayBloodFat=jsonObject1.getString("dayBloodFat");
+                        String daySbp=jsonObject1.getString("daySbp");
+                        monthInfo.setBloodFat(dayBloodFat);
+                        monthInfo.setBloodOxygen(dayBloodOxygen);
+                        monthInfo.setDate(dayDataTime.substring(5,dayDataTime.length()));
+                        monthInfo.setHeartRate(dayHeartRate);
+                        monthInfo.setDiastolicBP(dayDbp);
+                        monthInfo.setSystolicBP(daySbp);
+                        monthInfoList.add(monthInfo);
+                    }
+                    weekFragment.InitData(monthInfoList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

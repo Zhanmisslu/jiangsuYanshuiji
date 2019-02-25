@@ -8,4 +8,6 @@ public interface AttentionDao {
     public  void Comment(String uesrphone,String postingId,String postingComment);
     public  void Reply(String userId,String CommentId,String replyContent);
     public void getAttentionList(String userId);
+    public void CancelLikePosting(String postingId);
+    public void GetFollowUserList(String userId);
 }
