@@ -433,4 +433,9 @@ public class UserActivity extends BaseActivity {
         }).start();
 
     }
+
+    @OnClick(R.id.user_finish)
+    public void user_finish_OnClick(){
+        finish();
+    }
 }

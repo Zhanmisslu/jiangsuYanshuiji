@@ -20,6 +20,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:id="@+id/user_finish"
                 android:src="@drawable/left"/>
             <TextView
                 android:layout_width="0dp"

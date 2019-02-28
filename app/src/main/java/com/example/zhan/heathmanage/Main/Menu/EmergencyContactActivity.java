@@ -31,6 +31,8 @@ import com.example.zhan.heathmanage.Main.EvaluteFragment.Server.serverImp.Emerge
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -161,7 +163,7 @@ public class EmergencyContactActivity extends BaseActivity {
                 phones.close();
             }
             cursor.close();
-
+            
             emergency_user_et.setText(name);
             emergency_phone_et.setText(phoneNumber);
 
@@ -230,5 +232,9 @@ public class EmergencyContactActivity extends BaseActivity {
         });
     }
 
+    @OnClick(R.id.contact_finsh)
+    public void contact_finsh_OnClick(){
+        finish();
+    }
 
 }
