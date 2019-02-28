@@ -96,6 +96,7 @@ public class InvitationInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_info);
         attentionDao = new AttentionDaoImp(this);
+    //    commentExpandAdapter=new CommentExpandAdapter(this);
         // getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);        setContentView(R.layout.activity_invitation_info);
         nickname = getIntent().getStringExtra("nickname");
         image = getIntent().getStringExtra("userimage");
@@ -305,6 +306,7 @@ public class InvitationInfoActivity extends BaseActivity {
      * func:弹出评论框
      */
     private void showCommentDialog() {
+
         dialog = new BottomSheetDialog(this, R.style.BottomSheetEdit);
         View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout, null);
         final EditText commentText = (EditText) commentView.findViewById(R.id.dialog_comment_et);
@@ -313,7 +315,7 @@ public class InvitationInfoActivity extends BaseActivity {
         /**
          * 解决bsd显示不全的情况
          */
-
+        //commentExpandAdapter = new CommentExpandAdapter(this);
         View parent = (View) commentView.getParent();
         BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
         commentView.measure(0, 0);

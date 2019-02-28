@@ -62,16 +62,21 @@ public class AttentionAdapter extends RecyclerView.Adapter<AttentionAdapter.Atte
         attentionViewHolder.attentionitem_commentnum_tv.setText(AttentionList.get(i).getCommentNum());
         attentionViewHolder.attentionitem_content_tv.setText(AttentionList.get(i).getContent());
         attentionViewHolder.attentionitem_supportnum_tv.setText(AttentionList.get(i).getSupportNum());
+        attentionViewHolder.attentionitem_commentnum_tv.setText(AttentionList.get(i).getCommentNum());
         Glide.with(getContext())
                 .load(AttentionList.get(i).getImage())
                 .asBitmap()
                 .error(R.drawable.welcome)
                 .into(attentionViewHolder.attentionitem_image_riv);
-        Glide.with(getContext())
-                .load(AttentionList.get(i).getPciture())
-                .asBitmap()
-                .error(R.drawable.welcome)
-                .into(attentionViewHolder.attentionitem_picture1_iv);
+        if(AttentionList.get(i).getPciture()==null){
+            attentionViewHolder.attentionitem_picture1_iv.setVisibility(View.GONE);
+        }else {
+            Glide.with(getContext())
+                    .load(AttentionList.get(i).getPciture())
+                    .asBitmap()
+                    .error(R.drawable.welcome)
+                    .into(attentionViewHolder.attentionitem_picture1_iv);
+        }
         attentionViewHolder.attentionitem_time_tv.setText(AttentionList.get(i).getTime());
         attentionViewHolder.attentionitem_commentnum_ll.setOnClickListener(new View.OnClickListener() {
             @Override

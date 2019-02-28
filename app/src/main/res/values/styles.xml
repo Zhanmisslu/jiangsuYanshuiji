@@ -26,6 +26,13 @@
     <string name="menu_game_text">骚年来盘昆特牌</string>
     <string name="menu_mouse_text">竜が私が敌を喰らう</string>
     <string name="menu_rocket_text">要上天</string>
+    <style name="MenuLabelsStyle">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="MenuButtonsSmall">
         <item name="fab_size">mini</item>
         <item name="fab_colorNormal">#1565C0</item>
@@ -33,6 +40,8 @@
         <item name="fab_colorRipple">#62B2FF</item>
     </style>
     <style name="MenuButtonsSmall.Green">
+        <item name="android:textColor">#000000</item>
+        <item name="fab_shadowColor">#00000000</item>
         <item name="fab_colorNormal">#43A047</item>
         <item name="fab_colorPressed">#2E7D32</item>
         <item name="fab_colorRipple">#1B5E20</item>
@@ -48,6 +57,10 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+    <style name="fab_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item> //文字背景的样式
+        <item name="android:textColor">@color/black</item> //文字的颜色
     </style>
 
 </resources>

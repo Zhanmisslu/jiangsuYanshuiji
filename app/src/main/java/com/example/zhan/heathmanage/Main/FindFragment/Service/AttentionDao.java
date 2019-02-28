@@ -10,4 +10,5 @@ public interface AttentionDao {
     public void getAttentionList(String userId);
     public void CancelLikePosting(String postingId);
     public void GetFollowUserList(String userId);
+    public void GetFollowedUserList(String userId);
 }

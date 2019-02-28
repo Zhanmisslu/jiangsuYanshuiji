@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Adapter.NinePicturesAdapter;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.DynamicDao;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.DynamicDaoImp;
 import com.example.zhan.heathmanage.Main.FindFragment.View.NoScrollGridView;
 import com.example.zhan.heathmanage.Main.FindFragment.util.ImageLoaderUtils;
 import com.example.zhan.heathmanage.R;
@@ -53,10 +55,12 @@ public class DynamicActivity extends BaseActivity {
     public static String textData="不显示位置";
     List<Bitmap> imageList;
     File file ;
+    DynamicDao dynamicDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic);
+       // dynamicDao=new DynamicDaoImp(this);
         initView();
     }
     private void initView() {
@@ -179,4 +183,6 @@ public class DynamicActivity extends BaseActivity {
 
     }
 
+    public void callback() {
+    }
 }

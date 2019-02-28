@@ -7,7 +7,9 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.Internet.Net;
 import com.example.zhan.heathmanage.Internet.OKHttp;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.AttentionActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.FanListActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.InvitationInfoActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Adapter.FanListAdapter;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.AttentionInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.CommentDetailBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.HotInfo;
@@ -42,11 +44,19 @@ public class AttentionDaoImp implements AttentionDao {
     AttentionActivity attentionActivity;
     List<PeopleInfo> attentionList;//关注的好友列表
     PeopleInfo peopleInfo;
+    List<PeopleInfo> fanList;//粉丝列表
+    FanListActivity fanListActivity;
+
+    public AttentionDaoImp(FanListActivity fanListActivity) {
+        this.fanListActivity = fanListActivity;
+    }
 
     public AttentionDaoImp(AttentionActivity attentionActivity) {
         this.attentionActivity = attentionActivity;
     }
+    public AttentionDaoImp() {
 
+    }
     public AttentionDaoImp(List<AttentionInfo> attentionList, AttentionFragment attentionFragment) {
         AttentionList = attentionList;
         this.attentionFragment = attentionFragment;
@@ -106,6 +116,11 @@ public class AttentionDaoImp implements AttentionDao {
     }
 
     @Override
+    public void getCommnetList(String postingId) {
+
+    }
+
+    @Override
     public void getReplyList(String commentId) {
         replyDetailBeanList=new ArrayList<>();
         String url=Net.GetReplyList+"?commentId="+commentId;
@@ -157,59 +172,59 @@ public class AttentionDaoImp implements AttentionDao {
         });
     }
 
-    @Override
-    public void getCommnetList(String postingId) {
-        String url=Net.GetCommentList+"?postingId="+postingId;
-        commentDetailBeanList=new ArrayList<>();
-        OKHttp.sendOkhttpGetRequest(url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Looper.prepare();
-                Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String ResponseData=response.body().string();
-                try {
-                    JSONObject jsonObject=new JSONObject(ResponseData);
-                    JSONArray jsonArray = jsonObject.getJSONArray("ShowPostingComment");
-                    JSONObject jsonObject2 = jsonArray.getJSONObject(0);
-                    //JSONObject jsonObject2=jsonObject.getJSONObject("ShowPostingComment");
-                    String warning=jsonObject2.getString("warning");
-                    if(warning.equals("1")){//没有评论
-                        Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"暂无评论",Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }else {
-                       // JSONArray jsonArray = jsonObject.getJSONArray("GetFollowUserList");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            commentDetailBean=new CommentDetailBean();
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            String postingCommentContent=jsonObject1.getString("postingCommentContent");
-                            String userPhoto=jsonObject1.getString("userPhoto");
-                            String postingCommentTime=jsonObject1.getString("postingCommentTime");
-                            String userNickName=jsonObject1.getString("userNickName");
-                            String postingcommnetId=jsonObject1.getString("postingCommentId");
-                            commentDetailBean.setId(postingcommnetId);
-                            commentDetailBean.setContent(postingCommentContent);
-                            commentDetailBean.setNickName(userNickName);
-                            commentDetailBean.setUserLogo(userPhoto);
-                            commentDetailBean.setCreateDate(postingCommentTime);
-                            commentDetailBean.setReplyList(replyDetailBeanList);
-                            commentDetailBeanList.add(commentDetailBean);
-                        }
-                        invitationInfoActivity.initExpandableListView(commentDetailBeanList);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    @Override
+//    public void getCommnetList(String postingId) {
+//        String url=Net.GetCommentList+"?postingId="+postingId;
+//        commentDetailBeanList=new ArrayList<>();
+//        OKHttp.sendOkhttpGetRequest(url, new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Looper.prepare();
+//                Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
+//                Looper.loop();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                String ResponseData=response.body().string();
+//                try {
+//                    JSONObject jsonObject=new JSONObject(ResponseData);
+//                    JSONArray jsonArray = jsonObject.getJSONArray("ShowPostingComment");
+//                    JSONObject jsonObject2 = jsonArray.getJSONObject(0);
+//                    //JSONObject jsonObject2=jsonObject.getJSONObject("ShowPostingComment");
+//                    String warning=jsonObject2.getString("warning");
+//                    if(warning.equals("1")){//没有评论
+//                        Looper.prepare();
+//                        Toast.makeText(MyApplication.getContext(),"暂无评论",Toast.LENGTH_SHORT).show();
+//                        Looper.loop();
+//                    }else {
+//                       // JSONArray jsonArray = jsonObject.getJSONArray("GetFollowUserList");
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            commentDetailBean=new CommentDetailBean();
+//                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//                            String postingCommentContent=jsonObject1.getString("postingCommentContent");
+//                            String userPhoto=jsonObject1.getString("userPhoto");
+//                            String postingCommentTime=jsonObject1.getString("postingCommentTime");
+//                            String userNickName=jsonObject1.getString("userNickName");
+//                            String postingcommnetId=jsonObject1.getString("postingCommentId");
+//                            commentDetailBean.setId(postingcommnetId);
+//                            commentDetailBean.setContent(postingCommentContent);
+//                            commentDetailBean.setNickName(userNickName);
+//                            commentDetailBean.setUserLogo(userPhoto);
+//                            commentDetailBean.setCreateDate(postingCommentTime);
+//                            commentDetailBean.setReplyList(replyDetailBeanList);
+//                            commentDetailBeanList.add(commentDetailBean);
+//                        }
+//                        invitationInfoActivity.initExpandableListView(commentDetailBeanList);
+//                    }
+//
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
     @Override
     public void getAllCommnetList(String postingId) {
         String url=Net.GetAllCommentList+"?postingId="+postingId;
@@ -238,6 +253,7 @@ public class AttentionDaoImp implements AttentionDao {
                     if(warning.equals("1")){//没有评论
                         Looper.prepare();
                         Toast.makeText(MyApplication.getContext(),"暂无评论",Toast.LENGTH_SHORT).show();
+                        invitationInfoActivity.initExpandableListView(commentDetailBeanList);
                         Looper.loop();
                     }else {
                         for (int i=0;i<jsonArray3.length();i++){
@@ -396,12 +412,14 @@ public class AttentionDaoImp implements AttentionDao {
                            // String picture=jsonObject1.getString("postingImg");
                             String time=jsonObject1.getString("postingTime");
                             String userId=jsonObject1.getString("userId");
+                            String commentNum=jsonObject1.getString("commentNum");
                             attentionInfo.setUserId(userId);
                             attentionInfo.setTime(time);
                             attentionInfo.setPostingId(postingId);
                             attentionInfo.setImage(image);
                             attentionInfo.setNickName(nickname);
                             attentionInfo.setSupportNum(supportNum);
+                            attentionInfo.setCommentNum(commentNum);
                            // attentionInfo.setPciture(picture);
                             attentionInfo.setContent(content);
                             attentionInfoList.add(attentionInfo);
@@ -475,6 +493,7 @@ public class AttentionDaoImp implements AttentionDao {
                     if(warning.equals("1")){//你暂时还没有关注
                         Looper.prepare();
                         Toast.makeText(MyApplication.getContext(),"暂无数据",Toast.LENGTH_SHORT).show();
+                        attentionActivity.noData(attentionList);
                         Looper.loop();
                     }else {
                         //JSONArray jsonArray=jsonObject.getJSONArray("GetFollowUserList");
@@ -490,6 +509,54 @@ public class AttentionDaoImp implements AttentionDao {
                             attentionList.add(peopleInfo);
                         }
                         attentionActivity.InitList(attentionList);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void GetFollowedUserList(String userId) {
+        String url=Net.GetFollowedUserList+"?userId="+userId;
+        fanList=new ArrayList<>();
+        OKHttp.sendOkhttpGetRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Looper.prepare();
+                Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String ResponseData=response.body().string();
+                try {
+                    JSONObject jsonObject=new JSONObject(ResponseData);
+                    JSONArray jsonArray=jsonObject.getJSONArray("GetFollowedUserList");
+                    JSONObject jsonObject2=jsonArray.getJSONObject(0);
+                    String warning=jsonObject2.getString("warning");
+                    if(warning.equals("1")){//你暂时还没有关注
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"暂无数据",Toast.LENGTH_SHORT).show();
+                        fanListActivity.noData(fanList);
+                        Looper.loop();
+                    }else {
+                        //JSONArray jsonArray=jsonObject.getJSONArray("GetFollowUserList");
+                        for (int i=0;i<jsonArray.length();i++){
+                            peopleInfo=new PeopleInfo();
+                            JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                            String nickname = jsonObject1.getString("fansNickName");
+                            String image = jsonObject1.getString("fansPhoto");
+                            String userid=jsonObject1.getString("fansId");
+                            peopleInfo.setPeopleImage(image);
+                            peopleInfo.setUserid(userid);
+                            peopleInfo.setPeopleNickName(nickname);
+                            fanList.add(peopleInfo);
+                        }
+                        fanListActivity.InitFanList(fanList);
                     }
 
                 } catch (JSONException e) {

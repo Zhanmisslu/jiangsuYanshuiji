@@ -47,8 +47,8 @@ public class PeopleListDaoImp implements PeopleListDao {
 
     //可能认识的人的列表
     @Override
-    public void getPeopleList(String userid) {
-        String url= Net.GetPeopleList+"?userId="+userid;
+    public void getPeopleList() {
+        String url= Net.GetPeopleList;
         peopleInfoList=new ArrayList<>();
         OKHttp.sendOkhttpGetRequest(url, new Callback() {
             @Override
@@ -63,28 +63,28 @@ public class PeopleListDaoImp implements PeopleListDao {
                 String ResponseData=response.body().string();
                 try {
                     JSONObject jsonObject=new JSONObject(ResponseData);
-                    JSONArray jsonArray=jsonObject.getJSONArray("GetFollowUserList");
-                    JSONObject jsonObject2=jsonArray.getJSONObject(0);
-                    String warning=jsonObject2.getString("warning");
-                    if(warning.equals("1")){//你暂时还没有关注
-                        Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"暂无数据",Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }else {
+                    JSONArray jsonArray=jsonObject.getJSONArray("ShowActiveUser");
+                //    JSONObject jsonObject2=jsonArray.getJSONObject(0);
+//                    String warning=jsonObject2.getString("warning");
+//                    if(warning.equals("1")){//你暂时还没有关注
+//                        Looper.prepare();
+//                        Toast.makeText(MyApplication.getContext(),"暂无数据",Toast.LENGTH_SHORT).show();
+//                        Looper.loop();
+//                    }else {
                         //JSONArray jsonArray=jsonObject.getJSONArray("GetFollowUserList");
                         for (int i=0;i<jsonArray.length();i++){
                             peopleInfo=new PeopleInfo();
                             JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                            String nickname = jsonObject1.getString("friendNickName");
-                            String image = jsonObject1.getString("friendPhoto");
-                            String userid=jsonObject1.getString("friendId");
+                            String nickname = jsonObject1.getString("userNickName");
+                            String image = jsonObject1.getString("userPhoto");
+                            String userid=jsonObject1.getString("userId");
                             peopleInfo.setPeopleImage(image);
                             peopleInfo.setUserid(userid);
                             peopleInfo.setPeopleNickName(nickname);
                             peopleInfoList.add(peopleInfo);
                         }
                         addFriendActivity.InitPeopleList(peopleInfoList);
-                    }
+                   // }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -50,7 +50,8 @@ public class AttentionFragment extends Fragment {
         ButterKnife.bind(this, view);
         attentionDao = new AttentionDaoImp(this);
         fragment_attention_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        attentionDao.getAttentionList(MyApplication.getUserId());
+
+       // attentionDao.getAttentionList(MyApplication.getUserId());
         fragment_attention_srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -66,9 +67,8 @@ public class AttentionFragment extends Fragment {
 
     @Override
     public void onResume() {
-
         super.onResume();
-        //attentionDao.getAttentionList(MyApplication.getUserId());
+        attentionDao.getAttentionList(MyApplication.getUserId());
     }
 
     public void InitAttentionList(List<AttentionInfo> attentionInfoList) {

@@ -15,9 +15,12 @@ import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.InvitationInfoActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.HotInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.HotFragment;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.AttentionDao;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.AttentionDaoImp;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,8 @@ import static com.example.zhan.heathmanage.MyApplication.getContext;
 
 public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListViewHolder> {
     HotFragment hotFragment;
-
+    AttentionDao attentionDao;
+    String num;
     public HotListAdapter(HotFragment hotFragment) {
         this.hotFragment = hotFragment;
     }
@@ -50,11 +54,12 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
     public HotListAdapter.HotListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.fragment_hot_item, viewGroup, false);
+        attentionDao=new AttentionDaoImp();
         return new HotListAdapter.HotListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotListAdapter.HotListViewHolder hotListViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final HotListAdapter.HotListViewHolder hotListViewHolder, final int i) {
         hotListViewHolder.contenttitle_tv.setText(HotList.get(i).getContent());
         hotListViewHolder.nickname_tv.setText(HotList.get(i).getNickName());
         hotListViewHolder.supportNum_tv.setText(HotList.get(i).getSupportNum());
@@ -81,6 +86,20 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
                 intent.putExtra("postingId",HotList.get(i).getPostingId());
                 intent.putExtra("userId",HotList.get(i).getUserId());
                 hotFragment.startActivity(intent);
+            }
+        });
+        hotListViewHolder.support_sb.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(View view, boolean checked) {
+                if (checked == true) {// 已经点赞
+                    attentionDao.Support(HotList.get(i).getPostingId());
+                    num = String.valueOf((Integer.valueOf(HotList.get(i).getSupportNum()) + 1));
+                    hotListViewHolder.supportNum_tv.setText(num);
+                } else {
+                    attentionDao.CancelLikePosting(HotList.get(i).getPostingId());
+                    num = String.valueOf((Integer.valueOf(HotList.get(i).getSupportNum())));
+                    hotListViewHolder.supportNum_tv.setText(num);
+                }
             }
         });
         if (i % 2==0) {
@@ -111,6 +130,8 @@ public class HotListAdapter extends RecyclerView.Adapter<HotListAdapter.HotListV
         @BindView(R.id.nickname_tv)TextView nickname_tv;
         @BindView(R.id.supportNum_tv)TextView supportNum_tv;
         @BindView(R.id.content_cv)CardView content_cv;
+        @BindView(R.id.support_sb)ShineButton support_sb;
+
         public HotListViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

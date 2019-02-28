@@ -68,7 +68,7 @@ public class LocationListActivity extends BaseActivity implements AMapLocationLi
         mLocateRecycler.setAdapter(mAdapter);
         //mAdapter.setLocationItemClick(this);
         String a=sHA1(getApplicationContext());
-        Log.v("zjc",a);
+        //Log.v("zjc",a);
     }
     private void initLocate() {
         //声明mLocationOption对象
@@ -112,7 +112,7 @@ public class LocationListActivity extends BaseActivity implements AMapLocationLi
                 double latitude = amapLocation.getLatitude();//获取纬度
                 double longitude = amapLocation.getLongitude();//获取经度
                 amapLocation.getAccuracy();//获取精度信息
-                Log.d("haha", amapLocation.getAddress());
+                //Log.d("haha", amapLocation.getAddress());
                 LocationInfo locationInfo = new LocationInfo();
                 locationInfo.setAddress(amapLocation.getAddress());
                 locationInfo.setLatitude(latitude);
@@ -157,7 +157,7 @@ public class LocationListActivity extends BaseActivity implements AMapLocationLi
             info.setLatitude(point.getLatitude());
             info.setLonTitude(point.getLongitude());
             mList.add(info);
-            Log.d("haha", "poi" + snippet);
+            //Log.d("haha", "poi" + snippet);
 
         }
 

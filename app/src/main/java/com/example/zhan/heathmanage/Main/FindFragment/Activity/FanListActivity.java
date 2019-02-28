@@ -7,13 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
-import com.example.zhan.heathmanage.Main.FindFragment.Adapter.AttentionAdapter;
 import com.example.zhan.heathmanage.Main.FindFragment.Adapter.AttentionListAdapter;
-import com.example.zhan.heathmanage.Main.FindFragment.Adapter.PeopleListAdapter;
+import com.example.zhan.heathmanage.Main.FindFragment.Adapter.FanListAdapter;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.AttentionDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.AttentionDaoImp;
-import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 
 import java.util.List;
@@ -21,44 +19,46 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AttentionActivity extends BaseActivity {
-    @BindView(R.id.attention_num_tv)TextView attention_num_tv;
-    @BindView(R.id.attention_rv)RecyclerView attention_rv;
-    AttentionListAdapter attentionListAdapter;
+public class FanListActivity extends BaseActivity {
+    @BindView(R.id.fanlist_num_tv)TextView fanlist_num_tv;
+    @BindView(R.id.fanlist_rv)RecyclerView fanlist_rv;
+    FanListAdapter fanListAdapter;
     AttentionDao attentionDao;
     String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attention);
+        setContentView(R.layout.activity_fan_list);
         userId=getIntent().getStringExtra("userId");
         attentionDao=new AttentionDaoImp(this);
-        attentionDao.GetFollowUserList(userId);
+        attentionDao.GetFollowedUserList(userId);
     }
-    @OnClick(R.id.attention_back_ib)
-    public void attention_back_ib_Onlick(){
+    @OnClick(R.id.fanlist_back_ib)
+    public void fanlist_back_ib_Onclick(){
         finish();
     }
 
-    public void InitList(final List<PeopleInfo> attentionList) {
-        attentionListAdapter=new AttentionListAdapter(this,attentionList,this);
+    public void InitFanList(final List<PeopleInfo> fanList) {
+        fanListAdapter=new FanListAdapter(this,fanList,this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                attention_num_tv.setText(attentionList.size()+"个关注");
-                attention_rv.setLayoutManager(layoutManager);
-                attention_rv.setAdapter(attentionListAdapter);
+                fanlist_num_tv.setText(fanList.size()+"个粉丝");
+                fanlist_rv.setLayoutManager(layoutManager);
+                fanlist_rv.setAdapter(fanListAdapter);
             }
         });
     }
 
-    public void noData(final List<PeopleInfo> attentionList) {
+    public void noData(final List<PeopleInfo> fanList) {
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                attention_num_tv.setText(attentionList.size()+"个关注");
+                fanlist_num_tv.setText(fanList.size()+"个粉丝");
             }
         });
     }

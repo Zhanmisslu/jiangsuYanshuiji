@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.example.zhan.heathmanage.Main.FindFragment.Activity.SearchActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.AttentionFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.DryCargoFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.HotFragment;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.DayFragment;
 import com.example.zhan.heathmanage.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -54,13 +56,16 @@ public class FindFragment extends Fragment {
     @BindView(R.id.fragment_find_titlebar)CaterpillarIndicator fragment_find_titlebar;
     @BindView(R.id.fragment_find_search_et)EditText fragment_find_search_et;
     private List<Fragment> fragmentList = new ArrayList<>();
-    @BindView(R.id.fragment_find_FAM)FloatingActionMenu fragment_find_FAM;
+     @BindView(R.id.fragment_find_FAM)
+     FloatingActionMenu fragment_find_FAM;
     private List<FloatingActionMenu> menus = new ArrayList<>();
     @BindView(R.id.dynamic_FAB)FloatingActionButton dynamic_FAB;
     @BindView(R.id.report_FAB)FloatingActionButton report_FAB;
     //@BindView(R.id.fab3)FloatingActionButton fab3;
     private Handler mUiHandler = new Handler();
-    List<CaterpillarIndicator.TitleInfo> titleList;
+    private FragmentManager fragmentManager;//FragmentManager 是一个抽象类，它定义了对一个 Activity/Fragment 中 添加进来的 Fragment 列表、Fragment 回退栈的操作、管理
+    private FragmentTransaction fragmentTransaction;
+    public static List<CaterpillarIndicator.TitleInfo> titleList;
     public FindFragment() {
         // Required empty public constructor
     }
@@ -138,10 +143,18 @@ public class FindFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //fragment_find_titlebar.init(0,titleList,fragment_find_viewpage);
+        if (requestCode==101){
+            if(data.getIntExtra("flag",0)==1) {
+                // fragment_find_FAM.hideMenu(true);
+                fragment_find_titlebar.init(0, titleList, fragment_find_viewpage);
+            }
+
+        }
     }
 
     public void InitFloatIngActionButton(){
         fragment_find_FAM.hideMenuButton(false);
+
 //        final FloatingActionButton programFab1 = new FloatingActionButton(getActivity());
 //        programFab1.setButtonSize(FloatingActionButton.SIZE_MINI);
 //        programFab1.setLabelText(getString(R.string.lorem_ipsum));
@@ -202,7 +215,9 @@ public class FindFragment extends Fragment {
                                     if (aBoolean) {
                                         //当所有权限都允许之后，返回true
                                         Intent intent=new Intent(getActivity(),PublishPostingActivity.class);
-                                        startActivity(intent);
+                                        fragment_find_FAM.close(true);
+                                        intent.putExtra("flag",1);
+                                        startActivityForResult(intent,101);
                                     } else {
                                         //只要有一个权限禁止，返回false，
                                         //下一次申请只申请没通过申请的权限
@@ -222,6 +237,7 @@ public class FindFragment extends Fragment {
                                     if (aBoolean) {
                                         //当所有权限都允许之后，返回true
                                         Intent intent=new Intent(getActivity(),ReportActivity.class);
+                                        fragment_find_FAM.close(true);
                                         startActivity(intent);
                                     } else {
                                         //只要有一个权限禁止，返回false，
@@ -235,4 +251,5 @@ public class FindFragment extends Fragment {
             }
         }
     };
+
 }

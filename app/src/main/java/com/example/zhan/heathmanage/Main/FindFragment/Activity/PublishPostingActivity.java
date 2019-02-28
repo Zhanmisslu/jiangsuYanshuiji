@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -31,12 +32,14 @@ import com.anlia.photofactory.factory.PhotoFactory;
 import com.anlia.photofactory.permission.PermissionAlwaysDenied;
 import com.anlia.photofactory.result.ResultData;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.DynamicDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.DynamicDaoImp;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.zyao89.view.zloading.ZLoadingDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
@@ -47,6 +50,8 @@ import butterknife.OnClick;
 import rx.functions.Action1;
 
 import static com.anlia.photofactory.factory.PhotoFactory.ERROR_CROP_DATA;
+import static com.zyao89.view.zloading.Z_TYPE.DOUBLE_CIRCLE;
+import static com.zyao89.view.zloading.Z_TYPE.ELASTIC_BALL;
 
 public class PublishPostingActivity extends BaseActivity {
     @BindView(R.id.publishposting_bt)
@@ -64,20 +69,40 @@ public class PublishPostingActivity extends BaseActivity {
     private static String picName;
     public static String textData="不显示位置";
     DynamicDao dynamicDao;
+    ZLoadingDialog dialog;
+    static int fflag=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_posting);
         picName = Calendar.getInstance().getTimeInMillis() + ".png";
-        dynamicDao=new DynamicDaoImp();
+        dialog=new ZLoadingDialog(this);
+        dynamicDao=new DynamicDaoImp(this);
+        //fflag=getIntent().getIntExtra("flag",0);
     }
     @OnClick(R.id.publishposting_back_ib)
     public void publishposting_back_ib_Onclick(){
+        Intent intent=new Intent();
+        intent.putExtra("flag",2);
+        setResult(101,intent);
         finish();
+
     }
     @OnClick(R.id.publishposting_bt)
     public void publishposting_bt(){
+        Init();
+        dynamicDao.PublishPosting(MyApplication.getUserPhone(),UserImage,publishcontent_et.getText().toString(),publishaddress_tv.getText().toString());
+    }
+    public void Init(){
+        dialog.setLoadingBuilder(ELASTIC_BALL)
+                .setLoadingColor(Color.parseColor("#ff5305"))
+                .setHintText("正在加载中...")
+//                                .setHintTextSize(16) // 设置字体大小
+                .setHintTextColor(Color.GRAY)  // 设置字体颜色
+//                                .setDurationTime(0.5) // 设置动画时间百分比
 
+                .setDialogBackgroundColor(Color.parseColor("#cc111111")) // 设置背景色
+                .show();
     }
     @SuppressLint("ResourceAsColor")
     @Override
@@ -294,4 +319,23 @@ public class PublishPostingActivity extends BaseActivity {
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
+    public void callback() {
+        dialog.dismiss();
+        //FindFragment.fragment_find_FAM.hideMenu(true);
+        Intent intent=new Intent();
+        intent.putExtra("flag",1);
+        setResult(101,intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent();
+        intent.putExtra("flag",2);
+        setResult(101,intent);
+        //finish();
+        super.onBackPressed();
+
+
+    }
 }
