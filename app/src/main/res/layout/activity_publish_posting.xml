@@ -72,8 +72,8 @@
         android:id="@+id/publish_image_rl"
         android:layout_height="100dp">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:id="@+id/publish_image_iv"
             android:src="@drawable/selector_image_add"/>
     </RelativeLayout>

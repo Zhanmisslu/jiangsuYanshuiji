@@ -29,7 +29,7 @@ public class AddFriendActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
         peopleListDao=new PeopleListDaoImp(this);
-        peopleListDao.getPeopleList(MyApplication.getUserId());
+        peopleListDao.getPeopleList();
 
     }
     public void InitPeopleList(final List<PeopleInfo> peopleInfoList){

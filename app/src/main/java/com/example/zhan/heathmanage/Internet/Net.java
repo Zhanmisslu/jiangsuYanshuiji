@@ -12,7 +12,7 @@ public class Net {
     public final static String ShowUserInfo = Head + "ShowUserInfo";//获取用户信息
     public final static String ChangeUserEmergency = Head + "ChangeUserEmergency";//修改紧急联系人
     public final static String GetSuggest = Head + "GetDataByMonth";//月视图数据
-    public final static String GetPeopleList = Head + "GetFollowUserList";//获取可能感兴趣的人
+    public final static String GetPeopleList = Head + "ShowActiveUser";//获取可能感兴趣的人
     public final static String Attention = Head + "FollowUser";//关注按钮
     public final static String RemoveConcern = Head + "DisFollowUser";//取消按钮
     public final static String Search = Head + "ChangeUserEmergency";//搜索框
@@ -30,6 +30,8 @@ public class Net {
     public final static String PublishPosting = Head + "PublishPosting";//发帖
     public final static String CancelLikePosting= Head + "CancelLikePosting";//取消点赞
     public final static String GetFollowUserList= Head + "GetFollowUserList";//获取用户关注的好友列表
+    public final static String GetFollowedUserList= Head + "GetFollowedUserList";//获取用户的粉丝列表
+
 
 
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="61dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/fanlist_item_riv"
+        app:riv_oval="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/head"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/fanlist_item_nickname_tv"
+        android:text="准备啦啦啦"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="left|center"/>
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:id="@+id/fanlist_item_attention_bt"
+        android:background="@drawable/shape_attention"
+        android:text="关注"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+
+        android:textColor="#00890b"/>
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:id="@+id/fanlist_item_haveattention_bt"
+        android:background="@drawable/shape"
+        android:text="已关注"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
+        android:textColor="#c9c9c9"/>
+
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#dcdcdc"/>
+</LinearLayout>

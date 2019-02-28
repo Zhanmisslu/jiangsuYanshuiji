@@ -78,7 +78,8 @@
         <activity android:name=".Main.FindFragment.Activity.PublishPostingActivity" />
         <activity android:name=".Main.FindFragment.Activity.PublishTextActivity" />
         <activity android:name=".Main.FindFragment.Activity.AttentionActivity" />
-        <activity android:name=".Main.FindFragment.Activity.ImageInfoActivity"></activity>
+        <activity android:name=".Main.FindFragment.Activity.ImageInfoActivity" />
+        <activity android:name=".Main.FindFragment.Activity.FanListActivity"></activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.example.zhan.heathmanage.Main.FindFragment.Activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.DynamicDao;
+import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.DynamicDaoImp;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.zyao89.view.zloading.ZLoadingDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.functions.Action1;
+
+import static com.zyao89.view.zloading.Z_TYPE.DOUBLE_CIRCLE;
+import static com.zyao89.view.zloading.Z_TYPE.MUSIC_PATH;
 
 public class PublishTextActivity extends BaseActivity {
     @BindView(R.id.publishpostingtext_bt)Button publishpostingtext_bt;
@@ -27,11 +35,17 @@ public class PublishTextActivity extends BaseActivity {
     @BindView(R.id.publishtextlocation_iv)ImageView publishtextlocation_iv;
     @BindView(R.id.publishtextloaction_ll)LinearLayout publishtextloaction_ll;
     int flag=0;
+    String UserImage;
+    ZLoadingDialog dialog;
+    DynamicDao dynamicDao;
     public static String textData="不显示位置";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_text);
+        dialog=new ZLoadingDialog(this);
+        dynamicDao=new DynamicDaoImp(this);
+
     }
     @OnClick(R.id.publishtextposting_back_ib)
     public void publishtextposting_back_ib_Onclick(){
@@ -82,8 +96,25 @@ public class PublishTextActivity extends BaseActivity {
             }
         }
     }
+    public void Init(){
+        dialog.setLoadingBuilder(MUSIC_PATH)
+                .setLoadingColor(Color.parseColor("#ff5305"))
+                .setHintText("正在加载中...")
+//                                .setHintTextSize(16) // 设置字体大小
+                .setHintTextColor(Color.GRAY)  // 设置字体颜色
+//                                .setDurationTime(0.5) // 设置动画时间百分比
+
+                .setDialogBackgroundColor(Color.parseColor("#cc111111")) // 设置背景色
+                .show();
+    }
     @OnClick(R.id.publishpostingtext_bt)
     public void publishpostingtext_bt_Onclick(){
+    Init();
+        dynamicDao.PublishPosting(MyApplication.getUserPhone(),UserImage,publishtextcontent_et.getText().toString(),publishtextaddress_tv.getText().toString());
+    }
 
+    public void callback() {
+        //dialog.dismiss();
+        finish();
     }
 }

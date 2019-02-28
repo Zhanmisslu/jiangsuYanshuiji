@@ -92,4 +92,7 @@ dependencies {
     implementation 'com.sackcentury:shinebutton:0.2.0'
     //视频
     implementation 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
+    //上拉懒加载
+//    implementation 'com.githang:hi-loadmore:0.2.1'
+
 }

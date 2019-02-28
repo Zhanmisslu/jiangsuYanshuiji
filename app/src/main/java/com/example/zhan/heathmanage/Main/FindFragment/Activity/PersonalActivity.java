@@ -38,8 +38,8 @@ public class PersonalActivity extends BaseActivity {
     Button personal_haveattention_bt;
     @BindView(R.id.personal_attentionnum_tv)
     TextView personal_attentionnum_tv;
-    @BindView(R.id.personal_fan_tv)
-    TextView personal_fan_tv;
+    @BindView(R.id.personal_fannum_tv)
+    TextView personal_fannum_tv;
     @BindView(R.id.personal_nickname_tv)
     TextView personal_nickname_tv;
     @BindView(R.id.personal_image_riv)
@@ -76,9 +76,15 @@ public class PersonalActivity extends BaseActivity {
     }
     @OnClick(R.id.personal_attention_tv)
     public void personal_attention_tv_Onclick(){
-//        Intent intent=new Intent(PersonalActivity.this,AttentionActivity.class);
-//        intent.putExtra("usrtId",userId);
-//        startActivity(intent);
+        Intent intent=new Intent(PersonalActivity.this,AttentionActivity.class);
+        intent.putExtra("userId",userId);
+        startActivity(intent);
+    }
+    @OnClick(R.id.personal_fan_tv)
+    public void personal_fan_tv_Onclick(){
+        Intent intent=new Intent(PersonalActivity.this,FanListActivity.class);
+        intent.putExtra("userId",userId);
+        startActivity(intent);
     }
 
     @OnClick(R.id.personal_attention_bt)
@@ -118,7 +124,7 @@ public class PersonalActivity extends BaseActivity {
                         .asBitmap()
                         .error(R.drawable.head)
                         .into(personal_image_riv);
-                personal_fan_tv.setText(personalInfo.getUserFollowedNum());
+                personal_fannum_tv.setText(personalInfo.getUserFollowedNum());
             }
         });
 
