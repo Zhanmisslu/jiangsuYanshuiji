@@ -90,5 +90,6 @@ dependencies {
     implementation project(':photoview')
     //点赞
     implementation 'com.sackcentury:shinebutton:0.2.0'
-
+    //视频
+    implementation 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
 }
