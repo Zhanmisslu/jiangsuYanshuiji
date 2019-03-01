@@ -3,6 +3,7 @@ package com.example.zhan.heathmanage.Main.FindFragment.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +38,8 @@ public class AttentionFragment extends Fragment {
     AttentionAdapter attentionAdapter;
     AttentionDao attentionDao;
     String userId;
+    public static int flag=0;
+    Handler handler=new Handler();
     public AttentionFragment() {
         // Required empty public constructor
     }
@@ -50,7 +53,7 @@ public class AttentionFragment extends Fragment {
         ButterKnife.bind(this, view);
         attentionDao = new AttentionDaoImp(this);
         fragment_attention_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        handler=new Handler();
        // attentionDao.getAttentionList(MyApplication.getUserId());
         fragment_attention_srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -64,20 +67,40 @@ public class AttentionFragment extends Fragment {
     }
 
 
+    Runnable runnableUi = new Runnable() {
+        @Override
+        public void run() {
+            //更新界面
+            fragment_attention_rv.setAdapter(attentionAdapter);
+
+        }
+
+    };
 
     @Override
     public void onResume() {
         super.onResume();
-        attentionDao.getAttentionList(MyApplication.getUserId());
+        if(flag==0) {
+            attentionDao.getAttentionList(MyApplication.getUserId());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==102){
+            flag=0;
+        }
     }
 
     public void InitAttentionList(List<AttentionInfo> attentionInfoList) {
         attentionAdapter = new AttentionAdapter(this, attentionInfoList);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                fragment_attention_rv.setAdapter(attentionAdapter);
-            }
-        });
+        handler.post(runnableUi);
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                fragment_attention_rv.setAdapter(attentionAdapter);
+//            }
+//        });
     }
 }
