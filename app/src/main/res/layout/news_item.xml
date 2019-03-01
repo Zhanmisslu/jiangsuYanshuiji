@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="121dp"
+    android:id="@+id/newsitem_ll"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/newsitem_image_iv"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/head"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/newsitem_title_tv"
+        android:text="准备啦啦啦"
+        android:layout_marginLeft="10dp"
+       />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/newsitem_authorname_tv"
+            android:layout_marginTop="20dp"
+            android:text="都是社会人"/>
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:id="@+id/newsitem_time_tv"
+            android:layout_marginTop="20dp"
+            android:text="2019-10-01 14:20"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#dcdcdc"/>
+</LinearLayout>

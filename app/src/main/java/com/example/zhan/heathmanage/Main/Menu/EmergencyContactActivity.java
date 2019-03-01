@@ -31,7 +31,6 @@ import com.example.zhan.heathmanage.Main.EvaluteFragment.Server.serverImp.Emerge
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
@@ -164,28 +163,17 @@ public class EmergencyContactActivity extends BaseActivity {
                 phones.close();
             }
             cursor.close();
-            //删除联系人号码中的空格
-            if (phoneNumber.length()>11){
-                phoneNumber = phoneNumber.replace(" ","") ;
-                emergency_phone_et.setText(phoneNumber);
-            }else {
-                emergency_phone_et.setText(phoneNumber);
-            }
+            
             emergency_user_et.setText(name);
+            emergency_phone_et.setText(phoneNumber);
+
         }
     }
 
     @OnClick(R.id.affirm__bt)
     public void affirm__bt_OnClick() {
-        String limitEx="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
-        Pattern pattern = Pattern.compile(limitEx);
-        Matcher m = pattern.matcher(emergency_phone_et.getText());
-        Matcher ma = pattern.matcher(emergency_user_et.getText());
-        if (m.find()&&ma.find()){
-            Toast.makeText(getApplicationContext(),"不可以用特殊符号哦",Toast.LENGTH_LONG).show();
-        }else {
-            emergencyContactDao.ChangeUserEmergency(MyApplication.getUserPhone(), emergency_phone_et.getText().toString(), emergency_user_et.getText().toString());
-        }
+
+        emergencyContactDao.ChangeUserEmergency(MyApplication.getUserPhone(), emergency_phone_et.getText().toString(), emergency_user_et.getText().toString());
     }
 
     public void callback(final String EmergencyPhone, final String EmergencyName) {
@@ -248,9 +236,5 @@ public class EmergencyContactActivity extends BaseActivity {
     public void contact_finsh_OnClick(){
         finish();
     }
-    @OnClick(R.id.emergency_update)
-    public void emergency_update_OnClick(){
-        emergency_contact_ll.setVisibility(View.VISIBLE);
-        emergency_contactaffirm_ll.setVisibility(View.GONE);
-    }
+
 }
