@@ -25,6 +25,16 @@ public class BaseActivity extends AppCompatActivity{
         immersionBar = ImmersionBar.with(this);
         immersionBar.init();
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        //去除标题栏
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+    }
+
     @Override//重载setContentView函数
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);

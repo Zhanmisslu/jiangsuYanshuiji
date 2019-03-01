@@ -30,6 +30,7 @@ import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.qiantao.coordinatormenu.CoordinatorMenu;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,10 +111,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onBackPressed() {
         if (mCoordinatorMenu.isOpened()) {
             mCoordinatorMenu.closeMenu();
-        }  else {
-            super.onBackPressed();
+        }else if (NiceVideoPlayerManager.instance().onBackPressd()){
+            return;
         }
-
+            super.onBackPressed();
     }
 
 
