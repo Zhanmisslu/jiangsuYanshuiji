@@ -161,6 +161,12 @@ public class EvaluteFragment extends CompatHomeKeyFragment {
             personFragment.show(getActivity().getSupportFragmentManager(), "personFragment");
         }
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+    }
 }
 
 
