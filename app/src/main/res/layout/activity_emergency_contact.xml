@@ -206,6 +206,7 @@
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_marginLeft="40dp"
+            android:id="@+id/emergency_update"
             android:textSize="15dp"
             android:text="管理"
             android:textColor="#f28704"
