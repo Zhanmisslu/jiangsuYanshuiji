@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mob.MobSDK;
 
 public class MyApplication extends Application {
@@ -31,8 +30,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context =getApplicationContext();
-        //初始化Fresco
-        Fresco.initialize(context);
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         editor=pref.edit();
         MobSDK.init(this);

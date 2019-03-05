@@ -70,8 +70,8 @@ public class MonthFragment extends Fragment {
     View month_bloodfat_view;
     View month_bloodoxygen_view;
     View month_heartrate_view;
-    Axis axisX;
-    Axis axisY;
+    static Axis axisX;
+    static Axis axisY;
     List<MonthInfo> monthInfoList;
     MonthLineChartServiceDao monthLineChartServiceDao;
     String Date;
@@ -91,7 +91,7 @@ public class MonthFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_month, container, false);
         ButterKnife.bind(this, view);
         handler = new Handler();
-        handler1=new Handler();
+
         month_viewPager = (ChildViewPager) view.findViewById(R.id.month_viewPager);
         month_viewGroup = (ViewGroup) view.findViewById(R.id.month_viewGroup);
         monthLineChartServiceDao = new MonthLineChartServiceDaoImp(this);
@@ -107,15 +107,6 @@ public class MonthFragment extends Fragment {
         getActivity().dispatchTouchEvent(ev);
         initEvent();
         monthLineChartServiceDao.getSuggest(MyApplication.getUserPhone(), year, month);
-        //InitPageAdapter();
-        //InitView();
-
-
-//
-//        String str = "2007-01-18";
-//        String a;
-//        a = str.substring(5, str.length());
-//        Log.v("zjc", a);
         return view;
     }
 
@@ -189,14 +180,20 @@ public class MonthFragment extends Fragment {
             bloodfat_graph.setAxisY(axisY);
             bloodoxygen_graph.setAxisX(axisX);
             bloodoxygen_graph.setAxisY(axisY);
-        }
-
-    };
-    Runnable runnableui = new Runnable() {
-        @Override
-        public void run() {
-
-            //更新界面
+            lines = new ArrayList<>();
+            lines.add(monthLineChartServiceDao.getDiastolicBPLine(monthInfoList));
+            lines.add(monthLineChartServiceDao.getSystolicBPLine(monthInfoList));
+            bloodpressure_graph.setChartData(lines);
+            lines = new ArrayList<>();
+            lines.add(monthLineChartServiceDao.getHeartRateLine(monthInfoList));
+            heartrate_graph.setChartData(lines);
+            lines = new ArrayList<>();
+            lines.add(monthLineChartServiceDao.getBloodFatLine(monthInfoList));
+            bloodfat_graph.setChartData(lines);
+            lines = new ArrayList<>();
+            lines.add(monthLineChartServiceDao.getBloodOxygenLine(monthInfoList));
+            bloodoxygen_graph.setChartData(lines);
+            bloodpressure_graph.show();
             bloodpressure_graph.showWithAnimation(3000);
             heartrate_graph.showWithAnimation(3000);
             bloodfat_graph.showWithAnimation(3000);
@@ -205,37 +202,17 @@ public class MonthFragment extends Fragment {
         }
 
     };
+
     //初始化ViewPager
     public void InitPageAdapter(final List<MonthInfo> monthInfoList) {
 
-      //  this.monthInfoList= monthInfoList;
+        this.monthInfoList= monthInfoList;
         axisX = new Axis(getAxisValuesX(monthInfoList));
         axisY = new Axis(getAxisValuesY());
         axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
         axisY.setAxisColor(Color.parseColor("#e9e9e9")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(false);
         handler.post(runnableUi);
-
-//        initHeartRate(monthInfoList);
-//        initBloodPressure(monthInfoList);
-//        initBloodOxygen(monthInfoList);
-//        initBloodFat(monthInfoList);
-        lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getDiastolicBPLine(monthInfoList));
-        lines.add(monthLineChartServiceDao.getSystolicBPLine(monthInfoList));
-        bloodpressure_graph.setChartData(lines);
-        lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getHeartRateLine(monthInfoList));
-        heartrate_graph.setChartData(lines);
-
-        lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getBloodFatLine(monthInfoList));
-        bloodfat_graph.setChartData(lines);
-        lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getBloodOxygenLine(monthInfoList));
-        bloodoxygen_graph.setChartData(lines);
-        handler.post(runnableui);
         dialog.dismiss();
-
     }
 
     //加载心率折线图

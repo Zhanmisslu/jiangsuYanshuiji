@@ -147,6 +147,7 @@ public class FindFragment extends Fragment {
             if(data.getIntExtra("flag",0)==1) {
                 // fragment_find_FAM.hideMenu(true);
                 fragment_find_titlebar.init(0, titleList, fragment_find_viewpage);
+                AttentionFragment.flag=0;
             }
 
         }

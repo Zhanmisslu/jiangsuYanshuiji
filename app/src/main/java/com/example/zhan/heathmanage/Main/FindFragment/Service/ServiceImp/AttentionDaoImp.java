@@ -409,7 +409,7 @@ public class AttentionDaoImp implements AttentionDao {
                             String image = jsonObject1.getString("userPhoto");
                             String supportNum=jsonObject1.getString("postingLike");
                             String content=jsonObject1.getString("postingContent");
-                           // String picture=jsonObject1.getString("postingImg");
+                            String picture=jsonObject1.getString("postingImg");
                             String time=jsonObject1.getString("postingTime");
                             String userId=jsonObject1.getString("userId");
                             String commentNum=jsonObject1.getString("commentNum");
@@ -420,7 +420,7 @@ public class AttentionDaoImp implements AttentionDao {
                             attentionInfo.setNickName(nickname);
                             attentionInfo.setSupportNum(supportNum);
                             attentionInfo.setCommentNum(commentNum);
-                           // attentionInfo.setPciture(picture);
+                            attentionInfo.setPciture(picture);
                             attentionInfo.setContent(content);
                             attentionInfoList.add(attentionInfo);
                         }
