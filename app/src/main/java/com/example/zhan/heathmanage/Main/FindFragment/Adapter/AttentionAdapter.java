@@ -135,8 +135,7 @@ public class AttentionAdapter extends RecyclerView.Adapter<AttentionAdapter.Atte
                         .makeSceneTransitionAnimation((Activity) view.getContext(),
                                 view, "sharedView");
                 intent.putExtra("image",AttentionList.get(i).getPciture());
-
-                ((Activity) view.getContext()).startActivityForResult(intent,102,options.toBundle());
+                view.getContext().startActivity(intent,options.toBundle());
             }
         });
     }

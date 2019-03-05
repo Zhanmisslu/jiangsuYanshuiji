@@ -35,8 +35,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.zhan.heathmanage.Main.MainActivity.ev;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -45,15 +43,11 @@ public class WeekFragment extends Fragment {
     private LeafLineChart weekbloodpressure_graph;
     private LeafLineChart weekbloodoxygen_graph;
     private LeafLineChart weekbloodfat_graph;
-    View week_bloodpressure_view;
-    View week_bloodfat_view;
-    View week_bloodoxygen_view;
-    View week_heartrate_view;
     private View view;
     WeekLineChartServiceDao weekLineChartServiceDao;
     LineChartServiceDao lineChartServiceDao;
-    static Axis axisX;
-    static Axis axisY;
+    Axis axisX;
+    Axis axisY;
     private ViewPager viewPager;
     private ViewGroup viewGroup;
 
@@ -63,7 +57,7 @@ public class WeekFragment extends Fragment {
     private ImageView[] imageViews;
     Handler handler;
     List<Line> lines;
-    List<MonthInfo>weekInfoList;
+
     public WeekFragment() {
         // Required empty public constructor
     }
@@ -80,14 +74,11 @@ public class WeekFragment extends Fragment {
         viewGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
 
         lineChartServiceDao = new LineChartServiceDaoImp(this);
+        lineChartServiceDao.GetWeekData(MyApplication.getUserPhone(), TrendFragment.StartDay,TrendFragment.EndDay);
         InitView();
         //InitPageAdapter();
         initPointer();
-       // getActivity().dispatchTouchEvent(ev);
         initEvent();
-
-        lineChartServiceDao.GetWeekData(MyApplication.getUserPhone(), TrendFragment.StartDay,TrendFragment.EndDay);
-
         return view;
     }
 
@@ -98,10 +89,10 @@ public class WeekFragment extends Fragment {
 
     public void InitView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-         week_bloodpressure_view = inflater.inflate(R.layout.week_bloodpressure, null);
-         week_bloodfat_view = inflater.inflate(R.layout.week_bloodfat, null);
-         week_bloodoxygen_view = inflater.inflate(R.layout.week_bloodoxygen, null);
-         week_heartrate_view = inflater.inflate(R.layout.week_heartrate, null);
+        View week_bloodpressure_view = inflater.inflate(R.layout.week_bloodpressure, null);
+        View week_bloodfat_view = inflater.inflate(R.layout.week_bloodfat, null);
+        View week_bloodoxygen_view = inflater.inflate(R.layout.week_bloodoxygen, null);
+        View week_heartrate_view = inflater.inflate(R.layout.week_heartrate, null);
         weekbloodfat_graph = week_bloodfat_view.findViewById(R.id.weekbloodfat_graph);
         weekbloodoxygen_graph = week_bloodoxygen_view.findViewById(R.id.weekbloodoxygen_graph);
         weekbloodpressure_graph = week_bloodpressure_view.findViewById(R.id.weekbloodpressure_graph);
@@ -137,13 +128,36 @@ public class WeekFragment extends Fragment {
     }
 
     //初始化ViewPager
-    public void InitData(final List<MonthInfo> weekInfoList) {
-        this.weekInfoList=weekInfoList;
-        axisX = new Axis(getAxisValuesX(weekInfoList));
+    public void InitData(List<MonthInfo> monthInfoList) {
+        axisX = new Axis(getAxisValuesX(monthInfoList));
         axisY = new Axis(getAxisValuesY());
         axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
-        axisY.setAxisColor(Color.parseColor("#e9e9e9")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(false);
+        axisY.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
         handler.post(runnableUi);
+        lines = new ArrayList<>();
+        lines.add(lineChartServiceDao.getHeartRateLine(monthInfoList));
+        weekheartrate_graph.setChartData(lines);
+        weekheartrate_graph.setSlidingLine(getSlideingLine());
+        lines = new ArrayList<>();
+        lines.add(lineChartServiceDao.getDiastolicBPLine(monthInfoList));
+        lines.add(lineChartServiceDao.getSystolicBPLine(monthInfoList));
+        weekbloodpressure_graph.setChartData(lines);
+        weekbloodpressure_graph.setSlidingLine(getSlideingLine());
+        lines = new ArrayList<>();
+        lines.add(lineChartServiceDao.getBloodOxygenLine(monthInfoList));
+        weekbloodoxygen_graph.setChartData(lines);
+        weekbloodoxygen_graph.setSlidingLine(getSlideingLine());
+        lines = new ArrayList<>();
+        lines.add(lineChartServiceDao.getBloodFatLine(monthInfoList));
+        weekbloodfat_graph.setChartData(lines);
+        weekbloodfat_graph.setSlidingLine(getSlideingLine());
+        handler.post(runnableui);
+//        initHeartRate();
+//        initBloodPressure();
+//        initBloodOxygen();
+//        initBloodFat();
+
+
     }
 
     Runnable runnableUi = new Runnable() {
@@ -158,38 +172,71 @@ public class WeekFragment extends Fragment {
             weekbloodoxygen_graph.setAxisY(axisY);
             weekbloodfat_graph.setAxisX(axisX);
             weekbloodfat_graph.setAxisY(axisY);
-            lines = new ArrayList<>();
-            lines.add(lineChartServiceDao.getHeartRateLine(weekInfoList));
-            weekheartrate_graph.setSlidingLine(getSlideingLine());
-            weekheartrate_graph.setChartData(lines);
-            //
-            lines = new ArrayList<>();
-            lines.add(lineChartServiceDao.getDiastolicBPLine(weekInfoList));
-            lines.add(lineChartServiceDao.getSystolicBPLine(weekInfoList));
-            weekbloodpressure_graph.setSlidingLine(getSlideingLine());
-            weekbloodpressure_graph.setChartData(lines);
-            //
-            lines = new ArrayList<>();
-            lines.add(lineChartServiceDao.getBloodOxygenLine(weekInfoList));
-            weekbloodoxygen_graph.setChartData(lines);
-            weekbloodoxygen_graph.setSlidingLine(getSlideingLine());
-           //
-            lines = new ArrayList<>();
-            lines.add(lineChartServiceDao.getBloodFatLine(weekInfoList));
-            weekbloodfat_graph.setSlidingLine(getSlideingLine());
-            weekbloodfat_graph.setChartData(lines);
-           //
-            weekheartrate_graph.show();
+        }
+
+    };
+    Runnable runnableui = new Runnable() {
+        @Override
+        public void run() {
+
+            //更新界面
             weekbloodpressure_graph.showWithAnimation(3000);
             weekheartrate_graph.showWithAnimation(3000);
             weekbloodfat_graph.showWithAnimation(3000);
             weekbloodoxygen_graph.showWithAnimation(3000);
+
         }
 
     };
+    //加载心率折线图
+//    private void initHeartRate() {
+//
+//        weekheartrate_graph.setAxisX(axisX);
+//        weekheartrate_graph.setAxisY(axisY);
+//        List<Line> lines = new ArrayList<>();
+//        lines.add(lineChartServiceDao.getHeartRateLine());
+//        weekheartrate_graph.setChartData(lines);
+//        weekheartrate_graph.setSlidingLine(getSlideingLine());
+//        weekheartrate_graph.showWithAnimation(3000);
+//    }
+//
+//    //加载血压折线图
+//    private void initBloodPressure() {
+//        weekbloodpressure_graph.setAxisX(axisX);
+//        weekbloodpressure_graph.setAxisY(axisY);
+//        List<Line> lines = new ArrayList<>();
+//        lines.add(lineChartServiceDao.getDiastolicBPLine());
+//        lines.add(lineChartServiceDao.getSystolicBPLine());
+//        weekbloodpressure_graph.setChartData(lines);
+//        weekbloodpressure_graph.setSlidingLine(getSlideingLine());
+//        weekbloodpressure_graph.showWithAnimation(3000);
+//    }
+//
+//    //加载体温折线图
+//    private void initBloodOxygen() {
+//        weekbloodoxygen_graph.setAxisX(axisX);
+//        weekbloodoxygen_graph.setAxisY(axisY);
+//        List<Line> lines = new ArrayList<>();
+//        lines.add(lineChartServiceDao.getBloodOxygenLine());
+//        weekbloodoxygen_graph.setChartData(lines);
+//        weekbloodoxygen_graph.setSlidingLine(getSlideingLine());
+//        weekbloodoxygen_graph.showWithAnimation(3000);
+//    }
+//
+//    //加载血脂折线图
+//    private void initBloodFat() {
+//        weekbloodfat_graph.setAxisX(axisX);
+//        weekbloodfat_graph.setAxisY(axisY);
+//        List<Line> lines = new ArrayList<>();
+//        lines.add(lineChartServiceDao.getBloodFatLine());
+//        weekbloodfat_graph.setChartData(lines);
+//        weekbloodfat_graph.setSlidingLine(getSlideingLine());
+//        weekbloodfat_graph.showWithAnimation(3000);
+//    }
 
     //横坐标轴
     private List<AxisValue> getAxisValuesX(List<MonthInfo> monthInfoList) {
+        //String week[] = {" ","周日", "周一", "周二", "周三", "周四", "周五", "周六"};
         int length = monthInfoList.size();
         List<AxisValue> axisValues = new ArrayList<>();
         for (int i = 0; i < length; i++) {
@@ -200,6 +247,16 @@ public class WeekFragment extends Fragment {
         return axisValues;
     }
 
+    //    //心率纵坐标轴
+//    private List<AxisValue> getHeartRateAxisValuesY(){
+//        List<AxisValue> axisValues = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            AxisValue value = new AxisValue();
+//            value.setLabel(String.valueOf(i * 10));
+//            axisValues.add(value);
+//        }
+//        return axisValues;
+//    }
     //心率纵坐标轴
     private List<AxisValue> getAxisValuesY() {
         List<AxisValue> axisValues = new ArrayList<>();
@@ -216,6 +273,127 @@ public class WeekFragment extends Fragment {
 
     }
 
+    //    //心率曲线
+//    private Line getHeartRateLine(){
+//        List<PointValue> pointValues = new ArrayList<>();
+//        for (int i = 1; i <= 7; i++) {
+//            PointValue pointValue = new PointValue();
+//            pointValue.setX( (i - 1) / 6f);
+//            int var = (int) (Math.random() * 100);
+//            pointValue.setLabel(String.valueOf(var));
+//            pointValue.setY(var / 190f);
+//            pointValue.setShowLabel(true);
+//            pointValues.add(pointValue);
+//        }
+//        Line line = new Line(pointValues);
+//        line.setLineColor(Color.parseColor("#33B5E5"))
+//                .setLineWidth(3)
+//                .setPointColor(Color.RED)//点的颜色
+//                .setPointRadius(3)//
+//                .setCubic(true)//设置是曲线还是折线
+//                .setHasPoints(true)
+//                .setFill(false)
+//                .setHasLabels(true)
+//                .setLabelColor(Color.parseColor("#33B5E5"));
+//        return line;
+//    }
+//    //舒张压曲线
+//    private Line getDiastolicBPLine(){
+//        List<PointValue> pointValues = new ArrayList<>();
+//        for (int i = 1; i <= 7; i++) {
+//            PointValue pointValue = new PointValue();
+//            pointValue.setX( (i - 1) / 6f);
+//            int var = (int) (Math.random() * 100);
+//            pointValue.setLabel(String.valueOf(var));
+//            pointValue.setY(var / 190f);
+//            pointValue.setShowLabel(true);
+//            pointValues.add(pointValue);
+//        }
+//
+//        Line line = new Line(pointValues);
+//        line.setLineColor(Color.parseColor("#33B5E5"))
+//                .setLineWidth(3)
+//                .setPointColor(Color.YELLOW)
+//                .setCubic(true)
+//                .setPointRadius(3)
+//                .setFill(false)
+//                .setHasLabels(true)
+//                .setLabelColor(Color.parseColor("#33B5E5"));
+//        return line;
+//    }
+//    //收缩压曲线
+//    private Line getSystolicBPLine(){
+//        List<PointValue> pointValues = new ArrayList<>();
+//        for (int i = 1; i <= 7; i++) {
+//            PointValue pointValue = new PointValue();
+//            pointValue.setX( (i - 1) / 6f);
+//            int var = (int) (Math.random() * 100);
+//            pointValue.setLabel(String.valueOf(var));
+//            pointValue.setY(var / 190f);
+//            pointValue.setShowLabel(true);
+//            pointValues.add(pointValue);
+//        }
+//
+//        Line line = new Line(pointValues);
+//        line.setLineColor(Color.MAGENTA)
+//                .setLineWidth(3)
+//                .setPointColor(Color.RED)//点的颜色
+//                .setPointRadius(3)//
+//                .setCubic(true)//设置是曲线还是折线
+//                .setHasPoints(true)
+//                .setFill(false)
+//                .setHasLabels(true)
+//                .setLabelColor(Color.parseColor("#33B5E5"));
+//        return line;
+//    }
+//    //体温曲线
+//    private Line getTemperatureLine(){
+//        List<PointValue> pointValues = new ArrayList<>();
+//        for (int i = 1; i <= 7; i++) {
+//            PointValue pointValue = new PointValue();
+//            pointValue.setX( (i - 1) / 6f);
+//            int var = (int) (Math.random() * 100);
+//            pointValue.setLabel(String.valueOf(var));
+//            pointValue.setY(var / 190f);
+//            pointValue.setShowLabel(true);
+//            pointValues.add(pointValue);
+//        }
+//        Line line = new Line(pointValues);
+//        line.setLineColor(Color.parseColor("#33B5E5"))
+//                .setLineWidth(3)
+//                .setPointColor(Color.RED)//点的颜色
+//                .setPointRadius(3)//
+//                .setCubic(true)//设置是曲线还是折线
+//                .setHasPoints(true)
+//                .setFill(false)
+//                .setHasLabels(true)
+//                .setLabelColor(Color.parseColor("#33B5E5"));
+//        return line;
+//    }
+//    //血脂曲线
+//    private Line getBloodFatLine(){
+//        List<PointValue> pointValues = new ArrayList<>();
+//        for (int i = 1; i <= 7; i++) {
+//            PointValue pointValue = new PointValue();
+//            pointValue.setX( (i - 1) / 6f);
+//            int var = (int) (Math.random() * 100);
+//            pointValue.setLabel(String.valueOf(var));
+//            pointValue.setY(var / 190f);
+//            pointValue.setShowLabel(true);
+//            pointValues.add(pointValue);
+//        }
+//        Line line = new Line(pointValues);
+//        line.setLineColor(Color.parseColor("#33B5E5"))
+//                .setLineWidth(3)
+//                .setPointColor(Color.RED)//点的颜色
+//                .setPointRadius(3)//
+//                .setCubic(true)//设置是曲线还是折线
+//                .setHasPoints(true)
+//                .setFill(false)
+//                .setHasLabels(true)
+//                .setLabelColor(Color.parseColor("#33B5E5"));
+//        return line;
+//    }
 //ViewPager的onPageChangeListener监听事件，当ViewPager的page页发生变化的时候调用
     public class GuidePageChangeListener implements ViewPager.OnPageChangeListener {
         @Override

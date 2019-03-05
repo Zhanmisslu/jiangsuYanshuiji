@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
-import com.example.zhan.heathmanage.Main.FindFragment.Fragment.AttentionFragment;
 import com.example.zhan.heathmanage.R;
 
 import butterknife.BindView;
@@ -32,8 +31,6 @@ public class ImageInfoActivity extends BaseActivity {
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(102);
-                AttentionFragment.flag=1;
                 ActivityCompat.finishAfterTransition(ImageInfoActivity.this);
 
             }
