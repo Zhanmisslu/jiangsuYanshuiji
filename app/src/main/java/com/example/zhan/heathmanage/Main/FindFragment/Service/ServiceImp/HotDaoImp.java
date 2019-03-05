@@ -49,7 +49,7 @@ public class HotDaoImp implements HotDao {
     public void getHotList() {
         HotList=new ArrayList<>();
         String url= Net.GetHotList;
-        Log.e("zjc", url );
+
         OKHttp.sendOkhttpGetRequest(url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

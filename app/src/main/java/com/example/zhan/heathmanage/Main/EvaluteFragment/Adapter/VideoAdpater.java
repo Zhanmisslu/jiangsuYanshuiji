@@ -2,22 +2,31 @@ package com.example.zhan.heathmanage.Main.EvaluteFragment.Adapter;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Video;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.R;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.john.waveview.WaveView;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bingoogolapple.bgabanner.BGABanner;
+import cn.bingoogolapple.bgabanner.BGALocalImageSize;
 
 public class VideoAdpater extends RecyclerView.Adapter {
     private Context context;
@@ -48,8 +57,8 @@ public class VideoAdpater extends RecyclerView.Adapter {
             return  Tepy_Head;
         }else if (position == 1 ){
             return Tepy_Evalute;
-//        }else if (position == 2){
-//            return Tepy_Banner;
+        }else if (position == 2){
+            return Tepy_Banner;
 //        }else if (position ==3){
 //            return Tepy_Foods;
         }else{
@@ -65,6 +74,8 @@ public class VideoAdpater extends RecyclerView.Adapter {
                 return new HeadViewHodler(inflater.inflate(R.layout.rv_view,viewGroup,false));
             case Tepy_Evalute:
                 return new EvaluteViewHodler(inflater.inflate(R.layout.evaluation_score,viewGroup,false));
+            case Tepy_Banner:
+                return new BannerViewHodler(inflater.inflate(R.layout.evaluation_banner,viewGroup,false));
             case Tepy_List:
                 return new VideoViewHodler(inflater.inflate(R.layout.video_item,viewGroup,false));
         }
@@ -77,6 +88,8 @@ public class VideoAdpater extends RecyclerView.Adapter {
             setHeadItemValues((HeadViewHodler)viewHolder);
         }else if (viewHolder instanceof EvaluteViewHodler){
             setEvaluteItemValues((EvaluteViewHodler)viewHolder);
+        }else if (viewHolder instanceof BannerViewHodler){
+            setBannerItemValues((BannerViewHodler)viewHolder);
         }else if (viewHolder instanceof VideoViewHodler){
             setVideoItemValues((VideoViewHodler)viewHolder,i);
         }
@@ -90,10 +103,36 @@ public class VideoAdpater extends RecyclerView.Adapter {
     private void setEvaluteItemValues(EvaluteViewHodler hodler){
 
     }
+    //个人数据显示的初始化
+    private void setBannerItemValues(BannerViewHodler hodler){
+        hodler.mBanner.setAutoPlayAble(true);
+        hodler. mBanner.setAdapter(new BGABanner.Adapter<CardView, String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, CardView itemView, String model, int position) {
+                 //图片布局
+                SimpleDraweeView simpleDraweeView = itemView.findViewById(R.id.sdv_item_fresco_content);
+                simpleDraweeView.setImageURI(Uri.parse(model));
+            }
+        });
+        List<String> img = new ArrayList<String>();
+        img.add("http://bgashare.bingoogolapple.cn/banner/imgs/12.png");
+        img.add("http://bgashare.bingoogolapple.cn/banner/imgs/13.png");
+        List<String> tig = new ArrayList<String>();
+        tig.add("欢迎");
+        tig.add("欢迎");
+        //设置Banner的布局，图片和文字
+        hodler.mBanner.setData(R.layout.item_fresco,img,tig);
 
+        hodler.mBanner.setDelegate(new BGABanner.Delegate() {
+            @Override
+            public void onBannerItemClick(BGABanner banner, View itemView, @Nullable Object model, int position) {
+                Toast.makeText(banner.getContext(), "点击了" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     //视频列表显示的初始化
     private void setVideoItemValues(VideoViewHodler hodler,int i){
-        int postion = i-2;
+        int postion = i-3;
         Video video = list.get(postion);
         TxVideoPlayerController controller = new TxVideoPlayerController(context);
         hodler.setController(controller);
@@ -102,7 +141,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     @Override
     public int getItemCount() {
-        return list.size()+2;
+        return list.size()+3;
     }
 
     /*
@@ -185,7 +224,17 @@ public class VideoAdpater extends RecyclerView.Adapter {
             super(itemView);
         }
     }
-    //Video的VIewHodler
+    //轮播图的显示布局
+    public class BannerViewHodler extends RecyclerView.ViewHolder{
+        public BGABanner mBanner ;
+        public BannerViewHodler(@NonNull View itemView) {
+            super(itemView);
+
+            mBanner = itemView.findViewById(R.id.ev_banner);
+
+        }
+    }
+    //Video视频的VIewHodler
     public class VideoViewHodler extends RecyclerView.ViewHolder{
         public TxVideoPlayerController mController;
         public NiceVideoPlayer mVideoPlayer;
