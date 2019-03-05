@@ -30,9 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".Main.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            />
+        <activity
+            android:name=".Main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".Main.Menu.SettingActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Weclome.WelcomeActivity">
@@ -81,7 +81,8 @@
         <activity android:name=".Main.FindFragment.Activity.PublishTextActivity" />
         <activity android:name=".Main.FindFragment.Activity.AttentionActivity" />
         <activity android:name=".Main.FindFragment.Activity.ImageInfoActivity" />
-        <activity android:name=".Main.FindFragment.Activity.FanListActivity"></activity>
+        <activity android:name=".Main.FindFragment.Activity.FanListActivity" />
+        <activity android:name=".Main.FindFragment.Activity.NewsActivity"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.NewsActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Adapter.NewsAdapter;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.NewsBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.DryCarGoDao;
@@ -86,10 +87,14 @@ public class DryCargoFragment extends Fragment {
     public void health_more_tv_Onclick(){
 //        Intent intent=new Intent();
 //        Intent intent1 = intent.putCharSequenceArrayListExtra("healthList", HeathList);
-
+        Intent intent=new Intent(getActivity(), NewsActivity.class);
+        intent.putExtra("healthflag",1);
+        getActivity().startActivity(intent);
     }
     @OnClick(R.id.fashion_more_tv)
     public void fashion_more_tv_Onclick(){
-
+        Intent intent=new Intent(getActivity(), NewsActivity.class);
+        intent.putExtra("fashionflag",1);
+        getActivity().startActivity(intent);
     }
 }
