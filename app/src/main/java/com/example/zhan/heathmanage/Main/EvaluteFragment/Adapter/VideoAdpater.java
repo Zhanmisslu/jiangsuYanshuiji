@@ -2,6 +2,7 @@ package com.example.zhan.heathmanage.Main.EvaluteFragment.Adapter;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Video;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.WeeklyActivity;
 import com.example.zhan.heathmanage.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.john.waveview.WaveView;
@@ -126,6 +129,10 @@ public class VideoAdpater extends RecyclerView.Adapter {
         hodler.mBanner.setDelegate(new BGABanner.Delegate() {
             @Override
             public void onBannerItemClick(BGABanner banner, View itemView, @Nullable Object model, int position) {
+                if (position==0){
+                    Intent intent = new Intent(context, WeeklyActivity.class);
+                    context.startActivity(intent);
+                }
                 Toast.makeText(banner.getContext(), "点击了" + position, Toast.LENGTH_SHORT).show();
             }
         });

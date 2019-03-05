@@ -8,11 +8,11 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:background="#fbfbfb"
         android:id="@+id/fragment_evaluate_indexrl"
         android:layout_height="wrap_content">
+
         <com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView
             android:id="@+id/rv_view"
             android:layout_width="250dp"

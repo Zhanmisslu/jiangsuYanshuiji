@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main.EvaluteFragment.WeeklyActivity">
+
+    <WebView
+    android:id="@+id/weekly_web"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weekly_back"
+        android:text="返回"
+        android:textSize="15sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"/>
+</FrameLayout>
