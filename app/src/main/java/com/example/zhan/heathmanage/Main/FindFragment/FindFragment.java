@@ -104,7 +104,7 @@ public class FindFragment extends Fragment {
         titleList.add(new CaterpillarIndicator.TitleInfo("干货"));
         fragment_find_titlebar.init(1,titleList,fragment_find_viewpage);
     }
-    private class BaseFragmentAdapter extends FragmentStatePagerAdapter {
+    public class BaseFragmentAdapter extends FragmentStatePagerAdapter {
 
         public BaseFragmentAdapter(FragmentManager fm) {
             super(fm);
@@ -147,6 +147,7 @@ public class FindFragment extends Fragment {
             if(data.getIntExtra("flag",0)==1) {
                 // fragment_find_FAM.hideMenu(true);
                 fragment_find_titlebar.init(0, titleList, fragment_find_viewpage);
+                AttentionFragment.flag=0;
             }
 
         }

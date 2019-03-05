@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main.FindFragment.Fragment.DryCargoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/health_ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:text="健康咨询"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right"
+                        android:text="查看更多"
+                        android:textColor="#000"
+                        android:id="@+id/health_more_tv"
+                        android:textSize="15dp" />
+
+                    <ImageButton
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:background="@drawable/right" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#d7d7d7" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/health_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fashion_ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/health_ll"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="时尚"
+                        android:layout_weight="1"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="right"
+                        android:text="查看更多"
+                        android:id="@+id/fashion_more_tv"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <ImageButton
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:background="@drawable/right" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#d7d7d7" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fashion_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="65dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--/>-->
+</RelativeLayout>

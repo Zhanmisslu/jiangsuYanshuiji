@@ -15,7 +15,8 @@ public class Net {
     public final static String GetPeopleList = Head + "ShowActiveUser";//获取可能感兴趣的人
     public final static String Attention = Head + "FollowUser";//关注按钮
     public final static String RemoveConcern = Head + "DisFollowUser";//取消按钮
-    public final static String Search = Head + "ChangeUserEmergency";//搜索框
+    public final static String SearchUser = Head + "SearchUser";//搜索框
+    public final static String SearchPosting = Head + "SearchPosting";//搜索框
     public final static String GetHotList= Head + "ShowHotPosting";//热门列表
     public final static String UploadSupport= Head + "LikePosting";//点赞
     public final static String GetCommentList= Head + "ShowPostingComment";//获取评论列表

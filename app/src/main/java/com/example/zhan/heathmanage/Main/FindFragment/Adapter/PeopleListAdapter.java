@@ -81,6 +81,9 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListAdapter.Pe
                 addFriendActivity.startActivity(intent);
             }
         });
+        if(MyApplication.getUserId().equals(peopleInfoList.get(position).getUserid())){
+            peopleListViewHolder.attention_bt.setVisibility(View.GONE);
+        }
     }
 
     @Override

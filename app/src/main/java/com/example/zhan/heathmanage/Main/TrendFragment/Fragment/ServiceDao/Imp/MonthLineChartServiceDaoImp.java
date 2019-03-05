@@ -49,10 +49,11 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
         List<PointValue> pointValues = new ArrayList<>();
         for (int i = 0; i < length; i++) {
             PointValue pointValue = new PointValue();
+            float b=i/(a-1);
             pointValue.setX((i)/ (a-1));
             float var = Float.parseFloat(monthInfoList.get(i).getHeartRate());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 200f);
+            pointValue.setY(var / 25f);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
@@ -70,7 +71,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
 
         return line;
     }
-
+//舒张
     @Override
     public Line getDiastolicBPLine(List<MonthInfo> monthInfoList) {
         int length=monthInfoList.size();
@@ -81,7 +82,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             pointValue.setX((i) / (a-1));
             float var = Float.parseFloat(monthInfoList.get(i).getDiastolicBP());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 100f);
+            pointValue.setY(var / 30f);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
@@ -111,7 +112,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             pointValue.setX((i)/ (a-1));
             float var = Float.parseFloat(monthInfoList.get(i).getSystolicBP());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 50f);
+            pointValue.setY(var / 25f);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
@@ -140,7 +141,7 @@ public class MonthLineChartServiceDaoImp implements MonthLineChartServiceDao {
             pointValue.setX((i)/ (a-1));
             float var = Float.parseFloat(monthInfoList.get(i).getBloodFat());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 200f);
+            pointValue.setY(var);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.AttentionActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.PeopleInfo;
+import com.example.zhan.heathmanage.Main.FindFragment.Fragment.UserFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.PeopleListDao;
 import com.example.zhan.heathmanage.Main.FindFragment.Service.ServiceImp.PeopleListDaoImp;
 import com.example.zhan.heathmanage.MyApplication;
@@ -31,9 +32,22 @@ public class AttentionListAdapter extends RecyclerView.Adapter<AttentionListAdap
     private List<PeopleInfo> attentionList;
     AttentionActivity attentionActivity;
     PeopleListDao peopleListDao;
+    UserFragment userFragment;
+
+    public AttentionListAdapter(List<PeopleInfo> attentionList, UserFragment userFragment) {
+        this.attentionList = attentionList;
+        this.userFragment = userFragment;
+    }
+
     public AttentionListAdapter(Context mContext, List<PeopleInfo> attentionList) {
         this.mContext = mContext;
         this.attentionList = attentionList;
+    }
+
+    public AttentionListAdapter(Context mContext, List<PeopleInfo> attentionList, UserFragment userFragment) {
+        this.mContext = mContext;
+        this.attentionList = attentionList;
+        this.userFragment = userFragment;
     }
 
     public AttentionListAdapter(Context mContext, List<PeopleInfo> attentionList, AttentionActivity attentionActivity) {

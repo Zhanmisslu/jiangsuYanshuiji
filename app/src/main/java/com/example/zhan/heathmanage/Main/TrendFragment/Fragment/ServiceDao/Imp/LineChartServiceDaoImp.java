@@ -44,10 +44,10 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
         List<PointValue> pointValues = new ArrayList<>();
         for (int i = 0; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i / (a-1));
+            pointValue.setX( (11*i)/ (a-1));
             float var = Float.parseFloat(monthInfoList.get(i).getHeartRate());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 200f);
+            pointValue.setY(var / 25f);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
@@ -71,10 +71,10 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
         List<PointValue> pointValues = new ArrayList<>();
         for (int i = 1; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i / (a-1));
+            pointValue.setX( 11*i/ (a-1));
             float var = Float.parseFloat(monthInfoList.get(i).getDiastolicBP());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 200f);
+            pointValue.setY(var / 30f);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
@@ -99,10 +99,10 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
         List<PointValue> pointValues = new ArrayList<>();
         for (int i = 0; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i  / (a-1));
+            pointValue.setX( 11*i/ (a-1) );
             float var = Float.parseFloat(monthInfoList.get(i).getSystolicBP());
             pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 200f);
+            pointValue.setY(var / 25f);
             pointValue.setShowLabel(false);
             pointValues.add(pointValue);
         }
@@ -127,7 +127,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
         List<PointValue> pointValues = new ArrayList<>();
         for (int i = 0; i <length; i++) {
             PointValue pointValue = new PointValue();
-            pointValue.setX( i / (a-1));
+            pointValue.setX( i/ (a-1) );
             float var = Float.parseFloat(monthInfoList.get(i).getBloodFat());
             pointValue.setLabel(String.valueOf(var));
             pointValue.setY(var / 200f);

@@ -1,1 +1,1 @@
-include ':app', ':ncalendar', ':coordinatormenu', ':leafchart', ':library', ':photoPicker', ':photoview'
+include ':app', ':ncalendar', ':coordinatormenu', ':leafchart', ':library', ':photoPicker', ':photoview', ':searchview'
