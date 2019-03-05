@@ -163,7 +163,9 @@ public class EmergencyContactActivity extends BaseActivity {
                 phones.close();
             }
             cursor.close();
-            
+            if (phoneNumber.length()>11){
+                phoneNumber = phoneNumber.replace(" ","");
+            }
             emergency_user_et.setText(name);
             emergency_phone_et.setText(phoneNumber);
 
@@ -237,4 +239,9 @@ public class EmergencyContactActivity extends BaseActivity {
         finish();
     }
 
+    @OnClick(R.id.emergency_update)
+    public void emergency_update_OnClick(){
+        emergency_contact_ll.setVisibility(View.VISIBLE);
+        emergency_contactaffirm_ll.setVisibility(View.GONE);
+    }
 }

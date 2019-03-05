@@ -208,6 +208,7 @@
             android:layout_marginLeft="40dp"
             android:textSize="15dp"
             android:text="管理"
+            android:id="@+id/emergency_update"
             android:textColor="#f28704"
             android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"/>
