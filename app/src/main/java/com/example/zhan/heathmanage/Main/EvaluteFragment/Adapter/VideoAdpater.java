@@ -13,12 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Video;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.WeeklyActivity;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.DetailActivity;
+import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.john.waveview.WaveView;
@@ -62,8 +66,8 @@ public class VideoAdpater extends RecyclerView.Adapter {
             return Tepy_Evalute;
         }else if (position == 2){
             return Tepy_Banner;
-//        }else if (position ==3){
-//            return Tepy_Foods;
+        }else if (position ==3){
+            return Tepy_Foods;
         }else{
             return Tepy_List;
         }
@@ -79,6 +83,8 @@ public class VideoAdpater extends RecyclerView.Adapter {
                 return new EvaluteViewHodler(inflater.inflate(R.layout.evaluation_score,viewGroup,false));
             case Tepy_Banner:
                 return new BannerViewHodler(inflater.inflate(R.layout.evaluation_banner,viewGroup,false));
+            case Tepy_Foods:
+                return new ShowVideViewHodler(inflater.inflate(R.layout.evaluation_videolist,viewGroup,false));
             case Tepy_List:
                 return new VideoViewHodler(inflater.inflate(R.layout.video_item,viewGroup,false));
         }
@@ -99,7 +105,20 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     //头布局的初始化
     private void setHeadItemValues(HeadViewHodler hodler){
-
+       if (!MyApplication.getsBP().equals("")){
+           hodler.evalute_concentration.setText(MyApplication.getBloodFat());
+           hodler.evalute_diastolic.setText(MyApplication.getdBP());
+           hodler.evalute_systolic.setText(MyApplication.getsBP());
+           hodler.evalute_oxygen.setText(MyApplication.getBloodOxygen());
+           hodler.evalute_heartrate.setText(MyApplication.getHeartRate());
+           hodler.rv_ll.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent intent = new Intent(context, DetailActivity.class);
+                   context.startActivity(intent);
+               }
+           });
+       }
     }
 
     //个人数据显示的初始化
@@ -139,7 +158,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     //视频列表显示的初始化
     private void setVideoItemValues(VideoViewHodler hodler,int i){
-        int postion = i-3;
+        int postion = i-4;
         Video video = list.get(postion);
         TxVideoPlayerController controller = new TxVideoPlayerController(context);
         hodler.setController(controller);
@@ -148,7 +167,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     @Override
     public int getItemCount() {
-        return list.size()+3;
+        return list.size()+4;
     }
 
     /*
@@ -214,11 +233,26 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     //头布局hodler
     public class HeadViewHodler extends RecyclerView.ViewHolder{
+        //主页数据显示
+        private TextView evalute_systolic;
+        private TextView evalute_eva;
+        private TextView evalute_diastolic;
+        private TextView evalute_oxygen;
+        private TextView evalute_heartrate;
+        private TextView evalute_concentration;
 
+        private LinearLayout rv_ll;
         private WaveView fragment_evaluate_waveview;
         public HeadViewHodler(View itemView) {
             super(itemView);
+            rv_ll = itemView.findViewById(R.id.rv_ll);
             rv_view = itemView.findViewById(R.id.rv_view);
+            evalute_systolic = itemView.findViewById(R.id.evalute_systolic);
+            evalute_eva = itemView.findViewById(R.id.evalute_eva);
+            evalute_diastolic = itemView.findViewById(R.id.evalute_diastolic);
+            evalute_oxygen = itemView.findViewById(R.id.evalute_oxygen);
+            evalute_heartrate = itemView.findViewById(R.id.evalute_heartrate);
+            evalute_concentration = itemView.findViewById(R.id.evalute_concentration);
             fragment_evaluate_waveview = itemView.findViewById(R.id.fragment_evaluate_waveview);
             fragment_evaluate_waveview.setProgress(100);
             initRingView();
@@ -229,6 +263,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
 
         public EvaluteViewHodler(@NonNull View itemView) {
             super(itemView);
+
         }
     }
     //轮播图的显示布局
@@ -239,6 +274,12 @@ public class VideoAdpater extends RecyclerView.Adapter {
 
             mBanner = itemView.findViewById(R.id.ev_banner);
 
+        }
+    }
+    //视频列表TextView的显示布局
+    public class ShowVideViewHodler extends RecyclerView.ViewHolder{
+        public ShowVideViewHodler(@NonNull View itemView) {
+            super(itemView);
         }
     }
     //Video视频的VIewHodler

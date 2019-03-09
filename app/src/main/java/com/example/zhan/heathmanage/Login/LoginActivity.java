@@ -213,6 +213,7 @@ public class LoginActivity extends BaseActivity {
 //           editor.putString("Login_Password",password.getText().toString());
 //           editor.commit();
            userServer.FirstLogin(0,account.getText().toString(),password.getText().toString());
+           userServer.UserEvalute(account.getText().toString());
            //Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
        }
    }
@@ -242,6 +243,15 @@ public class LoginActivity extends BaseActivity {
        adapter.notifyDataSetChanged();
     }
 
+    public void EvaluteCallBack(){
+        editor.putString("BloodFat",MyApplication.getBloodFat());
+        editor.putString("BloodOxygen",MyApplication.getBloodOxygen());
+        editor.putString("DataTime",MyApplication.getDataTime());
+        editor.putString("dBP",MyApplication.getdBP());
+        editor.putString("sBP",MyApplication.getsBP());
+        editor.putString("HeartRate",MyApplication.getHeartRate());
+        editor.commit();
+    }
     //登录成功的回调
     public void LoginCallBack(User user){
         MyApplication.setUserPhone(user.getPhoneNumber());

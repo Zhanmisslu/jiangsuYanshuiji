@@ -27,8 +27,7 @@ import butterknife.OnClick;
 import static com.zyao89.view.zloading.Z_TYPE.DOUBLE_CIRCLE;
 
 public class WeeklyActivity extends BaseActivity {
-    @BindView(R.id.weekly_web)
-    WebView weekly_web;
+    public static WebView weekly_web;
     //加载框
     ZLoadingDialog zLoadingDialog;
     @SuppressLint("JavascriptInterface")
@@ -36,6 +35,7 @@ public class WeeklyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly);
+        weekly_web = findViewById(R.id.weekly_web);
         weekly_web.loadUrl("http://www.mcartoria.com:8080/Health/index.jsp");
         weekly_web.addJavascriptInterface(this,"android");
         weekly_web.setWebChromeClient(webChromeClient);
@@ -143,7 +143,9 @@ public class WeeklyActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //释放资源
+
         weekly_web.destroy();
+        weekly_web = null;
     }
     @OnClick(R.id.weekly_back)
     public void back_OnClick(){

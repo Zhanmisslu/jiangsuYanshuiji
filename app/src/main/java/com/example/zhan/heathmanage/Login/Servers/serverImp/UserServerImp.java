@@ -32,6 +32,8 @@ public class UserServerImp implements UserServer {
     public UserServerImp(RegisterActivity registerActivity) {
         this.registerActivity = registerActivity;
     }
+
+    //注册接口
     @Override
     public void Register(String UserPhone, String UserPassword) {
       String URL = Net.Register;
@@ -51,7 +53,7 @@ public class UserServerImp implements UserServer {
             }
         });
     }
-
+    //第一次登陆
     @Override
     public void FirstLogin(final int i,final String UserPhone, final String UserPassword) {
         final String url=Net.PasswordLogin+"?userPhone="+UserPhone+"&userPassword="+ UserPassword;
@@ -96,9 +98,6 @@ public class UserServerImp implements UserServer {
                         if (i == 0){
                             loginActivity.LoginCallBack(user);
                         }
-                        Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"登录成功",Toast.LENGTH_SHORT).show();
-                        Looper.loop();
 
                     }else if(warning.equals("1")){
                         if (i==0){
@@ -127,4 +126,50 @@ public class UserServerImp implements UserServer {
             }
         });
     }
+
+    //得到个人信息的接口
+    @Override
+    public void UserEvalute(String UserPhone) {
+       String URL = Net.ShowLatestData+"?userPhone="+UserPhone;
+       OKHttp.sendOkhttpGetRequest(URL, new Callback() {
+           @Override
+           public void onFailure(Call call, IOException e) {
+               Looper.prepare();
+               Toast.makeText(MyApplication.getContext(),"获取信息失败",Toast.LENGTH_LONG).show();
+               Looper.loop();
+           }
+
+           @Override
+           public void onResponse(Call call, Response response) throws IOException {
+               String ResponseData=response.body().string();
+               try {
+                   JSONObject jsonObject=new JSONObject(ResponseData);
+                   JSONObject jsonObject1=jsonObject.getJSONObject("ShowLatestData");
+                   String warning=jsonObject1.getString("warning");
+                   if (warning.equals("2")){
+                       Looper.prepare();
+                       Toast.makeText(MyApplication.getContext(),"该用户昨天没开车哦",Toast.LENGTH_LONG).show();
+                       Looper.loop();
+                   }else {
+                       MyApplication.setBloodFat(jsonObject1.getString("bloodFat"));
+                       MyApplication.setBloodOxygen(jsonObject1.getString("bloodOxygen"));
+                       MyApplication.setDataTime(jsonObject1.getString("dataTime"));
+                       MyApplication.setdBP(jsonObject1.getString("dBP"));
+                       MyApplication.setsBP(jsonObject1.getString("sBP"));
+                       MyApplication.setHeartRate(jsonObject1.getString("heartRate"));
+                       loginActivity.EvaluteCallBack();
+                       Looper.prepare();
+                       Toast.makeText(MyApplication.getContext(),"获取信息成功",Toast.LENGTH_LONG).show();
+                       Looper.loop();
+                   }
+               }catch (Exception e){
+                   Looper.prepare();
+                   Toast.makeText(MyApplication.getContext(),"网络炸了",Toast.LENGTH_LONG).show();
+                   Looper.loop();
+               }
+
+           }
+       });
+    }
+
 }

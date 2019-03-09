@@ -28,7 +28,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main.EvaluteFragment.WeeklyActivity"></activity>
+        <activity android:name=".Main.EvaluteFragment.activity.DetailActivity"></activity>
+        <activity android:name=".Main.EvaluteFragment.WeeklyActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity
             android:name=".Main.MainActivity"
@@ -82,7 +83,7 @@
         <activity android:name=".Main.FindFragment.Activity.AttentionActivity" />
         <activity android:name=".Main.FindFragment.Activity.ImageInfoActivity" />
         <activity android:name=".Main.FindFragment.Activity.FanListActivity" />
-        <activity android:name=".Main.FindFragment.Activity.NewsActivity"></activity>
+        <activity android:name=".Main.FindFragment.Activity.NewsActivity" />
     </application>
 
 </manifest>

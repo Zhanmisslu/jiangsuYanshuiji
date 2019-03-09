@@ -44,6 +44,13 @@ public class WelcomeActivity extends BaseActivity {
                     MyApplication.setEmergencyPhone(pref.getString("EmergencyPhone",""));
                     MyApplication.setEmergencyName(pref.getString("EmergencyName",""));
                     MyApplication.setUserId(pref.getString("Login_Id",""));
+
+                    MyApplication.setsBP(pref.getString("sBP",""));
+                    MyApplication.setHeartRate(pref.getString("HeartRate",""));
+                    MyApplication.setdBP(pref.getString("dBP",""));
+                    MyApplication.setDataTime(pref.getString("DataTime",""));
+                    MyApplication.setBloodOxygen(pref.getString("BloodOxygen",""));
+                    MyApplication.setBloodFat(pref.getString("BloodFat",""));
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
 
                 }

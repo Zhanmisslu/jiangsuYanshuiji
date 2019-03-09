@@ -71,7 +71,7 @@
         <!-- 开启自动轮播 -->
         <item name="banner_pointAutoPlayAble">true</item>
         <!-- 自动轮播的时间间隔 -->
-        <item name="banner_pointAutoPlayInterval">2000</item>
+        <item name="banner_pointAutoPlayInterval">4000</item>
         <!-- 指示点容器背景 -->
         <item name="banner_pointContainerBackground">#44aaaaaa</item>
         <!-- 指示点背景 -->

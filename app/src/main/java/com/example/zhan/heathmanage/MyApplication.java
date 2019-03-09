@@ -13,6 +13,7 @@ import com.mob.MobSDK;
 public class MyApplication extends Application {
 
     private static Context context;//上下文 并生成get方法
+    //个人的身份信息
     private static String UserPhone;
     private static String UserPassword;
     private static String UserWeight="";
@@ -25,6 +26,14 @@ public class MyApplication extends Application {
     private static String EmergencyPhone;
     private static String EmergencyName;
     private static String UserId;
+    //个人的资料
+    private static String sBP="";
+    private static String bloodOxygen;
+    private static String dBP;
+    private static String heartRate;
+    private static String dataTime;
+    private static String bloodFat;
+
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
 
@@ -36,6 +45,54 @@ public class MyApplication extends Application {
         editor=pref.edit();
         MobSDK.init(this);
         Fresco.initialize(this);
+    }
+
+    public static String getsBP() {
+        return sBP;
+    }
+
+    public static void setsBP(String sBP) {
+        MyApplication.sBP = sBP;
+    }
+
+    public static String getBloodOxygen() {
+        return bloodOxygen;
+    }
+
+    public static void setBloodOxygen(String bloodOxygen) {
+        MyApplication.bloodOxygen = bloodOxygen;
+    }
+
+    public static String getdBP() {
+        return dBP;
+    }
+
+    public static void setdBP(String dBP) {
+        MyApplication.dBP = dBP;
+    }
+
+    public static String getHeartRate() {
+        return heartRate;
+    }
+
+    public static void setHeartRate(String heartRate) {
+        MyApplication.heartRate = heartRate;
+    }
+
+    public static String getDataTime() {
+        return dataTime;
+    }
+
+    public static void setDataTime(String dataTime) {
+        MyApplication.dataTime = dataTime;
+    }
+
+    public static String getBloodFat() {
+        return bloodFat;
+    }
+
+    public static void setBloodFat(String bloodFat) {
+        MyApplication.bloodFat = bloodFat;
     }
 
     public static String getUserId() {

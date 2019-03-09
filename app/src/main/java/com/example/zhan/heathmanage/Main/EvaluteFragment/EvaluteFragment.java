@@ -3,6 +3,8 @@ package com.example.zhan.heathmanage.Main.EvaluteFragment;
 
 import android.animation.ArgbEvaluator;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -51,7 +54,6 @@ public class EvaluteFragment extends CompatHomeKeyFragment {
     private SeekBar fragment_evaluate_seekbar;
     private RecyclerView recycler_view;
     private SharedPreferences preferences;
-
     public EvaluteFragment() {
         // Required empty public constructor
     }
@@ -62,6 +64,7 @@ public class EvaluteFragment extends CompatHomeKeyFragment {
         view = inflater.inflate(R.layout.fragment_evalute, container, false);
         evalutefragment_iv = view.findViewById(R.id.evalutefragment_iv);
         recycler_view = view.findViewById(R.id.recycler_view);
+
         preferences = getActivity().getSharedPreferences("UserList", MODE_PRIVATE);
 
 
