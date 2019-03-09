@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -61,11 +62,21 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.Person
                 .asBitmap()
                 .error(R.drawable.welcome)
                 .into(personalViewHolder.personalitem_image_riv);
-        Glide.with(getContext())
-                .load(attentionInfoList.get(i).getPciture())
-                .asBitmap()
-                .error(R.drawable.welcome)
-                .into(personalViewHolder.personalitem_picture1_iv);
+        if(attentionInfoList.get(i).getPciture().equals("null")|| attentionInfoList.get(i).getPciture()==null){
+
+        }else {
+            Glide.with(getContext())
+                    .load(attentionInfoList.get(i).getPciture())
+                    .asBitmap()
+                    .error(R.drawable.welcome)
+                    .into(personalViewHolder.personalitem_picture1_iv);
+        }
+
+        if(attentionInfoList.get(i).getLocation().equals("null")){
+            personalViewHolder.personalitem_location_tv.setText("");
+        }else {
+            personalViewHolder.personalitem_location_tv.setText(attentionInfoList.get(i).getLocation());
+        }
         personalViewHolder.personalitem_time_tv.setText(attentionInfoList.get(i).getTime());
         personalViewHolder.personalitem_commentnum_ll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +147,8 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.Person
         @BindView(R.id.personalitem_commentnum_ll)LinearLayout personalitem_commentnum_ll;
         @BindView(R.id.personalitem_supportnum_ll)LinearLayout personalitem_supportnum_ll;
         @BindView(R.id.personalitem_supportnum_sb)ShineButton personalitem_supportnum_sb;
+        @BindView(R.id.personalitem_location_tv)TextView personalitem_location_tv;
+        @BindView(R.id.personalitem_down_ib)ImageButton personalitem_down_ib;
         public PersonalViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

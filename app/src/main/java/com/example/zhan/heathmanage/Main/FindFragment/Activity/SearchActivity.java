@@ -128,6 +128,9 @@ public class SearchActivity extends BaseActivity {
                 }
                 if(TextUtils.isEmpty(string)){
                     Toast.makeText(MyApplication.getContext(),"请输入输入内容",Toast.LENGTH_SHORT).show();
+                    viewpage_ll.setVisibility(GONE);
+                    search_view.tv_clear.setVisibility(GONE);
+                    search_view.listView.setVisibility(GONE);
                 }else {
                     //搜索接口
                     //searchDao.SearchUser(string);

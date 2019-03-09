@@ -3,9 +3,12 @@ package com.example.zhan.heathmanage.Main.TrendFragment.Fragment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -29,15 +32,17 @@ import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.M
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.MonthLineChartServiceDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
+import com.example.zhan.heathmanage.Main.TrendFragment.manage.LineChartManager;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.zyao89.view.zloading.ZLoadingDialog;
 
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,40 +50,43 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.zhan.heathmanage.Main.MainActivity.ev;
-import static com.zyao89.view.zloading.Z_TYPE.DOUBLE_CIRCLE;
+
 import static com.zyao89.view.zloading.Z_TYPE.STAR_LOADING;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MonthFragment extends Fragment {
-    private OutsideLineChart heartrate_graph;
-    private OutsideLineChart bloodpressure_graph;
-    private OutsideLineChart bloodfat_graph;
-    private OutsideLineChart bloodoxygen_graph;
+    @BindView(R.id.fragment_month_ll) LinearLayout fragment_month_ll;
+    @BindView(R.id.monthnodata_ll)LinearLayout monthnodata_ll;
+    private LineChart heartrate_graph;
+    private LineChart bloodpressure_graph;
+
+    private LineChart bloodoxygen_graph;
     private ViewGroup month_viewGroup;
     private ChildViewPager month_viewPager;
-    private LinearLayout month_heartrate_ll;
+
     private List<View> viewList = new ArrayList<>();
     private PagerAdapter pagerAdapter;
     private ImageView imageView;
     private ImageView[] imageViews;
     private View view;
     Handler handler;
-    Handler handler1;
+    private LineChartManager lineChartManager;
+    private LineChartManager BloodOxygenlineChartManager;
+    private LineChartManager HeartratelineChartManager;
     View month_bloodpressure_view;
-    View month_bloodfat_view;
     View month_bloodoxygen_view;
     View month_heartrate_view;
-    static Axis axisX;
-    static Axis axisY;
+    private Legend legend;              //图例
     List<MonthInfo> monthInfoList;
     MonthLineChartServiceDao monthLineChartServiceDao;
     String Date;
     String month;
     String year;
     ZLoadingDialog dialog;
-    List<Line> lines;
+
+    Drawable drawable;
     public MonthFragment() {
         // Required empty public constructor
     }
@@ -98,7 +106,7 @@ public class MonthFragment extends Fragment {
         Date = TrendFragment.nDate;
         year = Date.substring(0, 4);
         month = TrendFragment.Month;
-
+        drawable = getResources().getDrawable(R.drawable.fade_blue);
         dialog = new ZLoadingDialog(getActivity());
 
         Init();
@@ -125,17 +133,16 @@ public class MonthFragment extends Fragment {
     public void InitView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         month_bloodpressure_view = inflater.inflate(R.layout.month_bloodpressure, null);
-        month_bloodfat_view = inflater.inflate(R.layout.month_bloodfat, null);
         month_bloodoxygen_view = inflater.inflate(R.layout.month_bloodoxygen, null);
         month_heartrate_view = inflater.inflate(R.layout.month_heartrate, null);
         bloodpressure_graph = month_bloodpressure_view.findViewById(R.id.bloodpressure_graph);
-        heartrate_graph = month_heartrate_view.findViewById(R.id.heartrate_graph);
-        bloodfat_graph = month_bloodfat_view.findViewById(R.id.bloodfat_graph);
+        lineChartManager=new LineChartManager(bloodpressure_graph);
         bloodoxygen_graph = month_bloodoxygen_view.findViewById(R.id.bloodoxygen_graph);
-       // month_heartrate_ll = month_heartrate_view.findViewById(R.id.month_heartrate_ll);
+        BloodOxygenlineChartManager=new LineChartManager(bloodoxygen_graph);
+        heartrate_graph = month_heartrate_view.findViewById(R.id.heartrate_graph);
+        HeartratelineChartManager=new LineChartManager(heartrate_graph);
         viewList.add(month_bloodpressure_view);
         viewList.add(month_heartrate_view);
-        viewList.add(month_bloodfat_view);
         viewList.add(month_bloodoxygen_view);
         pagerAdapter = new PagerAdapter() {
             @Override
@@ -169,36 +176,136 @@ public class MonthFragment extends Fragment {
     }
 
     Runnable runnableUi = new Runnable() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void run() {
             //更新界面
-            bloodpressure_graph.setAxisX(axisX);
-            bloodpressure_graph.setAxisY(axisY);
-            heartrate_graph.setAxisX(axisX);
-            heartrate_graph.setAxisY(axisY);
-            bloodfat_graph.setAxisX(axisX);
-            bloodfat_graph.setAxisY(axisY);
-            bloodoxygen_graph.setAxisX(axisX);
-            bloodoxygen_graph.setAxisY(axisY);
-            lines = new ArrayList<>();
-            lines.add(monthLineChartServiceDao.getDiastolicBPLine(monthInfoList));
-            lines.add(monthLineChartServiceDao.getSystolicBPLine(monthInfoList));
-            bloodpressure_graph.setChartData(lines);
-            lines = new ArrayList<>();
-            lines.add(monthLineChartServiceDao.getHeartRateLine(monthInfoList));
-            heartrate_graph.setChartData(lines);
-            lines = new ArrayList<>();
-            lines.add(monthLineChartServiceDao.getBloodFatLine(monthInfoList));
-            bloodfat_graph.setChartData(lines);
-            lines = new ArrayList<>();
-            lines.add(monthLineChartServiceDao.getBloodOxygenLine(monthInfoList));
-            bloodoxygen_graph.setChartData(lines);
-            bloodpressure_graph.show();
-            bloodpressure_graph.showWithAnimation(3000);
-            heartrate_graph.showWithAnimation(3000);
-            bloodfat_graph.showWithAnimation(3000);
-            bloodoxygen_graph.showWithAnimation(3000);
+            bloodpressure_graph.setDrawGridBackground(false);
+            bloodpressure_graph.setBackgroundColor(Color.WHITE);
+            //是否显示边界
+            bloodpressure_graph.setDrawBorders(false);
+            bloodpressure_graph.setDoubleTapToZoomEnabled(false);
+            Description description = new Description();
+            description.setEnabled(false);
+            bloodpressure_graph.setDescription(description);
+            bloodpressure_graph.getAxisLeft().setEnabled(false);
+            bloodpressure_graph.getAxisLeft().setAxisMinimum(50f);
+            bloodpressure_graph.getAxisLeft().setAxisMaximum(150f);
+            bloodpressure_graph.getAxisLeft().setDrawGridLines(false);
+            bloodpressure_graph.getAxisRight().setDrawAxisLine(false);
+            bloodpressure_graph.getAxisRight().setDrawGridLines(false);
+            //设置x轴在底部显示
+            bloodpressure_graph.getXAxis().setDrawAxisLine(true);
+            bloodpressure_graph.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            bloodpressure_graph.getAxisLeft().setDrawGridLines(false);
+            bloodpressure_graph.getAxisLeft().setDrawLabels(false);
+            bloodpressure_graph.getXAxis().setDrawGridLines(false);
+            bloodpressure_graph.getAxisRight().setDrawLabels(false);
+            /***折线图例 标签 设置***/
+            legend = bloodpressure_graph.getLegend();
+            //设置显示类型，LINE CIRCLE SQUARE EMPTY 等等 多种方式，查看LegendForm 即可
+            legend.setForm(Legend.LegendForm.LINE);
+            legend.setTextSize(12f);
+            //显示位置 左下方
+            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+            legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+            legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+            //是否绘制在图表里面
+            legend.setDrawInside(false);
+            //是否显示
+            legend.setEnabled(false);
+            //展示图表
+            lineChartManager.showLineChart(monthInfoList, "收缩压", MyApplication.getContext().getColor(R.color.color1));
+            lineChartManager.addLine(monthInfoList, "舒张压",  MyApplication.getContext().getColor(R.color.color1));
+            //设置曲线填充色 以及 MarkerView
+            drawable = MyApplication.getContext().getDrawable(R.drawable.fade_green);
+            lineChartManager.setChartFillDrawable(drawable);
+            lineChartManager.setMarkerView(MyApplication.getContext());
 
+
+            bloodoxygen_graph.setDrawGridBackground(false);
+            bloodoxygen_graph.setBackgroundColor(Color.WHITE);
+            //是否显示边界
+            bloodoxygen_graph.setDrawBorders(false);
+            bloodoxygen_graph.setDoubleTapToZoomEnabled(false);
+            description = new Description();
+            description.setEnabled(false);
+            bloodoxygen_graph.setDescription(description);
+            bloodoxygen_graph.getAxisLeft().setEnabled(false);
+            bloodoxygen_graph.getAxisLeft().setAxisMinimum(50f);
+            bloodoxygen_graph.getAxisLeft().setAxisMaximum(150f);
+            bloodoxygen_graph.getAxisLeft().setDrawGridLines(false);
+            bloodoxygen_graph.getAxisRight().setDrawAxisLine(false);
+            bloodoxygen_graph.getAxisRight().setDrawGridLines(false);
+            //设置x轴在底部显示
+            bloodoxygen_graph.getXAxis().setDrawAxisLine(true);
+            bloodoxygen_graph.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            bloodoxygen_graph.getAxisLeft().setDrawGridLines(false);
+            bloodoxygen_graph.getAxisLeft().setDrawLabels(false);
+            bloodoxygen_graph.getXAxis().setDrawGridLines(false);
+            bloodoxygen_graph.getAxisRight().setDrawLabels(false);
+            /***折线图例 标签 设置***/
+            legend = bloodoxygen_graph.getLegend();
+            //设置显示类型，LINE CIRCLE SQUARE EMPTY 等等 多种方式，查看LegendForm 即可
+            legend.setForm(Legend.LegendForm.LINE);
+            legend.setTextSize(12f);
+            //显示位置 左下方
+            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+            legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+            legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+            //是否绘制在图表里面
+            legend.setDrawInside(false);
+            //是否显示
+            legend.setEnabled(false);
+            //展示图表
+            BloodOxygenlineChartManager.showBloodOxygenLineChart(monthInfoList, "血氧",  MyApplication.getContext().getColor(R.color.color2));
+            //lineChartManager.addLine(monthInfoList, "收缩压", R.color.orange);
+            //设置曲线填充色 以及 MarkerView
+            drawable =MyApplication.getContext().getDrawable(R.drawable.fade_blue);
+            BloodOxygenlineChartManager.setChartFillDrawable(drawable);
+            BloodOxygenlineChartManager.setMarkerView(MyApplication.getContext());
+
+            heartrate_graph.setDrawGridBackground(false);
+            heartrate_graph.setBackgroundColor(Color.WHITE);
+            //是否显示边界
+            heartrate_graph.setDrawBorders(false);
+            heartrate_graph.setDoubleTapToZoomEnabled(false);
+            description = new Description();
+            description.setEnabled(false);
+            heartrate_graph.setDescription(description);
+            heartrate_graph.getAxisLeft().setEnabled(false);
+            heartrate_graph.getAxisLeft().setAxisMinimum(50f);
+            heartrate_graph.getAxisLeft().setAxisMaximum(150f);
+            heartrate_graph.getAxisLeft().setDrawGridLines(false);
+            heartrate_graph.getAxisRight().setDrawAxisLine(false);
+            heartrate_graph.getAxisRight().setDrawGridLines(false);
+            //设置x轴在底部显示
+            heartrate_graph.getXAxis().setDrawAxisLine(true);
+            heartrate_graph.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            heartrate_graph.getAxisLeft().setDrawGridLines(false);
+            heartrate_graph.getAxisLeft().setDrawLabels(false);
+            heartrate_graph.getXAxis().setDrawGridLines(false);
+            heartrate_graph.getAxisRight().setDrawLabels(false);
+            /***折线图例 标签 设置***/
+            legend = heartrate_graph.getLegend();
+            //设置显示类型，LINE CIRCLE SQUARE EMPTY 等等 多种方式，查看LegendForm 即可
+            legend.setForm(Legend.LegendForm.LINE);
+            legend.setTextSize(12f);
+            //显示位置 左下方
+            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+            legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+            legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+            //是否绘制在图表里面
+            legend.setDrawInside(false);
+            //是否显示
+            legend.setEnabled(false);
+            //展示图表
+            HeartratelineChartManager.showHeartRateLineChart(monthInfoList, "心率",  MyApplication.getContext().getColor(R.color.color3));
+            //lineChartManager.addLine(monthInfoList, "收缩压", R.color.orange);
+            //设置曲线填充色 以及 MarkerView
+            drawable =MyApplication.getContext().getDrawable(R.drawable.fade_red);
+            HeartratelineChartManager.setChartFillDrawable(drawable);
+            HeartratelineChartManager.setMarkerView(MyApplication.getContext());
         }
 
     };
@@ -207,87 +314,23 @@ public class MonthFragment extends Fragment {
     public void InitPageAdapter(final List<MonthInfo> monthInfoList) {
 
         this.monthInfoList= monthInfoList;
-        axisX = new Axis(getAxisValuesX(monthInfoList));
-        axisY = new Axis(getAxisValuesY());
-        axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
-        axisY.setAxisColor(Color.parseColor("#e9e9e9")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(false);
+
         handler.post(runnableUi);
         dialog.dismiss();
     }
 
-    //加载心率折线图
-    public void initHeartRate(final List<MonthInfo> monthInfoList) {
-
-        List<Line> lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getHeartRateLine(monthInfoList));
-        heartrate_graph.setChartData(lines);
-        //  heartrate_graph.setSlidingLine(getSlideingLine());
-//                 heartrate_graph.showWithAnimation(3000);
-
-    }
-
-    //加载血压折线图
-    public void initBloodPressure(final List<MonthInfo> monthInfoList) {
-        List<Line> lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getDiastolicBPLine(monthInfoList));
-        lines.add(monthLineChartServiceDao.getSystolicBPLine(monthInfoList));
-        bloodpressure_graph.setChartData(lines);
 
 
+    public void InitNoDate() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                fragment_month_ll.setVisibility(View.GONE);
+                monthnodata_ll.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        });
 
-        //  bloodpressure_graph.setSlidingLine(getSlideingLine());
-//         bloodpressure_graph.showWithAnimation(3000);
-    }
-
-    //加载血脂折线图
-    public void initBloodFat(final List<MonthInfo> monthInfoList) {
-
-
-        List<Line> lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getBloodFatLine(monthInfoList));
-        bloodfat_graph.setChartData(lines);
-
-
-        //  bloodfat_graph.setSlidingLine(getSlideingLine());
-        // bloodfat_graph.showWithAnimation(3000);
-    }
-
-    //加载血氧折线图
-    public void initBloodOxygen(final List<MonthInfo> monthInfoList) {
-
-
-        List<Line> lines = new ArrayList<>();
-        lines.add(monthLineChartServiceDao.getBloodOxygenLine(monthInfoList));
-        bloodoxygen_graph.setChartData(lines);
-
-
-        //   bloodoxygen_graph.setSlidingLine(getSlideingLine());
-        // bloodoxygen_graph.showWithAnimation(3000);
-    }
-
-    //横坐标轴
-    public List<AxisValue> getAxisValuesX(List<MonthInfo> monthInfoList) {
-        int length = monthInfoList.size();
-        List<AxisValue> axisValues = new ArrayList<>();
-        AxisValue value;
-
-        for (int i = 0; i < length; i++) {
-            value = new AxisValue();
-            value.setLabel(" "+" "+monthInfoList.get(i).getDate()+" "+" ");
-            axisValues.add(value);
-        }
-        return axisValues;
-    }
-
-    //纵坐标轴
-    public List<AxisValue> getAxisValuesY() {
-        List<AxisValue> axisValues = new ArrayList<>();
-        for (int i = 0; i <= 20; i = i + 2) {
-            AxisValue value = new AxisValue();
-            value.setLabel(String.valueOf(i * 10));
-            axisValues.add(value);
-        }
-        return axisValues;
     }
 
 
@@ -342,141 +385,5 @@ public class MonthFragment extends Fragment {
         }
 
     }
-//    private SlidingLine getSlideingLine(){
-//        SlidingLine slidingLine = new SlidingLine();
-//        slidingLine.setSlideLineColor(Color.parseColor("#00000000"))
-//                .setSlidePointColor(getResources().getColor(R.color.colorAccent))
-//                .setSlidePointRadius(3);
-//        return slidingLine;
-//    }
-//
-//    //心率曲线
-    public Line getHeartRateLine(final List<MonthInfo> monthInfoList) {
-        int length=monthInfoList.size();
-        float a=length;
-        List<PointValue> pointValues = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
-            PointValue pointValue = new PointValue();
-            pointValue.setX((i)/ (a-1));
-            float var = Float.parseFloat(monthInfoList.get(i).getHeartRate());
-            pointValue.setLabel(String.valueOf(var));
-            pointValue.setY(var / 100f);
-            pointValue.setShowLabel(false);
-            pointValues.add(pointValue);
-        }
-        Line line = new Line(pointValues);
-        line.setLineColor(Color.parseColor("#FF18CC15"))
-                .setLineWidth(3)
-                .setPointColor(Color.parseColor("#FFFFFFFF"))
-                .setCubic(true)
-                .setPointRadius(3)
-                .setHasPoints(true)
-                .setFill(true)
-                .setFillColor(Color.parseColor("#FF0AE906"))
-                .setHasLabels(true)
-                .setLabelColor(Color.parseColor("#00E9E9E9"));
 
-        return line;
-    }
-//
-//    //舒张压曲线
-//    public Line getDiastolicBPLine() {
-//        List<PointValue> pointValues = new ArrayList<>();
-//        for (int i = 1; i <= 31; i++) {
-//            PointValue pointValue = new PointValue();
-//            pointValue.setX((i - 1) / 30f);
-//            int var = (int) (Math.random() * 100);
-//            pointValue.setLabel(String.valueOf(var));
-//            pointValue.setY(var / 100f);
-//            pointValues.add(pointValue);
-//        }
-//
-//        Line line = new Line(pointValues);
-//        line.setLineColor(Color.parseColor("#33B5E5"))
-//                .setLineWidth(3)
-//                .setPointColor(Color.RED)
-//                .setCubic(true)
-//                .setPointRadius(3)
-//                .setHasPoints(true)
-//                .setFill(true)
-//                .setHasLabels(true)
-//                .setLabelColor(Color.parseColor("#0033B5E5"));
-//        return line;
-//    }
-//
-//    //收缩压曲线
-//    public Line getSystolicBPLine() {
-//        List<PointValue> pointValues = new ArrayList<>();
-//        for (int i = 1; i <= 31; i++) {
-//            PointValue pointValue = new PointValue();
-//            pointValue.setX((i - 1) / 30f);
-//            int var = (int) (Math.random() * 100);
-//            pointValue.setLabel(String.valueOf(var));
-//            pointValue.setY(var / 100f);
-//            pointValue.setShowLabel(true);
-//            pointValues.add(pointValue);
-//        }
-//
-//        Line line = new Line(pointValues);
-//        line.setLineColor(Color.MAGENTA)
-//                .setLineWidth(3)
-//                .setPointColor(Color.MAGENTA)
-//                .setCubic(true)
-//                .setPointRadius(3)
-//                .setFill(true)
-//                .setHasLabels(true);
-//        return line;
-//    }
-//
-//    //体温曲线
-//    public Line getTemperatureLine() {
-//        List<PointValue> pointValues = new ArrayList<>();
-//        for (int i = 1; i <= 31; i++) {
-//            PointValue pointValue = new PointValue();
-//            pointValue.setX((i - 1) / 30f);
-//            int var = (int) (Math.random() * 100);
-//            pointValue.setLabel(String.valueOf(var));
-//            pointValue.setY(var / 100f);
-//            pointValue.setShowLabel(true);
-//            pointValues.add(pointValue);
-//        }
-//
-//        Line line = new Line(pointValues);
-//        line.setLineColor(Color.parseColor("#33B5E5"))
-//                .setLineWidth(3)
-//                .setPointColor(Color.RED)
-//                .setCubic(true)
-//                .setPointRadius(3)
-//                .setHasPoints(true)
-//                .setFill(true)
-//                .setHasLabels(true)
-//                .setLabelColor(Color.parseColor("#33B5E5"));
-//        return line;
-//    }
-//
-//    //血脂曲线
-//    public Line getBloodFatLine() {
-//        List<PointValue> pointValues = new ArrayList<>();
-//        for (int i = 1; i <= 31; i++) {
-//            PointValue pointValue = new PointValue();
-//            pointValue.setX((i - 1) / 30f);
-//            int var = (int) (Math.random() * 100);
-//            pointValue.setLabel(String.valueOf(var));
-//            pointValue.setY(var / 100f);
-//            pointValue.setShowLabel(true);
-//            pointValues.add(pointValue);
-//        }
-//
-//        Line line = new Line(pointValues);
-//        line.setLineColor(Color.parseColor("#33B5E5"))
-//                .setLineWidth(3)
-//                .setPointColor(Color.RED)
-//                .setCubic(true)
-//                .setPointRadius(3)
-//                .setHasPoints(true)
-//                .setFill(true)
-//                .setHasLabels(true)
-//                .setLabelColor(Color.parseColor("#33B5E5"));
-//        return line;
-//    }
 }

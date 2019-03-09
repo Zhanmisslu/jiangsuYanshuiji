@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.NewsInfoActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.NewsBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.FashionFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.HeathFragment;
@@ -60,8 +61,10 @@ public class FashionAdapter extends RecyclerView.Adapter<FashionAdapter.NewsView
             @Override
             public void onClick(View view) {
                 Uri uri= Uri.parse(newsBeanList.get(i).getUrl());
-                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
-                fashionFragment.startActivity(intent);
+                String url= String.valueOf(uri);
+                Intent intent=new Intent(fashionFragment.getActivity(), NewsInfoActivity.class);
+                intent.putExtra("URL",url);
+                fashionFragment.getActivity().startActivity(intent);
             }
         });
     }

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.NewsInfoActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.NewsBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.DryCargoFragment;
 
@@ -55,9 +56,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         newsViewHolder.newsitem_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri= Uri.parse(newsBeanList.get(i).getUrl());
-                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+                  Uri uri= Uri.parse(newsBeanList.get(i).getUrl());
+                  String url= String.valueOf(uri);
+                Intent intent=new Intent(dryCargoFragment.getActivity(), NewsInfoActivity.class);
+                intent.putExtra("URL",url);
                 dryCargoFragment.getActivity().startActivity(intent);
+
             }
         });
     }

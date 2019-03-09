@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.beiing.leafchart.LeafLineChart;
 import com.beiing.leafchart.OutsideLineChart;
@@ -44,9 +45,12 @@ public class WeekFragment extends Fragment {
     private LeafLineChart weekheartrate_graph;
     private LeafLineChart weekbloodpressure_graph;
     private LeafLineChart weekbloodoxygen_graph;
-    private LeafLineChart weekbloodfat_graph;
+    //private LeafLineChart weekbloodfat_graph;
+    @BindView(R.id.weeknodata_ll)
+    LinearLayout weeknodata_ll;
+    @BindView(R.id.fragment_week_ll)LinearLayout fragment_week_ll;
     View week_bloodpressure_view;
-    View week_bloodfat_view;
+  //  View week_bloodfat_view;
     View week_bloodoxygen_view;
     View week_heartrate_view;
     private View view;
@@ -99,16 +103,16 @@ public class WeekFragment extends Fragment {
     public void InitView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
          week_bloodpressure_view = inflater.inflate(R.layout.week_bloodpressure, null);
-         week_bloodfat_view = inflater.inflate(R.layout.week_bloodfat, null);
+        // week_bloodfat_view = inflater.inflate(R.layout.week_bloodfat, null);
          week_bloodoxygen_view = inflater.inflate(R.layout.week_bloodoxygen, null);
          week_heartrate_view = inflater.inflate(R.layout.week_heartrate, null);
-        weekbloodfat_graph = week_bloodfat_view.findViewById(R.id.weekbloodfat_graph);
+       // weekbloodfat_graph = week_bloodfat_view.findViewById(R.id.weekbloodfat_graph);
         weekbloodoxygen_graph = week_bloodoxygen_view.findViewById(R.id.weekbloodoxygen_graph);
         weekbloodpressure_graph = week_bloodpressure_view.findViewById(R.id.weekbloodpressure_graph);
         weekheartrate_graph = week_heartrate_view.findViewById(R.id.weekheartrate_graph);
         viewList.add(week_bloodpressure_view);
         viewList.add(week_heartrate_view);
-        viewList.add(week_bloodfat_view);
+      //  viewList.add(week_bloodfat_view);
         viewList.add(week_bloodoxygen_view);
         pagerAdapter = new PagerAdapter() {
             @Override
@@ -141,7 +145,7 @@ public class WeekFragment extends Fragment {
         this.weekInfoList=weekInfoList;
         axisX = new Axis(getAxisValuesX(weekInfoList));
         axisY = new Axis(getAxisValuesY());
-        axisX.setAxisColor(Color.parseColor("#33B5E5")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
+        axisX.setAxisColor(Color.parseColor("#FF000000")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(true);
         axisY.setAxisColor(Color.parseColor("#e9e9e9")).setTextColor(Color.DKGRAY).setHasLines(false).setShowText(false);
         handler.post(runnableUi);
     }
@@ -156,8 +160,8 @@ public class WeekFragment extends Fragment {
             weekbloodpressure_graph.setAxisY(axisY);
             weekbloodoxygen_graph.setAxisX(axisX);
             weekbloodoxygen_graph.setAxisY(axisY);
-            weekbloodfat_graph.setAxisX(axisX);
-            weekbloodfat_graph.setAxisY(axisY);
+//            weekbloodfat_graph.setAxisX(axisX);
+//            weekbloodfat_graph.setAxisY(axisY);
             lines = new ArrayList<>();
             lines.add(lineChartServiceDao.getHeartRateLine(weekInfoList));
             weekheartrate_graph.setSlidingLine(getSlideingLine());
@@ -173,16 +177,11 @@ public class WeekFragment extends Fragment {
             lines.add(lineChartServiceDao.getBloodOxygenLine(weekInfoList));
             weekbloodoxygen_graph.setChartData(lines);
             weekbloodoxygen_graph.setSlidingLine(getSlideingLine());
-           //
             lines = new ArrayList<>();
             lines.add(lineChartServiceDao.getBloodFatLine(weekInfoList));
-            weekbloodfat_graph.setSlidingLine(getSlideingLine());
-            weekbloodfat_graph.setChartData(lines);
-           //
             weekheartrate_graph.show();
             weekbloodpressure_graph.showWithAnimation(3000);
             weekheartrate_graph.showWithAnimation(3000);
-            weekbloodfat_graph.showWithAnimation(3000);
             weekbloodoxygen_graph.showWithAnimation(3000);
         }
 
@@ -216,7 +215,17 @@ public class WeekFragment extends Fragment {
 
     }
 
-//ViewPager的onPageChangeListener监听事件，当ViewPager的page页发生变化的时候调用
+    public void InitNoData() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                fragment_week_ll.setVisibility(View.GONE);
+                weeknodata_ll.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    //ViewPager的onPageChangeListener监听事件，当ViewPager的page页发生变化的时候调用
     public class GuidePageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -10,6 +10,7 @@ public class AttentionInfo {
     private String PostingId;//帖子编号
     private String CommentNum;//评论数量
     private String userId;
+    private String location;
 
     public String getUserId() {
         return userId;
@@ -82,5 +83,13 @@ public class AttentionInfo {
 
     public void setPostingId(String postingId) {
         PostingId = postingId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

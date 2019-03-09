@@ -59,6 +59,7 @@ public class PersonalDaoImp implements PersonalDao {
                     String userSex=jsonObject1.getString("userSex");
                     String userFollowedNum=jsonObject1.getString("userFollowedNum");
                     String userFollowNum=jsonObject1.getString("userFollowNum");
+
                     personalInfo.setUserFollowedNum(userFollowedNum);
                     personalInfo.setUserSex(userSex);
                     personalInfo.setUserFollowNum(userFollowNum);
@@ -109,6 +110,10 @@ public class PersonalDaoImp implements PersonalDao {
                             String content=jsonObject1.getString("postingContent");
                             String picture=jsonObject1.getString("postingImg");
                             String time=jsonObject1.getString("postingTime");
+                            String location=jsonObject1.getString("postingLocation");
+                            String commentNum=jsonObject1.getString("commentNum");
+                            attentionInfo.setCommentNum(commentNum);
+                            attentionInfo.setLocation(location);
                             attentionInfo.setTime(time);
                             attentionInfo.setPostingId(postingId);
                             attentionInfo.setImage(image);

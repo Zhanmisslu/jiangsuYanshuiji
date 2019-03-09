@@ -413,6 +413,8 @@ public class AttentionDaoImp implements AttentionDao {
                             String time=jsonObject1.getString("postingTime");
                             String userId=jsonObject1.getString("userId");
                             String commentNum=jsonObject1.getString("commentNum");
+                            String location=jsonObject1.getString("postingLocation");
+                            attentionInfo.setLocation(location);
                             attentionInfo.setUserId(userId);
                             attentionInfo.setTime(time);
                             attentionInfo.setPostingId(postingId);

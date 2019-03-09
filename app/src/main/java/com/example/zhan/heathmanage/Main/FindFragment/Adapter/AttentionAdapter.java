@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,7 +69,12 @@ public class AttentionAdapter extends RecyclerView.Adapter<AttentionAdapter.Atte
                 .asBitmap()
                 .error(R.drawable.welcome)
                 .into(attentionViewHolder.attentionitem_image_riv);
-        if(AttentionList.get(i).getPciture()==null){
+        if(AttentionList.get(i).getLocation().equals("null")){
+            attentionViewHolder.attentionitem_location_tv.setText("");
+        }else {
+            attentionViewHolder.attentionitem_location_tv.setText(AttentionList.get(i).getLocation());
+        }
+        if(AttentionList.get(i).getPciture().equals("null") || AttentionList.get(i).getPciture()==null){
             attentionViewHolder.attentionitem_picture1_iv.setVisibility(View.GONE);
         }else {
             Glide.with(getContext())
@@ -113,6 +119,7 @@ public class AttentionAdapter extends RecyclerView.Adapter<AttentionAdapter.Atte
                 }
             }
         });
+
         attentionViewHolder.attentionitem_image_riv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +174,10 @@ public class AttentionAdapter extends RecyclerView.Adapter<AttentionAdapter.Atte
         LinearLayout attentionitem_supportnum_ll;
         @BindView(R.id.attentionitem_supportnum_sb)
         ShineButton attentionitem_supportnum_sb;
-
+        @BindView(R.id.attentionitem_location_tv)
+        TextView attentionitem_location_tv;
+        @BindView(R.id.attentionitem_down_ib)
+        ImageButton attentionitem_down_ib;
         public AttentionViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

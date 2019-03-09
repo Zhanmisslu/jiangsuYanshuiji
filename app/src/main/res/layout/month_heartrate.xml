@@ -5,24 +5,21 @@
     android:orientation="vertical"
     android:id="@+id/month_heartrate_ll"
     android:layout_height="match_parent">
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="心率趋势图"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <com.beiing.leafchart.OutsideLineChart
-            android:id="@+id/heartrate_graph"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="260dp"
-            app:lc_step="30dp"/>
-    </LinearLayout>
+        android:layout_height="20dp"
+        android:text="心率趋势图"
+        android:textSize="15dp"
+        android:gravity="center"/>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/heartrate_graph"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </LinearLayout>
