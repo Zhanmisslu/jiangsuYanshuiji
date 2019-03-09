@@ -35,7 +35,7 @@ public class PublishTextActivity extends BaseActivity {
     @BindView(R.id.publishtextlocation_iv)ImageView publishtextlocation_iv;
     @BindView(R.id.publishtextloaction_ll)LinearLayout publishtextloaction_ll;
     int flag=0;
-    String UserImage;
+    String UserImage="null";
     ZLoadingDialog dialog;
     DynamicDao dynamicDao;
     public static String textData="不显示位置";
@@ -110,7 +110,13 @@ public class PublishTextActivity extends BaseActivity {
     @OnClick(R.id.publishpostingtext_bt)
     public void publishpostingtext_bt_Onclick(){
     Init();
+    if(publishtextaddress_tv.getText().toString().equals("所在位置")){
+        dynamicDao.PublishPosting(MyApplication.getUserPhone(),UserImage,publishtextcontent_et.getText().toString(),"null");
+
+    }else {
         dynamicDao.PublishPosting(MyApplication.getUserPhone(),UserImage,publishtextcontent_et.getText().toString(),publishtextaddress_tv.getText().toString());
+
+    }
     }
 
     public void callback() {

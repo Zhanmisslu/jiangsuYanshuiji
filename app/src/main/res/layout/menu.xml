@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
+        android:id="@+id/main_attention_tv"
         android:textSize="15sp"/>
     <TextView
         android:layout_width="wrap_content"
@@ -49,6 +50,7 @@
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/main_fan_tv"
         android:text="0"
         android:textSize="15sp"/>
     <TextView

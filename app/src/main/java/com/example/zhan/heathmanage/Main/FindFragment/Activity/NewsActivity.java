@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class NewsActivity extends BaseActivity {
     @BindView(R.id.news_viewpage)ViewPager news_viewpage;
@@ -65,5 +66,9 @@ public class NewsActivity extends BaseActivity {
         public int getCount() {
             return fragmentList != null ? fragmentList.size() : 0;
         }
+    }
+    @OnClick(R.id.news_back_ib)
+    public void news_back_ib_Onclick(){
+        finish();
     }
 }

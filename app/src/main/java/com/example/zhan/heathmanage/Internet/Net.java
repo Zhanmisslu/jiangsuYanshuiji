@@ -32,6 +32,10 @@ public class Net {
     public final static String CancelLikePosting= Head + "CancelLikePosting";//取消点赞
     public final static String GetFollowUserList= Head + "GetFollowUserList";//获取用户关注的好友列表
     public final static String GetFollowedUserList= Head + "GetFollowedUserList";//获取用户的粉丝列表
+    public final static String GetFollowNum= Head + "GetFollowNum";//获取用户的关注数
+    public final static String GetFollowedNum= Head + "GetFollowedNum";//获取用户的粉丝数
+
+
 
 
 

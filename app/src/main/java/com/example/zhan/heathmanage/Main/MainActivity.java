@@ -25,6 +25,8 @@ import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
 import com.example.zhan.heathmanage.Main.Menu.EmergencyContactActivity;
 import com.example.zhan.heathmanage.Main.Menu.SettingActivity;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
+import com.example.zhan.heathmanage.Main.Service.MenuDao;
+import com.example.zhan.heathmanage.Main.Service.MenuDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
@@ -70,13 +72,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     //@BindView(R.id.change_theme_tv) TextView change_theme_tv;
     @BindView(R.id.menu_nickName)
     TextView menu_nickName;
+    @BindView(R.id.main_fan_tv)TextView main_fan_tv;
+    @BindView(R.id.main_attention_tv)TextView main_attention_tv;
     SharedPreferences preferences;
+    MenuDao menuDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        menuDao=new MenuDaoImp(this);
         preferences = getSharedPreferences("UserList", MODE_PRIVATE);
+        menuDao.GetFollowedNum(MyApplication.getUserId());
+        menuDao.GetFollowNum(MyApplication.getUserId());
         inListener();
         mCoordinatorMenu=findViewById(R.id.mainactivity_menu);
         if (!MyApplication.getUserNickName().equals("null")){
@@ -279,6 +287,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     .error(R.drawable.head)
                     .into(main_user_iv);
         }
+    }
+
+    public void InitfollowedNum(final String followedNum) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                main_fan_tv.setText(followedNum);
+            }
+        });
+    }
+
+    public void InitfollowNum(final String followedNum) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                main_attention_tv.setText(followedNum);
+            }
+        });
     }
 
 

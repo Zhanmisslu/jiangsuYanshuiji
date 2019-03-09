@@ -26,9 +26,12 @@
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/head"
                 app:riv_oval="true" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:layout_weight="1"
@@ -36,7 +39,7 @@
 
                 <TextView
                     android:id="@+id/attentionitem_nickname_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="沐风"
                     android:textColor="#5B595A"
@@ -44,12 +47,20 @@
 
                 <TextView
                     android:id="@+id/attentionitem_time_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="1小时前"
+                    android:text="2018-10-1-10:52:09"
                     android:textColor="#989898"
                     android:textSize="12sp" />
+            </LinearLayout>
+                <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/attentionitem_down_ib"
+                    android:background="@drawable/newdown"/>
             </LinearLayout>
             <!--<ImageView-->
             <!--android:id="@+id/detail_page_focus"-->
@@ -89,6 +100,14 @@
             android:layout_marginLeft="20dp"
             android:transitionName="sharedView" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="之jiang网卡"
+            android:textColor="#6A5ACD"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/attentionitem_location_tv"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"

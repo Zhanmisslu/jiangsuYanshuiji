@@ -276,6 +276,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                 trend_weekview_tv.setTextColor(Color.parseColor("#272727"));
                 setSelect(1);
                 fragmentflag = 1;
+                weekflag=1;
                 InitData();
 
                 break;
@@ -284,6 +285,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                 trend_monthview_tv.setTextColor(Color.parseColor("#272727"));
                 setSelect(2);
                 fragmentflag = 2;
+                monthflag=1;
                 InitData();
 
                 break;

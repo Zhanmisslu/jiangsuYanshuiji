@@ -52,9 +52,9 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             pointValues.add(pointValue);
         }
         Line line = new Line(pointValues);
-        line.setLineColor(Color.parseColor("#33B5E5"))
+        line.setLineColor(Color.parseColor("#ba2323"))
                 .setLineWidth(3)
-                .setPointColor(Color.parseColor("#FF00BAFF"))//点的颜色
+                .setPointColor(Color.parseColor("#fa2323"))//点的颜色
                 .setPointRadius(3)//
                 .setCubic(true)//设置是曲线还是折线
                 .setHasPoints(true)
@@ -80,9 +80,9 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
         }
 
         Line line = new Line(pointValues);
-        line.setLineColor(Color.parseColor("#33B5E5"))
+        line.setLineColor(Color.parseColor("#23fa47"))
                 .setLineWidth(3)
-                .setPointColor(Color.parseColor("#FF00BAFF"))
+                .setPointColor(Color.parseColor("#FF23fa47"))
                 .setCubic(true)
                 .setPointRadius(3)
                 .setFill(false)
@@ -108,9 +108,9 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
         }
 
         Line line = new Line(pointValues);
-        line.setLineColor(Color.MAGENTA)
+        line.setLineColor(Color.parseColor("#23bafa"))
                 .setLineWidth(3)
-                .setPointColor(Color.parseColor("#FFFF0095"))//点的颜色
+                .setPointColor(Color.parseColor("#23bafa"))//点的颜色
                 .setPointRadius(3)//
                 .setCubic(true)//设置是曲线还是折线
                 .setHasPoints(true)
@@ -162,9 +162,9 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
             pointValues.add(pointValue);
         }
         Line line = new Line(pointValues);
-        line.setLineColor(Color.parseColor("#33B5E5"))
+        line.setLineColor(Color.parseColor("#9523ba"))
                 .setLineWidth(3)
-                .setPointColor(Color.parseColor("#FF00BAFF"))//点的颜色
+                .setPointColor(Color.parseColor("#FF9523ba"))//点的颜色
                 .setPointRadius(3)//
                 .setCubic(true)//设置是曲线还是折线
                 .setHasPoints(true)
@@ -263,24 +263,30 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
                 try {
                     JSONObject jsonObject=new JSONObject(ResponseData);
                     JSONArray jsonArray=jsonObject.getJSONArray("GetDataByWeek");
-                    for(int i=0;i<jsonArray.length();i++){
-                        monthInfo=new MonthInfo();
-                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                        String dayDataTime=jsonObject1.getString("dayDataTime");
-                        String dayHeartRate=jsonObject1.getString("dayHeartRate");
-                        String dayDbp=jsonObject1.getString("dayDbp");
-                        String dayBloodOxygen=jsonObject1.getString("dayBloodOxygen");
-                        String dayBloodFat=jsonObject1.getString("dayBloodFat");
-                        String daySbp=jsonObject1.getString("daySbp");
-                        monthInfo.setBloodFat(dayBloodFat);
-                        monthInfo.setBloodOxygen(dayBloodOxygen);
-                        monthInfo.setDate(dayDataTime.substring(5,dayDataTime.length()));
-                        monthInfo.setHeartRate(dayHeartRate);
-                        monthInfo.setDiastolicBP(dayDbp);
-                        monthInfo.setSystolicBP(daySbp);
-                        monthInfoList.add(monthInfo);
+                    JSONObject jsonObject2=jsonArray.getJSONObject(0);
+                    String warning=jsonObject2.getString("warning");
+                    if (warning.equals("该星期无任何数据")){
+                        weekFragment.InitNoData();
+                    }else {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            monthInfo = new MonthInfo();
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            String dayDataTime = jsonObject1.getString("dayDataTime");
+                            String dayHeartRate = jsonObject1.getString("dayHeartRate");
+                            String dayDbp = jsonObject1.getString("dayDbp");
+                            String dayBloodOxygen = jsonObject1.getString("dayBloodOxygen");
+                            String dayBloodFat = jsonObject1.getString("dayBloodFat");
+                            String daySbp = jsonObject1.getString("daySbp");
+                            monthInfo.setBloodFat(dayBloodFat);
+                            monthInfo.setBloodOxygen(dayBloodOxygen);
+                            monthInfo.setDate(dayDataTime.substring(5, dayDataTime.length()));
+                            monthInfo.setHeartRate(dayHeartRate);
+                            monthInfo.setDiastolicBP(dayDbp);
+                            monthInfo.setSystolicBP(daySbp);
+                            monthInfoList.add(monthInfo);
+                        }
+                        weekFragment.InitData(monthInfoList);
                     }
-                    weekFragment.InitData(monthInfoList);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

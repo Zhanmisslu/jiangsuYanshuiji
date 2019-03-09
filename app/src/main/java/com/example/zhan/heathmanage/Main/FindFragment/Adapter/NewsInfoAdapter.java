@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.FindFragment.Activity.NewsActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.NewsInfoActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.Bean.NewsBean;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.DryCargoFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.Fragment.FashionFragment;
@@ -61,8 +62,10 @@ public class NewsInfoAdapter extends RecyclerView.Adapter<NewsInfoAdapter.NewsVi
             @Override
             public void onClick(View view) {
                 Uri uri= Uri.parse(newsBeanList.get(i).getUrl());
-                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
-                heathFragment.startActivity(intent);
+                String url= String.valueOf(uri);
+                Intent intent=new Intent(heathFragment.getActivity(), NewsInfoActivity.class);
+                intent.putExtra("URL",url);
+                heathFragment.getActivity().startActivity(intent);
             }
         });
     }
