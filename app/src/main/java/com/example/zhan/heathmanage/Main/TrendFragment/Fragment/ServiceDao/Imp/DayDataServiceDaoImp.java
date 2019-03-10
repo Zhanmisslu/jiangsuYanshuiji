@@ -29,7 +29,7 @@ public class DayDataServiceDaoImp implements DayDataServiceDao {
 
     @Override
     public void getDayData(String UserPhone,String date) {
-        final String Url= Net.GetDataByDay+"?UserPhone="+UserPhone+"&date="+date;
+        final String Url= Net.GetDataByDay+"?userPhone="+UserPhone+"&date="+date;
         OKHttp.sendOkhttpGetRequest(Url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -47,9 +47,10 @@ public class DayDataServiceDaoImp implements DayDataServiceDao {
                     JSONObject jsonObject1=jsonObject.getJSONObject("GetDataByDay");
                     String warning=jsonObject1.getString("warning");
                     if(warning.equals("1")){
-                        Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"查找失败",Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        //Looper.prepare();
+                        //Toast.makeText(MyApplication.getContext(),"查找失败",Toast.LENGTH_SHORT).show();
+                        dayFragment.InitNoData();
+                        //Looper.loop();
                     }else {
                         String dayheartrate=jsonObject1.getString("dayHeartRate");
                         String dayblooddiastolic=jsonObject1.getString("dayDbp");

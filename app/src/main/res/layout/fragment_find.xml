@@ -83,6 +83,8 @@
         fab:menu_backgroundColor="#ccffffff"
         fab:menu_colorNormal="#43A047"
         fab:menu_colorPressed="#2E7D32"
+        app:slide_footer_color="#23ba8f"
+        app:slide_text_color_selected="#000"
         fab:menu_colorRipple="#1B5E20"
         fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_labels_ellipsize="end"

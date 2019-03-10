@@ -79,6 +79,7 @@ public class InvitationInfoActivity extends BaseActivity {
     private BottomSheetDialog dialog;
     private String nickname;
     @BindView(R.id.InvitationInfo_content_ll)LinearLayout InvitationInfo_content_ll;
+    @BindView(R.id.nocommet_ll)LinearLayout nocommet_ll;
     AttentionDao attentionDao;
     PeopleListDao peopleListDao;
     HotDao hotDao;
@@ -252,7 +253,18 @@ public class InvitationInfoActivity extends BaseActivity {
         showCommentDialog();
     }
 
-    public void initExpandableListView(final List<CommentDetailBean> commentList) {
+    public void initExpandableListView(final List<CommentDetailBean> commentList, final int i) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(i==1){
+                    nocommet_ll.setVisibility(View.VISIBLE);
+                }else {
+                    nocommet_ll.setVisibility(View.GONE);
+                }
+            }
+        });
+
         commentsList = commentList;
         InvitationInfo_CommentExpandableListView.setGroupIndicator(null);
         //默认展开所有回复
@@ -334,6 +346,7 @@ public class InvitationInfoActivity extends BaseActivity {
                     commentExpandAdapter.addTheCommentData(detailBean);
                     Toast.makeText(InvitationInfoActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
                     //上传评论
+                    nocommet_ll.setVisibility(View.GONE);
                     attentionDao.Comment(MyApplication.getUserPhone(), postingId, commentContent);
                 } else {
                     Toast.makeText(InvitationInfoActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();

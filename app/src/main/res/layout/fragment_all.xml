@@ -19,7 +19,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="#d3ffd5"
+                android:background="#23ba8f"
                 android:id="@+id/fragment_all_user_ll"
                 android:layout_height="30dp">
             <TextView
@@ -28,6 +28,7 @@
                 android:layout_gravity="center|center_vertical"
                 android:gravity="center|left"
                 android:layout_marginLeft="20dp"
+
                 android:text="用户" />
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
@@ -38,6 +39,7 @@
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="30dp"
+               android:layout_marginTop="10dp"
                android:id="@+id/fragment_all_showmoreuser_ll"
                android:orientation="horizontal">
                <TextView
@@ -62,7 +64,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="#d3ffd5"
+                android:background="#23ba8f"
                 android:id="@+id/fragment_all_posting_ll"
                 android:layout_height="30dp">
             <TextView
@@ -81,6 +83,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/fragment_all_showmoreposting_ll"
                 android:orientation="horizontal">
                 <TextView

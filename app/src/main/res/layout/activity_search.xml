@@ -63,7 +63,7 @@
         app:textSizeSearch="5dp"
         app:textColorSearch="#9b9b9b"
         app:textHintSearch="搜索动态、文章"
-        app:searchBlockHeight="140"
+        app:searchBlockHeight="100"
         app:searchBlockColor="#ffffff"
         />
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.beiing.leafchart.LeafLineChart;
 import com.beiing.leafchart.OutsideLineChart;
@@ -22,9 +23,12 @@ import com.beiing.leafchart.bean.Line;
 import com.beiing.leafchart.bean.PointValue;
 import com.beiing.leafchart.bean.SlidingLine;
 import com.example.zhan.heathmanage.Main.TrendFragment.Bean.MonthInfo;
+import com.example.zhan.heathmanage.Main.TrendFragment.Bean.WeekSuggestBean;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.LineChartServiceDaoImp;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.SuggestDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.WeekLineChartServiceDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.SuggestDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.WeekLineChartServiceDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.MyApplication;
@@ -49,6 +53,16 @@ public class WeekFragment extends Fragment {
     @BindView(R.id.weeknodata_ll)
     LinearLayout weeknodata_ll;
     @BindView(R.id.fragment_week_ll)LinearLayout fragment_week_ll;
+    @BindView(R.id.frament_week_suggest_tv)
+    TextView frament_week_suggest_tv;
+    @BindView(R.id.weekpressuse_ll)LinearLayout weekpressuse_ll;
+    @BindView(R.id.weekbloooxygen_ll)LinearLayout weekbloooxygen_ll;
+    @BindView(R.id.weekheart_ll)LinearLayout weekheart_ll;
+    @BindView(R.id.weekDiastolicBP_tv)TextView weekDiastolicBP_tv;
+    @BindView(R.id.weekDiastolicBPtype_tv)TextView weekDiastolicBPtype_tv;
+    @BindView(R.id.weekSystolicBP_tv)TextView weekSystolicBP_tv;
+    @BindView(R.id.weekSystolicBPtype_tv)TextView weekSystolicBPtype_tv;
+    @BindView(R.id.frament_week_suggest1_tv)TextView frament_week_suggest1_tv;
     View week_bloodpressure_view;
   //  View week_bloodfat_view;
     View week_bloodoxygen_view;
@@ -68,8 +82,15 @@ public class WeekFragment extends Fragment {
     Handler handler;
     List<Line> lines;
     List<MonthInfo>weekInfoList;
+    static List<WeekSuggestBean> weekSuggestBeanList=new ArrayList<>();
+    SuggestDao suggestDao;
     public WeekFragment() {
         // Required empty public constructor
+    }
+
+    public void InitSuggest(List<WeekSuggestBean> weekSuggestBeanList) {
+        this.weekSuggestBeanList=weekSuggestBeanList;
+        handler.post(runnable1);
     }
 
 
@@ -82,7 +103,7 @@ public class WeekFragment extends Fragment {
         handler = new Handler();
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         viewGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
-
+        suggestDao=new SuggestDaoImp(this);
         lineChartServiceDao = new LineChartServiceDaoImp(this);
         InitView();
         //InitPageAdapter();
@@ -91,7 +112,7 @@ public class WeekFragment extends Fragment {
         initEvent();
 
         lineChartServiceDao.GetWeekData(MyApplication.getUserPhone(), TrendFragment.StartDay,TrendFragment.EndDay);
-
+        suggestDao.getWeekSuggestion(MyApplication.getUserPhone(), TrendFragment.StartDay,TrendFragment.EndDay);
         return view;
     }
 
@@ -99,7 +120,15 @@ public class WeekFragment extends Fragment {
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new GuidePageChangeListener());
     }
-
+    Runnable runnable1=new Runnable() {
+        @Override
+        public void run() {
+            frament_week_suggest_tv.setText(weekSuggestBeanList.get(0).getReferenceType());
+            weekDiastolicBPtype_tv.setText(weekSuggestBeanList.get(0).getSuggestion());
+            weekSystolicBPtype_tv.setText(weekSuggestBeanList.get(1).getSuggestion());
+            frament_week_suggest1_tv.setText(weekSuggestBeanList.get(1).getReferenceType());
+        }
+    };
     public void InitView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
          week_bloodpressure_view = inflater.inflate(R.layout.week_bloodpressure, null);
@@ -216,15 +245,15 @@ public class WeekFragment extends Fragment {
     }
 
     public void InitNoData() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                fragment_week_ll.setVisibility(View.GONE);
-                weeknodata_ll.setVisibility(View.VISIBLE);
-            }
-        });
+      handler.post(runnable);
     }
-
+Runnable runnable=new Runnable() {
+    @Override
+    public void run() {
+        fragment_week_ll.setVisibility(View.GONE);
+        weeknodata_ll.setVisibility(View.VISIBLE);
+    }
+};
     //ViewPager的onPageChangeListener监听事件，当ViewPager的page页发生变化的时候调用
     public class GuidePageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
@@ -241,7 +270,27 @@ public class WeekFragment extends Fragment {
                 if (position != i) {
                     imageViews[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
                 }
+                if(position==0){
+                    weekheart_ll.setVisibility(View.GONE);
+                    weekpressuse_ll.setVisibility(View.VISIBLE);
+                    weekbloooxygen_ll.setVisibility(View.GONE);
+                    frament_week_suggest_tv.setText(weekSuggestBeanList.get(0).getReferenceType());
+                    frament_week_suggest1_tv.setVisibility(View.VISIBLE);
+                }else if (position==1){
+                    weekheart_ll.setVisibility(View.VISIBLE);
+                    weekpressuse_ll.setVisibility(View.GONE);
+                    weekbloooxygen_ll.setVisibility(View.GONE);
+                    frament_week_suggest_tv.setText(weekSuggestBeanList.get(2).getReferenceType());
+                    frament_week_suggest1_tv.setVisibility(View.GONE);
+                }else {
+                    weekheart_ll.setVisibility(View.GONE);
+                    weekpressuse_ll.setVisibility(View.GONE);
+                    weekbloooxygen_ll.setVisibility(View.VISIBLE);
+                    frament_week_suggest_tv.setText(weekSuggestBeanList.get(4).getReferenceType());
+                    frament_week_suggest1_tv.setVisibility(View.GONE);
+                }
             }
+
         }
 
         //监听页面的状态，0--静止  1--滑动   2--滑动完成
@@ -263,6 +312,7 @@ public class WeekFragment extends Fragment {
             //初始化第一个页面的原点的图片为选中状态
             if (i == 0) {
                 imageViews[i].setBackgroundResource(R.drawable.page_indicator_focused);
+
             } else {
                 imageViews[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
             }

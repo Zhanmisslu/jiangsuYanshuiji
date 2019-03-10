@@ -252,8 +252,8 @@ public class AttentionDaoImp implements AttentionDao {
                     String warning=jsonObject5.getString("warning");
                     if(warning.equals("1")){//没有评论
                         Looper.prepare();
-                        Toast.makeText(MyApplication.getContext(),"暂无评论",Toast.LENGTH_SHORT).show();
-                        invitationInfoActivity.initExpandableListView(commentDetailBeanList);
+                        //Toast.makeText(MyApplication.getContext(),"暂无评论",Toast.LENGTH_SHORT).show();
+                        invitationInfoActivity.initExpandableListView(commentDetailBeanList,1);
                         Looper.loop();
                     }else {
                         for (int i=0;i<jsonArray3.length();i++){
@@ -298,7 +298,7 @@ public class AttentionDaoImp implements AttentionDao {
                         commentDetailBean.setReplyList(replyDetailBeanList);
                         commentDetailBeanList.add(commentDetailBean);
                     }
-                        invitationInfoActivity.initExpandableListView(commentDetailBeanList);
+                        invitationInfoActivity.initExpandableListView(commentDetailBeanList,2);
                     }
 
 

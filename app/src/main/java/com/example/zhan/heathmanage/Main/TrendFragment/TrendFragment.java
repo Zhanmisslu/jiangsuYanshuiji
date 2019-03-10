@@ -154,7 +154,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                     back_today_ib.setVisibility(View.VISIBLE);
                 }
                 //monthFragment.judgeTime();
-
+                dayflag=1;
                 //monthFragment.initHeartRate();
                 StartDay1=StartDay;
                 EndDay1=EndDay;
@@ -165,7 +165,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
                 }else {
                     weekflag=1;
                 }
-
+               // fragmentflag=0;
                 //Toast.makeText(getActivity(), "你选中的是：" + date.localDate.toString(), Toast.LENGTH_SHORT).show();
                 if(Month1.equals(Month)){
                     monthflag=0;//一样的月份不需要重画
@@ -183,6 +183,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
         });
         inListener();
         setSelect(0);
+        fragmentflag = 0;
         getActivity().dispatchTouchEvent(ev);
 //        String a=Month;
 //        String starttime=getWeekStartTime();
@@ -229,7 +230,7 @@ public class TrendFragment extends Fragment implements View.OnClickListener {
     }
 
     public void InitData() {
-        if (fragmentflag == 0) {
+        if (fragmentflag == 0&&dayflag==1) {
             dayFragment = new DayFragment();
             fragmentManager = getFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();

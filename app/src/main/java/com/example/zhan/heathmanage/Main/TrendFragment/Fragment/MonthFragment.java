@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beiing.leafchart.OutsideLineChart;
@@ -28,9 +29,12 @@ import com.beiing.leafchart.bean.PointValue;
 import com.beiing.leafchart.bean.SlidingLine;
 import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
 import com.example.zhan.heathmanage.Main.TrendFragment.Bean.MonthInfo;
+import com.example.zhan.heathmanage.Main.TrendFragment.Bean.MonthSuggestBean;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.MonthLineChartServiceDaoImp;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.SuggestDaoImp;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.LineChartServiceDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.MonthLineChartServiceDao;
+import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.SuggestDao;
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.Main.TrendFragment.manage.LineChartManager;
 import com.example.zhan.heathmanage.MyApplication;
@@ -65,7 +69,18 @@ public class MonthFragment extends Fragment {
     private LineChart bloodoxygen_graph;
     private ViewGroup month_viewGroup;
     private ChildViewPager month_viewPager;
-
+    @BindView(R.id.monthpressuse_ll)LinearLayout monthpressuse_ll;
+//    @BindView(R.id.month_heartrate_ll)LinearLayout monthheartrate_ll;
+    @BindView(R.id.monthheart_ll)LinearLayout monthheart_ll;
+    @BindView(R.id.monthbloooxygen_ll)LinearLayout monthbloooxygen_ll;
+    @BindView(R.id.monthDiastolicBPtype_tv)
+    TextView monthDiastolicBPtype_tv;
+    @BindView(R.id.frament_month_suggest_tv)TextView frament_month_suggest_tv;
+    @BindView(R.id.frament_month_suggest1_tv)TextView frament_month_suggest1_tv;
+    @BindView(R.id.monthSystolicBPtype_tv)TextView monthSystolicBPtype_tv;
+    @BindView(R.id.monthhearttype_tv)TextView monthhearttype_tv;
+    @BindView(R.id.monthbloooxygentype_tv)TextView monthbloooxygentype_tv;
+    static List<MonthSuggestBean>monthSuggestBeanList=new ArrayList<>();
     private List<View> viewList = new ArrayList<>();
     private PagerAdapter pagerAdapter;
     private ImageView imageView;
@@ -85,7 +100,7 @@ public class MonthFragment extends Fragment {
     String month;
     String year;
     ZLoadingDialog dialog;
-
+    SuggestDao suggestDao;
     Drawable drawable;
     public MonthFragment() {
         // Required empty public constructor
@@ -108,13 +123,14 @@ public class MonthFragment extends Fragment {
         month = TrendFragment.Month;
         drawable = getResources().getDrawable(R.drawable.fade_blue);
         dialog = new ZLoadingDialog(getActivity());
-
+        suggestDao=new SuggestDaoImp(this);
         Init();
         InitView();
         initPointer();
         getActivity().dispatchTouchEvent(ev);
         initEvent();
         monthLineChartServiceDao.getSuggest(MyApplication.getUserPhone(), year, month);
+        suggestDao.getMonthSuggestion(MyApplication.getUserPhone(), year, month);
         return view;
     }
 
@@ -306,6 +322,7 @@ public class MonthFragment extends Fragment {
             drawable =MyApplication.getContext().getDrawable(R.drawable.fade_red);
             HeartratelineChartManager.setChartFillDrawable(drawable);
             HeartratelineChartManager.setMarkerView(MyApplication.getContext());
+            dialog.dismiss();
         }
 
     };
@@ -316,24 +333,40 @@ public class MonthFragment extends Fragment {
         this.monthInfoList= monthInfoList;
 
         handler.post(runnableUi);
-        dialog.dismiss();
+
     }
 
 
 
     public void InitNoDate() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                fragment_month_ll.setVisibility(View.GONE);
-                monthnodata_ll.setVisibility(View.VISIBLE);
-                dialog.dismiss();
-            }
-        });
+       handler.post(runnable);
 
     }
+    Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+            fragment_month_ll.setVisibility(View.GONE);
+            monthnodata_ll.setVisibility(View.VISIBLE);
+            dialog.dismiss();
+        }
+    };
 
+    public void InitSuggest(List<MonthSuggestBean> monthSuggestBeanList) {
+        this.monthSuggestBeanList=monthSuggestBeanList;
+        handler.post(runnable1);
+    }
 
+Runnable runnable1=new Runnable() {
+    @Override
+    public void run() {
+
+        monthDiastolicBPtype_tv.setText(monthSuggestBeanList.get(0).getSuggestion());
+        monthSystolicBPtype_tv.setText(monthSuggestBeanList.get(1).getSuggestion());
+        frament_month_suggest_tv.setText(monthSuggestBeanList.get(0).getReferenceType());
+        frament_month_suggest1_tv.setText(monthSuggestBeanList.get(1).getReferenceType());
+        frament_month_suggest1_tv.setVisibility(View.VISIBLE);
+    }
+};
     //ViewPager的onPageChangeListener监听事件，当ViewPager的page页发生变化的时候调用
     public class GuidePageChangeListener implements ChildViewPager.OnPageChangeListener {
         @Override
@@ -349,6 +382,26 @@ public class MonthFragment extends Fragment {
                 imageViews[position].setBackgroundResource(R.drawable.page_indicator_focused);
                 if (position != i) {
                     imageViews[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
+                }
+                if(position==0){
+                    monthheart_ll.setVisibility(View.GONE);
+                    monthpressuse_ll.setVisibility(View.VISIBLE);
+                    monthbloooxygen_ll.setVisibility(View.GONE);
+                    frament_month_suggest_tv.setText(monthSuggestBeanList.get(0).getReferenceType());
+                    frament_month_suggest1_tv.setText(monthSuggestBeanList.get(1).getReferenceType());
+                    frament_month_suggest1_tv.setVisibility(View.VISIBLE);
+                }else if (position==1){
+                    monthheart_ll.setVisibility(View.VISIBLE);
+                    monthpressuse_ll.setVisibility(View.GONE);
+                    monthbloooxygen_ll.setVisibility(View.GONE);
+                    frament_month_suggest_tv.setText(monthSuggestBeanList.get(2).getReferenceType());
+                    frament_month_suggest1_tv.setVisibility(View.GONE);
+                }else {
+                    monthheart_ll.setVisibility(View.GONE);
+                    monthpressuse_ll.setVisibility(View.GONE);
+                    monthbloooxygen_ll.setVisibility(View.VISIBLE);
+                    frament_month_suggest_tv.setText(monthSuggestBeanList.get(4).getReferenceType());
+                    frament_month_suggest1_tv.setVisibility(View.GONE);
                 }
             }
         }

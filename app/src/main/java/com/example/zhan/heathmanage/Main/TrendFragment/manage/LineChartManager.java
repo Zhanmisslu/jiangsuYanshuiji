@@ -346,7 +346,7 @@ public class LineChartManager {
         if(dataList.size()<8){
             xAxis.setLabelCount(dataList.size(),false);
         }else {
-            xAxis.setLabelCount(8, false);
+            xAxis.setLabelCount(8, true);
         }
         //设置是否绘制刻度
         xAxis.setDrawScale(false);
@@ -414,7 +414,7 @@ public class LineChartManager {
         if(dataList.size()<8){
             xAxis.setLabelCount(dataList.size(),false);
         }else {
-            xAxis.setLabelCount(8, false);
+            xAxis.setLabelCount(8, true);
         }        //设置是否绘制刻度
         xAxis.setDrawScale(false);
         //是否绘制X轴线
@@ -543,7 +543,7 @@ public class LineChartManager {
         if(dataList.size()<8){
             xAxis.setLabelCount(dataList.size(),false);
         }else {
-            xAxis.setLabelCount(8, false);
+            xAxis.setLabelCount(8, true);
         }
         //设置是否绘制刻度
         xAxis.setDrawScale(false);

@@ -131,6 +131,7 @@ public class UserServerImp implements UserServer {
     @Override
     public void UserEvalute(String UserPhone) {
        String URL = Net.ShowLatestData+"?userPhone="+UserPhone;
+        user= new User();
        OKHttp.sendOkhttpGetRequest(URL, new Callback() {
            @Override
            public void onFailure(Call call, IOException e) {
@@ -170,6 +171,57 @@ public class UserServerImp implements UserServer {
 
            }
        });
+    }
+
+    @Override
+    public void TextLogin(final String UserPhone) {
+        String url=Net.CaptchaLogin+"?userPhone="+UserPhone;
+        OKHttp.sendOkhttpGetRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Looper.prepare();
+                Toast.makeText(MyApplication.getContext(),"╮(╯▽╰)╭连接不上了",Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String ResponseData=response.body().string();
+                try {
+                    JSONObject jsonObject=new JSONObject(ResponseData);
+                    JSONObject jsonObject1=jsonObject.getJSONObject("CaptchaLogin");
+                    String warning=jsonObject1.getString("warning");
+                    if(warning.equals("0")) {
+                        user.setPhoneNumber(UserPhone);
+                        String weight = jsonObject1.getString("userWeight");
+                        String userHeight = jsonObject1.getString("userHeight");
+                        String userSex = jsonObject1.getString("userSex");
+                        String userNickName = jsonObject1.getString("userNickName");
+                        String userAge = jsonObject1.getString("userAge");
+                        String userPhoto = jsonObject1.getString("userPhoto");
+                        String emergencyPhone = jsonObject1.getString("userEmergency");
+                        String emergencyName = jsonObject1.getString("userEmergencyName");
+                        String userid = jsonObject1.getString("userId");
+                        user.setUserId(userid);
+                        user.setEmergencyName(emergencyName);
+                        user.setEmergencyPhone(emergencyPhone);
+                        user.setUserWeight(weight);
+                        user.setUserNickName(userNickName);
+                        user.setUserHeight(userHeight);
+                        user.setUserSex(userSex);
+                        user.setUserAge(userAge);
+                        user.setPhoto(userPhoto);
+                        loginActivity.LoginCallBack(user);
+                    }else {
+                        Looper.prepare();
+                        Toast.makeText(MyApplication.getContext(),"该用户未注册",Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
