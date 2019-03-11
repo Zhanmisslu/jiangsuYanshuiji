@@ -46,7 +46,9 @@ public class SettingActivity extends BaseActivity {
 //        editor.putString("Login_Password","");
         editor.remove("Login_User");
         editor.remove("Login_Password");
+        editor.clear();
         editor.apply();
+
         startActivity(intent);
     }
 }

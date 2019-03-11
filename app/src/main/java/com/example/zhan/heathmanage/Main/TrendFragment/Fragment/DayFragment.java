@@ -2,10 +2,12 @@ package com.example.zhan.heathmanage.Main.TrendFragment.Fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.DayDataServiceDao;
@@ -33,6 +35,16 @@ public class DayFragment extends Fragment {
     @BindView(R.id.blooddiastolic_tv)
     TextView blooddiastolic_tv;
     DayDataServiceDao dayDataServiceDao;
+    @BindView(R.id.fragment_day_nodata_ll)
+    LinearLayout fragment_day_nodata_ll;
+    @BindView(R.id.fragment_day_ll)
+    LinearLayout fragment_day_ll;
+    Handler handler;
+    String dayheartrate;
+    String dayblooddiastolic;
+    String daybloodsystolic;
+    String daybloodoxygen;
+    String  daybloodfat;
     public DayFragment() {
         // Required empty public constructor
     }
@@ -44,16 +56,40 @@ public class DayFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_day, container, false);
         ButterKnife.bind(this,view);
+        handler=new Handler();
         dayDataServiceDao=new DayDataServiceDaoImp(this);
         dayDataServiceDao.getDayData(MyApplication.getUserPhone(), TrendFragment.nDate);
         return view;
     }
     public void getDataByDaySuccessCallBack(String dayheartrate,String dayblooddiastolic,String daybloodsystolic,String daybloodoxygen,String  daybloodfat){
-        heartrate_tv.setText(dayheartrate);
-        bloodfat_tv.setText(daybloodfat);
-        bloodoxygen_tv.setText(daybloodoxygen);
-        bloodsystolic_tv.setText(daybloodsystolic);
-        blooddiastolic_tv.setText(dayblooddiastolic);
+        this.dayblooddiastolic=dayblooddiastolic;
+        this.daybloodfat=daybloodfat;
+        this.daybloodoxygen=daybloodoxygen;
+        this.daybloodsystolic=daybloodsystolic;
+        this.dayheartrate=dayheartrate;
+        handler.post(runnable1);
+
     }
 
+    public void InitNoData() {
+        handler.post(runnable);
+    }
+    Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+            fragment_day_nodata_ll.setVisibility(View.VISIBLE);
+            fragment_day_ll.setVisibility(View.GONE);
+        }
+    };
+    Runnable runnable1=new Runnable() {
+        @Override
+        public void run() {
+            fragment_day_ll.setVisibility(View.VISIBLE);
+            heartrate_tv.setText(dayheartrate);
+            bloodfat_tv.setText(daybloodfat);
+            bloodoxygen_tv.setText(daybloodoxygen);
+            bloodsystolic_tv.setText(daybloodsystolic);
+            blooddiastolic_tv.setText(dayblooddiastolic);
+        }
+    };
 }

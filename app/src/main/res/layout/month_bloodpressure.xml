@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-
-<TextView
     android:layout_width="match_parent"
-    android:layout_height="20dp"
-    android:text="血压趋势图"
-    android:textSize="15dp"
-    android:gravity="center"/>
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/bloodpressure_graph"
-            android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
 
+    android:background="@drawable/shape_gary"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="血压趋势图"
+        android:textSize="15dp"
+        />
 
-
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/bloodpressure_graph"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        />
 </LinearLayout>

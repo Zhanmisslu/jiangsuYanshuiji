@@ -19,23 +19,45 @@ public class Net {
     public final static String RemoveConcern = Head + "DisFollowUser";//取消按钮
     public final static String SearchUser = Head + "SearchUser";//搜索框
     public final static String SearchPosting = Head + "SearchPosting";//搜索框
-    public final static String GetHotList = Head + "ShowHotPosting";//热门列表
-    public final static String UploadSupport = Head + "LikePosting";//点赞
-    public final static String GetCommentList = Head + "ShowPostingComment";//获取评论列表
-    public final static String GetReplyList = Head + "ShowReplyComment";//获取评论列表
-    public final static String GetAllCommentList = Head + "ShowAllComment";//获取全部评论列表
-    public final static String Comment = Head + "CommentPosting";//评论
-    public final static String Reply = Head + "ReplyComment";//回复
+    public final static String GetHotList= Head + "ShowHotPosting";//热门列表
+    public final static String UploadSupport= Head + "LikePosting";//点赞
+    public final static String GetCommentList= Head + "ShowPostingComment";//获取评论列表
+    public final static String GetReplyList= Head + "ShowReplyComment";//获取评论列表
+    public final static String GetAllCommentList= Head + "ShowAllComment";//获取全部评论列表
+    public final static String Comment= Head + "CommentPosting";//评论
+    public final static String Reply= Head + "ReplyComment";//回复
     public final static String GetAttentionList = Head + "ShowFriendPosting";//好友圈帖子
     public final static String GetPersonal = Head + "GetUserInfo";//个人主页
     public final static String GetPersonalList = Head + "ShowSomeonePostings";//个人主页的动态
     public final static String GetFollowStatus = Head + "GetFollowStatus";//确认关系
     public final static String PublishPosting = Head + "PublishPosting";//发帖
-    public final static String CancelLikePosting = Head + "CancelLikePosting";//取消点赞
-    public final static String GetFollowUserList = Head + "GetFollowUserList";//获取用户关注的好友列表
-    public final static String GetFollowedUserList = Head + "GetFollowedUserList";//获取用户的粉丝列表
-    public final static String GetFollowNum = Head + "GetFollowNum";//获取用户的关注数
-    public final static String GetFollowedNum = Head + "GetFollowedNum";//获取用户的粉丝数
+    public final static String CancelLikePosting= Head + "CancelLikePosting";//取消点赞
+    public final static String GetFollowUserList= Head + "GetFollowUserList";//获取用户关注的好友列表
+    public final static String GetFollowedUserList= Head + "GetFollowedUserList";//获取用户的粉丝列表
+    public final static String GetFollowNum= Head + "GetFollowNum";//获取用户的关注数
+    public final static String GetFollowedNum= Head + "GetFollowedNum";//获取用户的粉丝数
+    public final static String getWeekSuggestion= Head + "WeekSuggestion";//周视图建议
+
+    public final static String getMonthSuggestion= Head + "MonthSuggestion";//月视图建议
+    public final static String CaptchaLogin= Head + "CaptchaLogin";//周视图建议
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
