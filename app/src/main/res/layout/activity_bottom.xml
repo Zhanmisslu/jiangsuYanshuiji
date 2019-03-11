@@ -29,7 +29,7 @@
             android:background="#00000000"
             android:scaleType="centerInside"
             android:clickable="false"
-            android:src="@drawable/evalute_press" />
+            android:src="@drawable/newevalute_press" />
 
         <TextView
             android:id="@+id/tab_evalute_tv"
@@ -93,7 +93,7 @@
             android:background="#00000000"
             android:clickable="false"
             android:scaleType="centerInside"
-            android:src="@drawable/find" />
+            android:src="@drawable/newfind" />
         <TextView
             android:id="@+id/tab_find_tv"
             android:layout_width="wrap_content"

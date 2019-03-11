@@ -22,6 +22,7 @@ import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
 import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
+import com.example.zhan.heathmanage.Main.Menu.ChangePasswordActivity;
 import com.example.zhan.heathmanage.Main.Menu.EmergencyContactActivity;
 import com.example.zhan.heathmanage.Main.Menu.SettingActivity;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
@@ -218,7 +219,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //重置icon图标
         tab_evalute_ib.setImageResource(R.drawable.evalute);
         tab_trend_ib.setImageResource(R.drawable.trend);
-        tab_find_ib.setImageResource(R.drawable.find);
+        tab_find_ib.setImageResource(R.drawable.newfind);
 
         //重置文字颜色
         tab_evalute_tv.setTextColor(Color.parseColor("#272727"));
@@ -230,19 +231,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         resetImgs();
         switch (view.getId()){
             case R.id.tab_evalute_ll:
-                tab_evalute_ib.setImageResource(R.drawable.evalute_press);
+                tab_evalute_ib.setImageResource(R.drawable.newevalute_press);
                 startShakeByPropertyAnim(tab_evalute_ib, 0.9f, 1.2f, 10f, 400);
                 tab_evalute_tv.setTextColor(Color.parseColor("#FF4081"));
                 setSelect(0);
                 break;
             case R.id.tab_trend_ll:
-                tab_trend_ib.setImageResource(R.drawable.trend_press);
+                tab_trend_ib.setImageResource(R.drawable.newtrendpress);
                 startShakeByPropertyAnim(tab_trend_ib,0.9f, 1.2f, 10f, 400);
                 tab_trend_tv.setTextColor(Color.parseColor("#FF4081"));
                 setSelect(1);
                 break;
             case R.id.tab_find_ll:
-                tab_find_ib.setImageResource(R.drawable.find_press);
+                tab_find_ib.setImageResource(R.drawable.newfind_press);
                 startShakeByPropertyAnim(tab_find_ib,0.9f, 1.2f, 10f, 400);
                 tab_find_tv.setTextColor(Color.parseColor("#FF4081"));
                 setSelect(2);
@@ -307,7 +308,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         });
     }
 
-
+    @OnClick(R.id.menu_changepsw_ll)
+    public void menu_changepsw_ll_Click(){
+        Intent intent=new Intent(MainActivity.this, ChangePasswordActivity.class);
+        startActivity(intent);
+    }
 //    public interface MyTouchListener {
 //        public void onTouchEvent(MotionEvent event);
 //    }
