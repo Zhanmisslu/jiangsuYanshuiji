@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Video;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.View.CreditScoreView;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.WeeklyActivity;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.DetailActivity;
@@ -105,6 +106,9 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     //头布局的初始化
     private void setHeadItemValues(HeadViewHodler hodler){
+        float
+                [] data = {12,13,18,19,20};
+        hodler.rv_view.setData(data);
        if (!MyApplication.getsBP().equals("")){
            hodler.evalute_concentration.setText(MyApplication.getBloodFat());
            hodler.evalute_diastolic.setText(MyApplication.getdBP());
@@ -125,7 +129,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
     private void setEvaluteItemValues(EvaluteViewHodler hodler){
 
     }
-    //个人数据显示的初始化
+    //轮播图显示的初始化
     private void setBannerItemValues(BannerViewHodler hodler){
         hodler.mBanner.setAutoPlayAble(true);
         hodler. mBanner.setAdapter(new BGABanner.Adapter<CardView, String>() {
@@ -170,70 +174,23 @@ public class VideoAdpater extends RecyclerView.Adapter {
         return list.size()+4;
     }
 
-    /*
-      顶部动态圆圈的视图
-     */
-    private RingView rv_view;//圆圈视图
-    private ArgbEvaluator evaluator;
-    private int startColor = 0XFFfb5338;
-    private int centerColor = 0XFF00ff00;
-    private int endColor = 0XFF008dfc;
-    private int endUseColor = 0;
-
-    List<Integer> valueList = new ArrayList<>();
-    List<String> valueNameList = new ArrayList<>();
-    private int animDuration = 2500;
-    public void initRingView(){
-        evaluator = new ArgbEvaluator();
-        valueList.add(350);
-        valueList.add(450);
-        valueList.add(550);
-        valueList.add(650);
-        valueList.add(750);
-        valueList.add(850);
-        rv_view.setValueList(valueList);
-        valueNameList.add("较差");
-        valueNameList.add("中等");
-//        valueNameList.add("良好");
-        valueNameList.add("合格");
-        valueNameList.add("优秀");
-        rv_view.setValueNameList(valueNameList);
-//        rv_view.setPointer(true);
-        rv_view.setPointer(false);
-//        ly_content.setBackgroundColor((Integer) evaluator.evaluate(0f, startColor, endColor));
-        start((int) (350 + Math.random() * 500));
-    }
-    private void start(int value) {
-        float f = (value - valueList.get(0)) * 1.0f / (valueList.get(valueList.size() - 1) - valueList.get(0));
-        if (f <= 0.5f) {
-            endUseColor = (Integer) evaluator.evaluate(f, startColor, centerColor);
-
-        }
-        else
-        {
-            endUseColor = (Integer) evaluator.evaluate(f, centerColor, endColor);
-
+    private float[] getadate(){
+        float a,b,c,d,e;
+        if (Integer.getInteger(MyApplication.getBloodOxygen()) < 90){
+            a =(float)(20 - (90-Integer.getInteger(MyApplication.getBloodOxygen())*0.2)) ;
+        }else {
+            a = 20;
         }
 
-        rv_view.setValue(value, new RingView.OnProgerssChange() {
-            @Override
-            public void OnProgerssChange(float interpolatedTime) {
-                int evaluate = 0;
-//
-//                if (interpolatedTime <= 0.5f) {
-//
-//                    evaluate = (Integer) evaluator.evaluate(interpolatedTime, startColor, endUseColor);
-//
-//                } else {
-//                    evaluate = (Integer) evaluator.evaluate(interpolatedTime, centerColor, endUseColor);
-//                }
-//                ly_content.setBackgroundColor(evaluate);
-            }
-        },(int)(f*animDuration));
+
+
+        float[] data ={a};
+        return data;
     }
     //头布局hodler
     public class HeadViewHodler extends RecyclerView.ViewHolder{
         //主页数据显示
+        private CreditScoreView rv_view;
         private TextView evalute_systolic;
         private TextView evalute_eva;
         private TextView evalute_diastolic;
@@ -255,7 +212,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
             evalute_concentration = itemView.findViewById(R.id.evalute_concentration);
             fragment_evaluate_waveview = itemView.findViewById(R.id.fragment_evaluate_waveview);
             fragment_evaluate_waveview.setProgress(100);
-            initRingView();
+            //initRingView();
         }
     }
     //个人数据显示布局

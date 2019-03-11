@@ -7,16 +7,21 @@ import android.widget.Toast;
 import com.example.zhan.heathmanage.Internet.Net;
 import com.example.zhan.heathmanage.Internet.OKHttp;
 import com.example.zhan.heathmanage.Login.Beans.User;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.UserSuggest;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Fragment.PersonFragment;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Server.server.UpdateUseServer;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.DetailActivity;
 import com.example.zhan.heathmanage.Main.Menu.UpdateNameActivity;
 import com.example.zhan.heathmanage.Main.Menu.UserActivity;
 import com.example.zhan.heathmanage.MyApplication;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,8 +36,12 @@ public class UpdateUserServerImp implements UpdateUseServer {
     PersonFragment personFragment;
     UserActivity userActivity;
     UpdateNameActivity updateNameActivity;
+    DetailActivity detailActivity;
     int i ;
     public UpdateUserServerImp(){}
+    public UpdateUserServerImp( DetailActivity detailActivity){
+        this.detailActivity = detailActivity;
+    }
     public UpdateUserServerImp(int i,PersonFragment personFragment){
         this.personFragment = personFragment;
         this.i = i;
@@ -192,6 +201,39 @@ public class UpdateUserServerImp implements UpdateUseServer {
 
             }
         });
+    }
+
+    @Override
+    public void GetUserEvalute(String dBP, String sBP, String heartRate, String bloodFat, String bloodOxygen) {
+           String URl = Net.GetUserEvalute +"?dBP="+dBP+"&sBP="+sBP+"&heartRate="+heartRate+"&bloodFat="+bloodFat+"&bloodOxygen="+bloodOxygen;
+           OKHttp.sendOkhttpGetRequest(URl, new Callback() {
+               @Override
+               public void onFailure(Call call, IOException e) {
+                   Looper.prepare();
+                   Toast.makeText(MyApplication.getContext(),"网络连接失败",Toast.LENGTH_LONG).show();
+                   Looper.loop();
+               }
+
+               @Override
+               public void onResponse(Call call, Response response) throws IOException {
+                   String res=response.body().string();
+                    try {
+                        List<UserSuggest> list = new ArrayList<UserSuggest>();
+                        JSONObject jsonObject=new JSONObject(res);
+                        JSONArray jsonArray=jsonObject.getJSONArray("IndexInfo");
+                        for (int i=0;i<jsonArray.length();i++){
+                            JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                            UserSuggest suggest = new UserSuggest();
+                            suggest.setReferenceType(jsonObject1.getString("referenceType"));
+                            list.add(suggest);
+                        }
+                        detailActivity.CallBack(list);
+
+                    }catch (Exception e){
+
+                    }
+               }
+           });
     }
 
 }

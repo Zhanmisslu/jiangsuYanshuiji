@@ -5,4 +5,5 @@ public interface UpdateUseServer {
     public void UpdateNickName(String NickName);
     public void UpdateImage(String UsePhone,String UsePhoto);
     public void GetUserMessage();
+    public void GetUserEvalute(String dBP,String sBP,String heartRate,String bloodFat,String bloodOxygen);
 }

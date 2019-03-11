@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Adapter.DetailAdpater;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Details;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.UserSuggest;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.Server.server.UpdateUseServer;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.Server.serverImp.UpdateUserServerImp;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 
@@ -39,11 +43,13 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.item_Systolic_math)
     TextView item_Systolic_math;
     private int mHiddenViewMeasuredHeight;
-
+    private UpdateUseServer updateUseServer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        updateUseServer = new UpdateUserServerImp(this);
+        updateUseServer.GetUserEvalute(MyApplication.getdBP(),MyApplication.getsBP(),MyApplication.getHeartRate(),MyApplication.getBloodFat(),MyApplication.getBloodOxygen());
         initOnClick();//点击显示隐藏布局
         initSetData();
     }
@@ -68,14 +74,17 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         finish();
     }
     //动画
+    private float mDensity;
     private void animateOpen(View v) {
         v.setVisibility(View.VISIBLE);
-        int w = View.MeasureSpec.makeMeasureSpec(0,
-                View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        v.measure(w, h);
-        mHiddenViewMeasuredHeight = (int) v.getMeasuredHeight();
-        ;
+//        int w = View.MeasureSpec.makeMeasureSpec(0,
+//                View.MeasureSpec.UNSPECIFIED);
+//        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        v.measure(w, h);
+        // 隐藏部分布局的高度
+        mDensity = getResources().getDisplayMetrics().density;
+        mHiddenViewMeasuredHeight = (int) (mDensity * 210 + 0.5);
+//        mHiddenViewMeasuredHeight = (int) v.getMeasuredHeight();
         ValueAnimator animator = createDropAnimator(v, 0,
                 mHiddenViewMeasuredHeight);
         animator.start();
@@ -128,7 +137,25 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         });
         return animator;
     }
-
+    @BindView(R.id.item_blood_content)
+    TextView item_blood_content;
+    @BindView(R.id.item_oxygen_content)
+    TextView item_oxygen_content;
+    @BindView(R.id.item_concentration_content)
+    TextView item_concentration_content;
+    @BindView(R.id.item_Diastolic_content)
+    TextView item_Diastolic_content;
+    @BindView(R.id.item_Systolic_content)
+    TextView item_Systolic_content;
+    public void CallBack(List<UserSuggest> list){
+        String l = list.get(2).getReferenceType();
+        Log.d("建议",l);
+       item_blood_content.setText("  "+list.get(2).getReferenceType());
+       item_oxygen_content.setText("  "+list.get(4).getReferenceType());
+       item_concentration_content.setText("  "+list.get(3).getReferenceType());
+       item_Diastolic_content.setText("  "+list.get(0).getReferenceType());
+       item_Systolic_content.setText("  "+list.get(1).getReferenceType());
+    }
     //上方布局点击后得到下方布局
     @BindView(R.id.item_blood_title_ll)
     LinearLayout item_blood_title_ll;

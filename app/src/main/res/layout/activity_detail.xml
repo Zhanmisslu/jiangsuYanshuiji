@@ -252,7 +252,7 @@
                                 android:layout_weight="1"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="15dp"
@@ -274,7 +274,7 @@
                                     android:layout_gravity="center"
                                     android:textColor="#000"
                                     android:textSize="15sp"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="巴拉巴拉"/>
                             </LinearLayout>
@@ -459,7 +459,7 @@
                                 android:layout_weight="1"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="3dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="15dp"
@@ -467,21 +467,19 @@
                             android:orientation="vertical"
                             android:layout_height="wrap_content">
                             <LinearLayout
-                                android:layout_marginTop="10dp"
                                 android:layout_marginBottom="5dp"
                                 android:background="@drawable/details_content"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
                                 <TextView
                                     android:id="@+id/item_oxygen_content"
-                                    android:paddingTop="5dp"
                                     android:paddingBottom="5dp"
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"
                                     android:layout_gravity="center"
                                     android:textColor="#000"
                                     android:textSize="15sp"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="巴拉巴拉"/>
                             </LinearLayout>
@@ -695,7 +693,7 @@
                                 android:layout_weight="1"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="15dp"
@@ -717,7 +715,7 @@
                                     android:layout_gravity="center"
                                     android:textColor="#000"
                                     android:textSize="15sp"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="巴拉巴拉"/>
                             </LinearLayout>
@@ -992,7 +990,7 @@
                                     android:layout_gravity="center"
                                     android:textColor="#000"
                                     android:textSize="15sp"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="巴拉巴拉"/>
                             </LinearLayout>
@@ -1095,8 +1093,8 @@
                         android:id="@+id/item_Systolic_content_ll"
                         android:background="#1232F8B3"
                         android:layout_width="match_parent"
-                        android:orientation="vertical"
                         android:visibility="gone"
+                        android:orientation="vertical"
                         android:layout_height="wrap_content">
                         <LinearLayout
                             android:layout_marginTop="15dp"
@@ -1250,8 +1248,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="15dp"
                             android:layout_width="match_parent"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                             <LinearLayout
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="5dp"
@@ -1267,9 +1264,9 @@
                                     android:layout_gravity="center"
                                     android:textColor="#000"
                                     android:textSize="15sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="巴拉巴拉"/>
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="bala"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
