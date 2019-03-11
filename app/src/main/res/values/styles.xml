@@ -34,6 +34,12 @@
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
     </style>
+    <style name="TextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#969696</item>
+        <item name="android:textSize">16sp</item>
+    </style>
     <style name="MenuButtonsSmall">
         <item name="fab_size">mini</item>
         <item name="fab_colorNormal">#1565C0</item>

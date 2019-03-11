@@ -37,9 +37,11 @@ public class Net {
     public final static String GetFollowNum= Head + "GetFollowNum";//获取用户的关注数
     public final static String GetFollowedNum= Head + "GetFollowedNum";//获取用户的粉丝数
     public final static String getWeekSuggestion= Head + "WeekSuggestion";//周视图建议
-
     public final static String getMonthSuggestion= Head + "MonthSuggestion";//月视图建议
-    public final static String CaptchaLogin= Head + "CaptchaLogin";//周视图建议
+    public final static String CaptchaLogin= Head + "CaptchaLogin";//验证码登录
+    public final static String ChangePassword= Head + "ChangePassword";//修改密码
+
+
 
 
 

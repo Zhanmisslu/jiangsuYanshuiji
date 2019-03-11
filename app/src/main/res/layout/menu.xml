@@ -9,7 +9,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="240dp"
-    android:background="#22BA8E "
+    android:background="#23ba8f "
     android:orientation="vertical"
     >
 
@@ -127,7 +127,7 @@
                 android:layout_width="@dimen/menu_im"
                 android:layout_height="@dimen/menu_im"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/healthmanage"/>
+                android:src="@drawable/mycollection"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,7 +137,29 @@
                 android:textColor="@color/menu_text_color"
                 android:text="我的收藏"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:id="@+id/menu_changepsw_ll"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="@dimen/menu_im"
+                android:layout_height="@dimen/menu_im"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/changepassword"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/menu_text_size"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/menu_text_color"
+                android:text="修改密码"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
