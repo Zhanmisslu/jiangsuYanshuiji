@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,15 +107,15 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     //头布局的初始化
     private void setHeadItemValues(HeadViewHodler hodler){
-        float
-                [] data = {12,13,18,19,20};
-        hodler.rv_view.setData(data);
-       if (!MyApplication.getsBP().equals("")){
+        //float[] data = {12,13,18,19,20};
+        if (!MyApplication.getsBP().equals("")){
+           hodler.rv_view.setData(getadate());
            hodler.evalute_concentration.setText(MyApplication.getBloodFat());
            hodler.evalute_diastolic.setText(MyApplication.getdBP());
            hodler.evalute_systolic.setText(MyApplication.getsBP());
            hodler.evalute_oxygen.setText(MyApplication.getBloodOxygen());
            hodler.evalute_heartrate.setText(MyApplication.getHeartRate());
+           hodler.evalute_eva.setText(MyApplication.getRanting());
            hodler.rv_ll.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
@@ -176,15 +177,49 @@ public class VideoAdpater extends RecyclerView.Adapter {
 
     private float[] getadate(){
         float a,b,c,d,e;
-        if (Integer.getInteger(MyApplication.getBloodOxygen()) < 90){
-            a =(float)(20 - (90-Integer.getInteger(MyApplication.getBloodOxygen())*0.2)) ;
+
+        //判断收缩压评分
+        if (Float.valueOf(MyApplication.getsBP()) < 90){
+            a =(float)(20 - (90-Float.valueOf(MyApplication.getsBP())*0.2)) ;
+        }else if (Float.valueOf(MyApplication.getsBP()) > 120){
+            a = (float)(20 - (Float.valueOf(MyApplication.getsBP()) - 120)*0.2) ;
         }else {
             a = 20;
         }
 
+        //判断舒张压评分
+        if (Float.valueOf(MyApplication.getdBP())< 65){
+            b =(float)(20 - (65-Float.valueOf(MyApplication.getdBP())*0.2)) ;
+        }else if (Float.valueOf(MyApplication.getdBP()) > 90){
+            b = (float)(20 - (Float.valueOf(MyApplication.getdBP()) - 90)*0.2) ;
+        }else {
+            b = 20;
+        }
 
+        //判断血氧评分
+        if (Float.valueOf(MyApplication.getBloodOxygen()) < 90){
+            c =(float)(20 - (90-Float.valueOf(MyApplication.getBloodOxygen())*0.2)) ;
+        }else {
+            c = 20;
+        }
+        //判断血浓度评分
+        if (Float.valueOf(MyApplication.getBloodFat()) < 0.2){
+            d =(float)(20 - (0.2-Float.valueOf(MyApplication.getBloodFat())*2)) ;
+        }else if (Float.valueOf(MyApplication.getBloodFat()) > 0.6){
+            d = (float)(20 - (Float.valueOf(MyApplication.getBloodFat()) - 0.6)*2) ;
+        }else {
+            d = 20;
+        }
+        //判断心率评分
+        if (Float.valueOf(MyApplication.getHeartRate()) < 60){
+            e =(float)(20 - (60-Float.valueOf(MyApplication.getHeartRate())*0.2)) ;
+        }else if (Float.valueOf(MyApplication.getHeartRate()) > 100){
+            e = (float)(20 - (Float.valueOf(MyApplication.getHeartRate()) - 100)*0.2) ;
+        }else {
+            e = 20;
+        }
 
-        float[] data ={a};
+        float[] data ={a,b,c,d,e};
         return data;
     }
     //头布局hodler

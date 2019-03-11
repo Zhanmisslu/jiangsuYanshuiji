@@ -44,7 +44,8 @@ public class WelcomeActivity extends BaseActivity {
                     MyApplication.setEmergencyPhone(pref.getString("EmergencyPhone",""));
                     MyApplication.setEmergencyName(pref.getString("EmergencyName",""));
                     MyApplication.setUserId(pref.getString("Login_Id",""));
-
+                    //个人测值的数据
+                    MyApplication.setRanting(pref.getString("ranting",""));
                     MyApplication.setsBP(pref.getString("sBP",""));
                     MyApplication.setHeartRate(pref.getString("HeartRate",""));
                     MyApplication.setdBP(pref.getString("dBP",""));

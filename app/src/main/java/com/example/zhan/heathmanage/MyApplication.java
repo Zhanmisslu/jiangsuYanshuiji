@@ -33,6 +33,9 @@ public class MyApplication extends Application {
     private static String heartRate;
     private static String dataTime;
     private static String bloodFat;
+    private static String ranting;
+
+
 
     private SharedPreferences pref;//喜好设置
     private SharedPreferences.Editor editor;//让sharedPreferences处于编辑状态
@@ -197,5 +200,12 @@ public class MyApplication extends Application {
 
     public static void setContext(Context context) {
         MyApplication.context = context;
+    }
+    public static String getRanting() {
+        return ranting;
+    }
+
+    public static void setRanting(String ranting) {
+        MyApplication.ranting = ranting;
     }
 }

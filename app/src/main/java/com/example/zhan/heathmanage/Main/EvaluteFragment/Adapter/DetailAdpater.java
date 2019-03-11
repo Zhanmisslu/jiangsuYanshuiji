@@ -22,7 +22,9 @@ import com.example.zhan.heathmanage.R;
 import org.w3c.dom.Text;
 
 import java.util.List;
-
+/*
+   已经启用
+ */
 public class DetailAdpater extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater inflater;

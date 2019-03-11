@@ -34,7 +34,7 @@ public class CreditScoreView extends View {
 
 
     //各维度分值
-    private float[] data = {};
+    private float[] data = getData();
     //数据最大值
     private float maxValue = 20;
     //雷达图与标题的间距
@@ -71,26 +71,26 @@ public class CreditScoreView extends View {
         mainPaint = new Paint();
         mainPaint.setAntiAlias(true);
         mainPaint.setStrokeWidth(0.3f);
-        mainPaint.setColor(Color.WHITE);
+        mainPaint.setColor(Color.argb(100,245,245,245));
         mainPaint.setStyle(Paint.Style.STROKE);
 
         valuePaint = new Paint();
         valuePaint.setAntiAlias(true);
-        valuePaint.setColor(Color.WHITE);
+        valuePaint.setColor(Color.argb(100,178,233,210));
         valuePaint.setAlpha(120);
         valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         scorePaint = new Paint();
         scorePaint.setAntiAlias(true);
         scorePaint.setTextSize(scoreSize);
-        scorePaint.setColor(Color.WHITE);
+        scorePaint.setColor(Color.argb(100,35,185,142));
         scorePaint.setTextAlign(Paint.Align.CENTER);
         scorePaint.setStyle(Paint.Style.FILL);
 
         titlePaint = new Paint();
         titlePaint.setAntiAlias(true);
         titlePaint.setTextSize(titleSize);
-        titlePaint.setColor(Color.WHITE);
+        titlePaint.setColor(Color.argb(100,146,146,146));
         titlePaint.setStyle(Paint.Style.FILL);
 
         iconPaint = new Paint();

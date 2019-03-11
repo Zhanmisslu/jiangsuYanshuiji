@@ -306,6 +306,7 @@ public class LoginActivity extends BaseActivity {
         editor.putString("dBP",MyApplication.getdBP());
         editor.putString("sBP",MyApplication.getsBP());
         editor.putString("HeartRate",MyApplication.getHeartRate());
+        editor.putString("ranting",MyApplication.getRanting());
         editor.commit();
     }
     //登录成功的回调

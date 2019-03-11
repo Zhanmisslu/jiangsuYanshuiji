@@ -158,6 +158,7 @@ public class UserServerImp implements UserServer {
                        MyApplication.setdBP(jsonObject1.getString("dBP"));
                        MyApplication.setsBP(jsonObject1.getString("sBP"));
                        MyApplication.setHeartRate(jsonObject1.getString("heartRate"));
+                       MyApplication.setRanting(jsonObject1.getString("ranting"));
                        loginActivity.EvaluteCallBack();
                        Looper.prepare();
                        Toast.makeText(MyApplication.getContext(),"获取信息成功",Toast.LENGTH_LONG).show();
