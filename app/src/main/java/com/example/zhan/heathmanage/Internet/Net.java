@@ -41,7 +41,8 @@ public class Net {
     public final static String getMonthSuggestion= Head + "MonthSuggestion";//月视图建议
     public final static String CaptchaLogin= Head + "CaptchaLogin";//验证码登录
     public final static String ChangePassword= Head + "ChangePassword";//修改密码
-
+    public final static String GetUnEatSuggestion= Head + "GetUnEatSuggestion";//得到不建议吃的食物
+    public final static String GetEatSuggestion= Head + "GetEatSuggestion";//得到建议吃的食物
 
 
 

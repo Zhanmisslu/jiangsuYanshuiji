@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Food;
 import com.example.zhan.heathmanage.R;
 
@@ -34,6 +35,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.SuggestViewHol
     public void onBindViewHolder(@NonNull SuggestViewHolder suggestViewHolder, int i) {
         suggestViewHolder.food_name.setText(foodList.get(i).getFoodName());
         suggestViewHolder.food_introduce.setText(foodList.get(i).getFoodIntroduce());
+        Glide.with(context)
+                .load(foodList.get(i).getFoodPhoto())
+                .asBitmap()
+                .error(R.drawable.login_backgroud)
+                .into(suggestViewHolder.food_img);
     }
 
 

@@ -24,7 +24,7 @@ public class ReportServerImp implements ReportServer {
     }
     @Override
     public void getReport(String sBP, String dBP, String heartRate, String bloodFat, String bloodOxygen) {
-       String URL = Net.ClickToReport+"?sBP="+sBP+"&dBp="+dBP+"&heartRate="+heartRate+"&bloodFat="+bloodFat+"&bloodOxygen="+bloodOxygen;
+       String URL = Net.ClickToReport+"?sBP="+sBP+"&dBP="+dBP+"&heartRate="+heartRate+"&bloodFat="+bloodFat+"&bloodOxygen="+bloodOxygen;
         OKHttp.sendOkhttpGetRequest(URL, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
