@@ -186,29 +186,27 @@
                 android:textSize="15dp"
                 android:text="设置" />
         </LinearLayout>
-        <!--<LinearLayout-->
-            <!--android:layout_marginStart="28dp"-->
-            <!--android:layout_width="40dp"-->
-            <!--android:id="@+id/change_theme_ll"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_marginBottom="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginLeft="40dp">-->
-            <!--<ImageView-->
-                <!--android:layout_width="25dp"-->
-                <!--android:layout_height="25dp"-->
-                <!--android:id="@+id/change_theme_iv"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:background="@drawable/night"/>-->
-
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:id="@+id/change_theme_tv"-->
-                <!--android:textSize="10dp"-->
-                <!--android:text="夜间" />-->
-        <!--</LinearLayout>-->
+        <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_width="40dp"
+            android:orientation="vertical"
+            android:id="@+id/menu_weather_ll"
+            android:layout_marginBottom="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:id="@+id/menu_weathertype_iv"
+                android:src="@drawable/cloudy"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="绍兴" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
