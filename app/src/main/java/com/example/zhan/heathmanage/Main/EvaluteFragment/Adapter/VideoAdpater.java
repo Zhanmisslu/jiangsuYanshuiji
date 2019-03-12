@@ -1,6 +1,5 @@
 package com.example.zhan.heathmanage.Main.EvaluteFragment.Adapter;
 
-import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,22 +7,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.Beans.Video;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.Fragment.ReportFragment;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.CreditScoreView;
-import com.example.zhan.heathmanage.Main.EvaluteFragment.View.RingView;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.WeeklyActivity;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.DetailActivity;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.FoodSuggestActivity;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -35,12 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
-import cn.bingoogolapple.bgabanner.BGALocalImageSize;
 
 public class VideoAdpater extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater inflater;
     private List<Video> list;
+    private EvaluteFragment evaluteFragment;
     /*
      * Head 顶部展示图的布局
      * Evalute 个人评价数据展示的布局
@@ -53,10 +51,11 @@ public class VideoAdpater extends RecyclerView.Adapter {
     private static final int Tepy_Banner = 2;
     private static final int Tepy_Foods = 3;
     private static final int Tepy_List = 4;
-    public VideoAdpater(Context context , List<Video> list){
+    public VideoAdpater(Context context , List<Video> list,EvaluteFragment evaluteFragment){
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.list = list;
+        this.evaluteFragment = evaluteFragment;
     }
     //根据position分配布局
     @Override
@@ -128,7 +127,20 @@ public class VideoAdpater extends RecyclerView.Adapter {
 
     //个人数据显示的初始化
     private void setEvaluteItemValues(EvaluteViewHodler hodler){
-
+      hodler.food_suggest.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(context, FoodSuggestActivity.class);
+              context.startActivity(intent);
+          }
+      });
+      hodler.evalute_report.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+               ReportFragment reportFragment = new ReportFragment();
+               reportFragment.show(evaluteFragment.getActivity().getSupportFragmentManager(),"reportFragment");
+          }
+      });
     }
     //轮播图显示的初始化
     private void setBannerItemValues(BannerViewHodler hodler){
@@ -252,10 +264,12 @@ public class VideoAdpater extends RecyclerView.Adapter {
     }
     //个人数据显示布局
     public class EvaluteViewHodler extends RecyclerView.ViewHolder{
-
+        LinearLayout food_suggest;
+        LinearLayout evalute_report;
         public EvaluteViewHodler(@NonNull View itemView) {
             super(itemView);
-
+            food_suggest = itemView.findViewById(R.id.food_suggest);
+            evalute_report = itemView.findViewById(R.id.evalute_report);
         }
     }
     //轮播图的显示布局

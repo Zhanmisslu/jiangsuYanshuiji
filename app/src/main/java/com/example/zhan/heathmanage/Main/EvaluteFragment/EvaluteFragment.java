@@ -115,7 +115,7 @@ public class EvaluteFragment extends CompatHomeKeyFragment {
     public void initRevcycleView(){
         recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler_view.setHasFixedSize(true);
-        VideoAdpater adapter = new VideoAdpater(getActivity(), DataUtil.getVideoListData());
+        VideoAdpater adapter = new VideoAdpater(getActivity(), DataUtil.getVideoListData(),this);
         recycler_view.setAdapter(adapter);
         recycler_view.setRecyclerListener(new RecyclerView.RecyclerListener() {
             @Override

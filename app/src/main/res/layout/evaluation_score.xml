@@ -13,6 +13,7 @@
         app:cardElevation="6dp"
         >
         <LinearLayout
+            android:id="@+id/evalute_report"
             android:background="@drawable/evaluation_bt"
             android:layout_width="170dp"
             android:layout_height="60dp">
@@ -26,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="饮 食 计 划"
+                android:text="体 检 报 告"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:textColor="#000"/>

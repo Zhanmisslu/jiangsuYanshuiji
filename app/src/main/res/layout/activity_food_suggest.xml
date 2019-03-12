@@ -6,70 +6,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main.EvaluteFragment.activity.FoodSuggestActivity">
-<LinearLayout
-    android:background="#22BA8E"
-    android:layout_width="match_parent"
-    android:layout_height="50dp">
-    <ImageView
-        android:id="@+id/food_back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/left_back"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="饮食建议"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:gravity="center"/>
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"/>
-</LinearLayout>
-    <LinearLayout
-        android:background="#ffff"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+
+       <android.support.v7.widget.CardView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <LinearLayout
+               android:background="#ffff"
+               android:layout_marginTop="90dp"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="200dp"
+                   android:src="@drawable/food" />
+
+           </LinearLayout>
+           <LinearLayout
+               android:layout_marginLeft="20dp"
+               android:layout_marginTop="290dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="推荐食谱"
+                   android:textSize="20sp"
+                   android:textColor="#000"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text=" (仅供参考)"
+                   android:textSize="14sp"
+                   android:textColor="#97929191"/>
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:background="#fff"
+               android:orientation="vertical"
+               android:layout_marginTop="320dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <com.chaek.android.widget.CaterpillarIndicator
+                   android:id="@+id/food_suggest_titlebar"
+                   android:layout_below="@+id/search_ll"
+                   android:layout_width="match_parent"
+                   android:layout_height="44dp"
+                   app:slide_item_width="30dp"
+                   app:slide_caterpillar="true"
+                   app:slide_footer_color="#fc9001"
+                   app:slide_text_size_normal="17sp"
+                   app:slide_text_size_selected="18sp"
+                   app:slide_footer_line_height="3dp"
+                   app:slide_padding_bottom="4dp"
+                   app:slide_text_center_flag="textCenter"
+                   app:slide_round="true" />
+               <android.support.v4.view.ViewPager
+                   android:id="@+id/food_suggest_viewpage"
+                   android:layout_below="@+id/fragment_find_titlebar"
+                   android:layout_width="match_parent"
+                   android:background="#eeeeee"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+       </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+        <LinearLayout
+            android:background="#22BA8E"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/food"
-           />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="270dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="推荐食谱"
-            android:textSize="20sp"
-            android:textColor="#000"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" (仅供参考)"
-            android:textSize="14sp"
-            android:textColor="#97929191"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#fff"
-        android:layout_marginTop="300dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
+            android:layout_height="80dp">
+            <ImageView
+                android:layout_marginTop="8dp"
+                android:id="@+id/food_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/left_back"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="饮食建议"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
