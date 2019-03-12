@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private EvaluteFragment evaluteFragment;
     private TrendFragment trendFragment;
     private FindFragment findFragment;
+
     @BindView(R.id.tab_evalute_ib)
     ImageView tab_evalute_ib;
     @BindView(R.id.tab_evalute_ll)
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     TextView menu_nickName;
     @BindView(R.id.main_fan_tv)TextView main_fan_tv;
     @BindView(R.id.main_attention_tv)TextView main_attention_tv;
+    @BindView(R.id.menu_weathertype_iv)ImageView menu_weathertype_iv;
     SharedPreferences preferences;
     MenuDao menuDao;
     @Override
@@ -86,6 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         preferences = getSharedPreferences("UserList", MODE_PRIVATE);
         menuDao.GetFollowedNum(MyApplication.getUserId());
         menuDao.GetFollowNum(MyApplication.getUserId());
+        menuDao.getWeather("101210501");
         inListener();
         mCoordinatorMenu=findViewById(R.id.mainactivity_menu);
         if (!MyApplication.getUserNickName().equals("null")){
@@ -312,6 +315,43 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void menu_changepsw_ll_Click(){
         Intent intent=new Intent(MainActivity.this, ChangePasswordActivity.class);
         startActivity(intent);
+    }
+
+    public void CallBack(final String high, final String type) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(type.equals("晴")){
+                    Glide.with(getContext())
+                            .load(R.drawable.sunny)
+                            .asBitmap()
+                           // .error(R.drawable.head)
+                            .into(menu_weathertype_iv);
+                }
+                if(type.equals("小雨")){
+                    Glide.with(getContext())
+                            .load(R.drawable.lightrain)
+                            .asBitmap()
+                            // .error(R.drawable.head)
+                            .into(menu_weathertype_iv);
+                }
+                if(type.equals("多云")){
+                    Glide.with(getContext())
+                            .load(R.drawable.morecloudy)
+                            .asBitmap()
+                            // .error(R.drawable.head)
+                            .into(menu_weathertype_iv);
+                }
+                if(type.equals("阴")){
+                    Glide.with(getContext())
+                            .load(R.drawable.cloudy)
+                            .asBitmap()
+                            // .error(R.drawable.head)
+                            .into(menu_weathertype_iv);
+                }
+            }
+        });
+
     }
 //    public interface MyTouchListener {
 //        public void onTouchEvent(MotionEvent event);
