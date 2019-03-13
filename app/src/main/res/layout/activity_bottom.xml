@@ -29,7 +29,7 @@
             android:background="#00000000"
             android:scaleType="centerInside"
             android:clickable="false"
-            android:src="@drawable/newevalute_press" />
+            android:src="@drawable/evaluate_press" />
 
         <TextView
             android:id="@+id/tab_evalute_tv"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="测评"
-            android:textColor="#FF4081"/>
+            android:textColor="#000"/>
     </LinearLayout>
 
     <!--<LinearLayout-->
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="趋势"
-            android:textColor="#272727"
+            android:textColor="#CACACA"
             android:textSize="12sp" />
     </LinearLayout>
     <LinearLayout
@@ -93,13 +93,13 @@
             android:background="#00000000"
             android:clickable="false"
             android:scaleType="centerInside"
-            android:src="@drawable/newfind" />
+            android:src="@drawable/findd" />
         <TextView
             android:id="@+id/tab_find_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发现"
-            android:textColor="#272727"
+            android:textColor="#CACACA"
             android:textSize="12sp" />
     </LinearLayout>
 

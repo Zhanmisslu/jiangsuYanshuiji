@@ -225,30 +225,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         tab_find_ib.setImageResource(R.drawable.newfind);
 
         //重置文字颜色
-        tab_evalute_tv.setTextColor(Color.parseColor("#272727"));
-        tab_find_tv.setTextColor(Color.parseColor("#272727"));
-        tab_trend_tv.setTextColor(Color.parseColor("#272727"));
+        tab_evalute_tv.setTextColor(Color.parseColor("#CACACA"));
+        tab_find_tv.setTextColor(Color.parseColor("#CACACA"));
+        tab_trend_tv.setTextColor(Color.parseColor("#CACACA"));
     }
     @Override
     public void onClick(View view) {
         resetImgs();
         switch (view.getId()){
             case R.id.tab_evalute_ll:
-                tab_evalute_ib.setImageResource(R.drawable.newevalute_press);
+                tab_evalute_ib.setImageResource(R.drawable.evaluate_press);
                 startShakeByPropertyAnim(tab_evalute_ib, 0.9f, 1.2f, 10f, 400);
-                tab_evalute_tv.setTextColor(Color.parseColor("#FF4081"));
+                tab_evalute_tv.setTextColor(Color.parseColor("#FF000000"));
                 setSelect(0);
                 break;
             case R.id.tab_trend_ll:
-                tab_trend_ib.setImageResource(R.drawable.newtrendpress);
+                tab_trend_ib.setImageResource(R.drawable.trend_press);
                 startShakeByPropertyAnim(tab_trend_ib,0.9f, 1.2f, 10f, 400);
-                tab_trend_tv.setTextColor(Color.parseColor("#FF4081"));
+                tab_trend_tv.setTextColor(Color.parseColor("#FF000000"));
                 setSelect(1);
                 break;
             case R.id.tab_find_ll:
-                tab_find_ib.setImageResource(R.drawable.newfind_press);
+                tab_find_ib.setImageResource(R.drawable.find_press);
                 startShakeByPropertyAnim(tab_find_ib,0.9f, 1.2f, 10f, 400);
-                tab_find_tv.setTextColor(Color.parseColor("#FF4081"));
+                tab_find_tv.setTextColor(Color.parseColor("#FF000000"));
                 setSelect(2);
                 break;
             default:break;

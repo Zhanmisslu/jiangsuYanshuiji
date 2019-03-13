@@ -17,10 +17,10 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="370dp"
             android:layout_margin="10dp"
             android:layout_marginBottom="120dp"
-            android:background="#e9e9e9">
+            android:background="@drawable/shape_gary">
         </android.support.v4.view.ViewPager>
 
         <LinearLayout
@@ -56,12 +56,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:textSize="18dp"
                         android:id="@+id/weekDiastolicBP_tv"
                         android:text="舒张压：" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:textSize="18dp"
                         android:id="@+id/weekDiastolicBPtype_tv"
                         android:text="正常" />
                 </LinearLayout>
@@ -76,12 +78,14 @@
                         android:id="@+id/weekSystolicBP_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:textSize="18dp"
                         android:text="收缩压：" />
 
                     <TextView
                         android:id="@+id/weekSystolicBPtype_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:textSize="18dp"
                         android:text="正常" />
 
                 </LinearLayout>
@@ -99,11 +103,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:textSize="18dp"
                     android:text="心率：" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:textSize="18dp"
                     android:id="@+id/hearttype_tv"
                     android:text="正常" />
             </LinearLayout>
@@ -118,11 +124,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:textSize="18dp"
                     android:text="血氧：" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:textSize="18dp"
                     android:id="@+id/bloooxygentype_tv"
                     android:text="正常" />
             </LinearLayout>
@@ -132,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:padding="10dp"
+                android:textSize="16dp"
                 android:background="@drawable/shape_gary"
                 android:text="建议" />
 
@@ -140,6 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:textSize="16dp"
                 android:padding="10dp"
                 android:background="@drawable/shape_newgreen"
                 android:text="建议" />

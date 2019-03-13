@@ -279,7 +279,7 @@ public class LineChartServiceDaoImp implements LineChartServiceDao {
                             String daySbp = jsonObject1.getString("daySbp");
                             monthInfo.setBloodFat(dayBloodFat);
                             monthInfo.setBloodOxygen(dayBloodOxygen);
-                            monthInfo.setDate(dayDataTime.substring(5, dayDataTime.length()));
+                            monthInfo.setDate(dayDataTime);
                             monthInfo.setHeartRate(dayHeartRate);
                             monthInfo.setDiastolicBP(dayDbp);
                             monthInfo.setSystolicBP(daySbp);

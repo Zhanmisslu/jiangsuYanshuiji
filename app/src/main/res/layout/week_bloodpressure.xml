@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@drawable/shape_gary"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center"
             android:text="血压趋势图"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <View
-                android:layout_width="30dp"
-                android:layout_height="7dp"
-                android:layout_gravity="center"
-                android:background="#23fa47"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="舒张压"/>
-            <View
-                android:layout_width="30dp"
-                android:layout_height="7dp"
-                android:layout_gravity="center"
-                android:background="#23bafa"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="收缩压"/>
-        </LinearLayout>
-
-        <com.beiing.leafchart.LeafLineChart
+        <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/weekbloodpressure_graph"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
             android:layout_gravity="center"
-            android:layout_height="260dp"
-            />
-
-    </LinearLayout>
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 </LinearLayout>
