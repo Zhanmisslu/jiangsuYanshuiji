@@ -192,11 +192,11 @@ public class SettingActivity extends BaseActivity {
     }
     public static void exit(){
         Intent intent=new Intent(MyApplication.getContext(), LoginActivity.class);
-//        editor.putString("Login_User","");
-//        editor.putString("Login_Password","");
-        editor.remove("Login_User");
-        editor.remove("Login_Password");
-        editor.clear();
+      //  editor.putString("Login_User","");
+      //  editor.putString("Login_Password","");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+        editor.remove("Login_Weight");
+       // editor.clear();
         editor.apply();
         MyApplication.getContext().startActivity(intent);
     }

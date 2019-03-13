@@ -28,32 +28,6 @@
                     android:layout_marginLeft="20dp"
                     wave:riv_oval="true"
                     android:src="@drawable/head"/>
-
-            <LinearLayout
-                android:id="@+id/evalutefragment_ll"
-                android:layout_marginTop="85dp"
-                android:orientation="horizontal"
-                android:background="#002A3BDF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="-5dp"
-                    android:background="#22BA8E"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="-5dp"
-                    android:background="#22BA8E"/>
-            </LinearLayout>
     <LinearLayout
         android:layout_marginTop="680dp"
         android:layout_width="match_parent"

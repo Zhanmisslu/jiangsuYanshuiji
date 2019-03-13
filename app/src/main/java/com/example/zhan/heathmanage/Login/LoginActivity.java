@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_verification_send)
     Button login_verification_send;
     private static  int code=-1;
-    private List<User> userList = new ArrayList<User>();;//用户的数据源
+    private List<User> userList = new ArrayList<User>();//用户的数据源
     private UsersAdapter adapter;//适配器
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
