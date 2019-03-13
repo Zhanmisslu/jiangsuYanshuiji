@@ -55,8 +55,8 @@ public class NewsInfoActivity extends BaseActivity {
         webSettings.setBuiltInZoomControls(true);
         zLoadingDialog = new ZLoadingDialog(NewsInfoActivity.this);
     }
-    @OnClick(R.id.newsinfo_back)
-    public void newsinfo_back_Onclick(){
+    @OnClick(R.id.newsinfo_back_ib)
+    public void newsinfo_back_ib_Onclick(){
         finish();
     }
     private WebViewClient webViewClient=new WebViewClient(){

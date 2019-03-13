@@ -8,16 +8,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/newsinfo_back_ll"
-        android:layout_marginTop="40dp"
-        android:layout_height="30dp">
+        android:background="#23ba8f"
+        android:layout_height="65dp">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/left"
+            android:id="@+id/newsinfo_back_ib"
+            android:layout_gravity="center"/>
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/newsinfo_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="40dp"
+            android:text="详情"
+            android:textSize="18dp"
             android:layout_gravity="center"
-            android:text="返回"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"/>
+            android:gravity="center"/>
     </LinearLayout>
     <WebView
         android:id="@+id/newsinfo_web"

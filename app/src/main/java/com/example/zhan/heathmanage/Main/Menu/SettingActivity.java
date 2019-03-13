@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class SettingActivity extends BaseActivity {
     RoundedImageView setting_userimage_iv;
     @BindView(R.id.phone_tv)
     TextView phone_tv;
+    @BindView(R.id.setting_back_ib)
+    ImageButton setting_back_ib;
     SharedPreferences preferences;
     private static SharedPreferences.Editor editor;
     private static ImageView notify_iv;
@@ -56,6 +59,10 @@ public class SettingActivity extends BaseActivity {
             notify_iv.setImageResource(R.drawable.off);
         }
 
+    }
+    @OnClick(R.id.setting_back_ib)
+    public void setting_back_ib_Onclick(){
+        finish();
     }
     @OnClick(R.id.notify_iv)
     public void my_notify_iv_Click(){

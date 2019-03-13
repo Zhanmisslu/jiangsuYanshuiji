@@ -208,7 +208,6 @@ public class WeekFragment extends Fragment {
             weekbloodoxygen_graph.setSlidingLine(getSlideingLine());
             lines = new ArrayList<>();
             lines.add(lineChartServiceDao.getBloodFatLine(weekInfoList));
-            weekheartrate_graph.show();
             weekbloodpressure_graph.showWithAnimation(3000);
             weekheartrate_graph.showWithAnimation(3000);
             weekbloodoxygen_graph.showWithAnimation(3000);

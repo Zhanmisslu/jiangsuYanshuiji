@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private EvaluteFragment evaluteFragment;
     private TrendFragment trendFragment;
     private FindFragment findFragment;
-
+    @BindView(R.id.menu_temperature_tv)TextView menu_temperature_tv;
     @BindView(R.id.tab_evalute_ib)
     ImageView tab_evalute_ib;
     @BindView(R.id.tab_evalute_ll)
@@ -317,10 +317,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         startActivity(intent);
     }
 
-    public void CallBack(final String high, final String type) {
+    public void CallBack(final String wendu, final String type) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                menu_temperature_tv.setText(wendu);
                 if(type.equals("晴")){
                     Glide.with(getContext())
                             .load(R.drawable.sunny)

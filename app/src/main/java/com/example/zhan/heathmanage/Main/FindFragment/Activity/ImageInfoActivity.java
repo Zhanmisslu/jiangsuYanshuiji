@@ -39,4 +39,12 @@ public class ImageInfoActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(102);
+        AttentionFragment.flag=1;
+        ActivityCompat.finishAfterTransition(ImageInfoActivity.this);
+        super.onBackPressed();
+    }
 }
