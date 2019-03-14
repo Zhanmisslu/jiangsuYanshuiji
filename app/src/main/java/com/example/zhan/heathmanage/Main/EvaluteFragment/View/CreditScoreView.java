@@ -34,7 +34,7 @@ public class CreditScoreView extends View {
 
 
     //各维度分值
-    private float[] data = getData();
+    private float[] data = {0,0,0,0,0};
     //数据最大值
     private float maxValue = 20;
     //雷达图与标题的间距

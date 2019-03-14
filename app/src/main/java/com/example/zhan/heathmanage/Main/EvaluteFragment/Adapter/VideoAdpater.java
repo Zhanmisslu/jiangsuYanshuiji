@@ -110,7 +110,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
     //头布局的初始化
     private void setHeadItemValues(HeadViewHodler hodler){
         //float[] data = {12,13,18,19,20};
-        if (!MyApplication.getsBP().equals("")){
+        if (!MyApplication.getsBP().equals("0")){
            hodler.rv_view.setData(getadate());
            hodler.evalute_concentration.setText(MyApplication.getBloodFat());
            hodler.evalute_diastolic.setText(MyApplication.getdBP());
