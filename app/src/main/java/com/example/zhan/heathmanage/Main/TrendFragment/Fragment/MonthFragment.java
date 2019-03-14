@@ -196,6 +196,8 @@ public class MonthFragment extends Fragment {
         @Override
         public void run() {
             //更新界面
+            fragment_month_ll.setVisibility(View.VISIBLE);
+
             bloodpressure_graph.setDrawGridBackground(false);
             bloodpressure_graph.setBackgroundColor(Color.WHITE);
             //是否显示边界
@@ -331,7 +333,6 @@ public class MonthFragment extends Fragment {
     public void InitPageAdapter(final List<MonthInfo> monthInfoList) {
 
         this.monthInfoList= monthInfoList;
-
         handler.post(runnableUi);
 
     }

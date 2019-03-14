@@ -28,9 +28,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main.Menu.ChangePasswordActivity"></activity>
+        <activity android:name=".Main.EvaluteFragment.activity.ExchangeActivity"></activity>
+        <activity android:name=".Main.Menu.ChangePasswordActivity" />
         <activity android:name=".Main.EvaluteFragment.activity.DetailActivity" />
-        <activity android:name=".Main.EvaluteFragment.activity.FoodSuggestActivity"></activity>
+        <activity android:name=".Main.EvaluteFragment.activity.FoodSuggestActivity" />
         <activity android:name=".Main.EvaluteFragment.WeeklyActivity" />
         <activity android:name=".Main.FindFragment.Activity.NewsInfoActivity" />
         <activity android:name=".Login.LoginActivity" />

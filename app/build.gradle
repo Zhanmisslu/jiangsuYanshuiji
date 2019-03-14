@@ -125,7 +125,9 @@ dependencies {
     //implementation 'com.carson_ho:SearchLayout:1.0.1'
     implementation project(':searchview')
     implementation project(':MPChartLib')
+
     //提示对话框
     implementation 'com.github.Othershe:NiceDialog:1.1.1'
+    implementation project(':floatviewlib')
 
 }

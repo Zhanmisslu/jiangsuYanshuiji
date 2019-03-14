@@ -27,13 +27,13 @@ public class MyApplication extends Application {
     private static String EmergencyName;
     private static String UserId;
     //个人的资料
-    private static String sBP="";
-    private static String bloodOxygen;
-    private static String dBP;
-    private static String heartRate;
-    private static String dataTime;
-    private static String bloodFat;
-    private static String ranting;
+    private static String sBP="0";
+    private static String bloodOxygen="0";
+    private static String dBP="0";
+    private static String heartRate="0";
+    private static String dataTime="0";
+    private static String bloodFat="0";
+    private static String ranting="0";
 
 
 

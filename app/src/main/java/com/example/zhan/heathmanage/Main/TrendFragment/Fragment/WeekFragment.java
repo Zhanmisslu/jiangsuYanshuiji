@@ -42,6 +42,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.zyao89.view.zloading.ZLoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.zhan.heathmanage.Main.MainActivity.ev;
+import static com.zyao89.view.zloading.Z_TYPE.STAR_LOADING;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,7 +108,7 @@ public class WeekFragment extends Fragment {
     private LineChartManager BloodOxygenlineChartManager;
     private LineChartManager HeartratelineChartManager;
     private Legend legend;              //图例
-
+    ZLoadingDialog dialog;
     public WeekFragment() {
         // Required empty public constructor
     }
@@ -128,7 +130,8 @@ public class WeekFragment extends Fragment {
         viewGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
         suggestDao = new SuggestDaoImp(this);
         lineChartServiceDao = new LineChartServiceDaoImp(this);
-
+        dialog = new ZLoadingDialog(getActivity());
+        Init();
         InitView();
         //InitPageAdapter();
         initPointer();
@@ -137,9 +140,20 @@ public class WeekFragment extends Fragment {
 
         lineChartServiceDao.GetWeekData(MyApplication.getUserPhone(), TrendFragment.StartDay, TrendFragment.EndDay);
         suggestDao.getWeekSuggestion(MyApplication.getUserPhone(), TrendFragment.StartDay, TrendFragment.EndDay);
+
         return view;
     }
+    public void Init() {
+        dialog.setLoadingBuilder(STAR_LOADING)
+                .setLoadingColor(Color.parseColor("#ff5305"))
+                .setHintText("正在加载中...")
+//                                .setHintTextSize(16) // 设置字体大小
+                .setHintTextColor(Color.GRAY)  // 设置字体颜色
+//                                .setDurationTime(0.5) // 设置动画时间百分比
 
+                .setDialogBackgroundColor(Color.parseColor("#cc111111")) // 设置背景色
+                .show();
+    }
     private void initEvent() {
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new GuidePageChangeListener());
@@ -205,6 +219,7 @@ public class WeekFragment extends Fragment {
     //初始化ViewPager
     public void InitData(final List<MonthInfo> weekInfoList) {
         this.weekInfoList = weekInfoList;
+
         handler.post(runnableUi);
     }
 
@@ -212,6 +227,7 @@ public class WeekFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void run() {
+            fragment_week_ll.setVisibility(View.VISIBLE);
             //更新界面
             weekbloodpressure_graph.setDrawGridBackground(false);
             weekbloodpressure_graph.setBackgroundColor(Color.WHITE);
@@ -339,6 +355,7 @@ public class WeekFragment extends Fragment {
             drawable = MyApplication.getContext().getDrawable(R.drawable.fade_red);
             HeartratelineChartManager.setChartFillDrawable(drawable);
             HeartratelineChartManager.setMarkerView(MyApplication.getContext());
+            dialog.dismiss();
         }
 
     };
@@ -357,6 +374,7 @@ public class WeekFragment extends Fragment {
         public void run() {
             fragment_week_ll.setVisibility(View.GONE);
             weeknodata_ll.setVisibility(View.VISIBLE);
+            dialog.dismiss();
         }
     };
 

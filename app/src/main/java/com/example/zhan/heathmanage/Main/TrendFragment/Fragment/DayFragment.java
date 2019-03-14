@@ -1,6 +1,7 @@
 package com.example.zhan.heathmanage.Main.TrendFragment.Fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,9 +16,12 @@ import com.example.zhan.heathmanage.Main.TrendFragment.Fragment.ServiceDao.Imp.D
 import com.example.zhan.heathmanage.Main.TrendFragment.TrendFragment;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
+import com.zyao89.view.zloading.ZLoadingDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.zyao89.view.zloading.Z_TYPE.STAR_LOADING;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +49,7 @@ public class DayFragment extends Fragment {
     String daybloodsystolic;
     String daybloodoxygen;
     String  daybloodfat;
+    ZLoadingDialog dialog;
     public DayFragment() {
         // Required empty public constructor
     }
@@ -57,8 +62,11 @@ public class DayFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_day, container, false);
         ButterKnife.bind(this,view);
         handler=new Handler();
+        dialog = new ZLoadingDialog(getActivity());
+        Init();
         dayDataServiceDao=new DayDataServiceDaoImp(this);
         dayDataServiceDao.getDayData(MyApplication.getUserPhone(), TrendFragment.nDate);
+
         return view;
     }
     public void getDataByDaySuccessCallBack(String dayheartrate,String dayblooddiastolic,String daybloodsystolic,String daybloodoxygen,String  daybloodfat){
@@ -70,7 +78,17 @@ public class DayFragment extends Fragment {
         handler.post(runnable1);
 
     }
+    public void Init() {
+        dialog.setLoadingBuilder(STAR_LOADING)
+                .setLoadingColor(Color.parseColor("#ff5305"))
+                .setHintText("正在加载中...")
+//                                .setHintTextSize(16) // 设置字体大小
+                .setHintTextColor(Color.GRAY)  // 设置字体颜色
+//                                .setDurationTime(0.5) // 设置动画时间百分比
 
+                .setDialogBackgroundColor(Color.parseColor("#cc111111")) // 设置背景色
+                .show();
+    }
     public void InitNoData() {
         handler.post(runnable);
     }
@@ -79,6 +97,7 @@ public class DayFragment extends Fragment {
         public void run() {
             fragment_day_nodata_ll.setVisibility(View.VISIBLE);
             fragment_day_ll.setVisibility(View.GONE);
+            dialog.dismiss();
         }
     };
     Runnable runnable1=new Runnable() {
@@ -90,6 +109,7 @@ public class DayFragment extends Fragment {
             bloodoxygen_tv.setText(daybloodoxygen);
             bloodsystolic_tv.setText(daybloodsystolic);
             blooddiastolic_tv.setText(dayblooddiastolic);
+            dialog.dismiss();
         }
     };
 }

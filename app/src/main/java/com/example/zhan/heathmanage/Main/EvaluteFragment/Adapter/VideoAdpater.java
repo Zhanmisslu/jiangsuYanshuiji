@@ -22,11 +22,13 @@ import com.example.zhan.heathmanage.Main.EvaluteFragment.Fragment.ReportFragment
 import com.example.zhan.heathmanage.Main.EvaluteFragment.View.CreditScoreView;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.WeeklyActivity;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.DetailActivity;
+import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.ExchangeActivity;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.activity.FoodSuggestActivity;
 import com.example.zhan.heathmanage.MyApplication;
 import com.example.zhan.heathmanage.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.john.waveview.WaveView;
+import com.smoke.zhangchen.floatviewlib.FloatView;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
@@ -116,6 +118,17 @@ public class VideoAdpater extends RecyclerView.Adapter {
            hodler.evalute_oxygen.setText(MyApplication.getBloodOxygen());
            hodler.evalute_heartrate.setText(MyApplication.getHeartRate());
            hodler.evalute_eva.setText(MyApplication.getRanting());
+            List<Float> list = new ArrayList<>();
+            list.add((float) 1.567);
+            list.add((float) 0.261);
+            list.add((float) 2.455);
+            hodler.float_view.setList(list);
+            hodler.float_view.setOnItemClickListener(new FloatView.OnItemClickListener() {
+                @Override
+                public void itemClick(int position, Number value) {
+                    Toast.makeText(context, "当前是第"+position+"个，其值是"+value.floatValue(), Toast.LENGTH_SHORT).show();
+                }
+            });
            hodler.rv_ll.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
@@ -155,13 +168,12 @@ public class VideoAdpater extends RecyclerView.Adapter {
             }
         });
         List<String> img = new ArrayList<String>();
-        img.add("http://bgashare.bingoogolapple.cn/banner/imgs/12.png");
-        img.add("http://bgashare.bingoogolapple.cn/banner/imgs/13.png");
+        img.add("http://www.mcartoria.com:8080/Health/images/lun2.jpg");
+        img.add("http://www.mcartoria.com:8080/Health/images/lun1.jpg");
         List<String> tig = new ArrayList<String>();
-        tig.add("欢迎");
-        tig.add("欢迎");
+
         //设置Banner的布局，图片和文字
-        hodler.mBanner.setData(R.layout.item_fresco,img,tig);
+        hodler.mBanner.setData(R.layout.item_fresco,img,null);
 
         hodler.mBanner.setDelegate(new BGABanner.Delegate() {
             @Override
@@ -169,8 +181,10 @@ public class VideoAdpater extends RecyclerView.Adapter {
                 if (position==0){
                     Intent intent = new Intent(context, WeeklyActivity.class);
                     context.startActivity(intent);
+                }else if (position==1){
+                    Intent intent = new Intent(context, ExchangeActivity.class);
+                    context.startActivity(intent);
                 }
-                Toast.makeText(banner.getContext(), "点击了" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -246,6 +260,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
         private TextView evalute_heartrate;
         private TextView evalute_concentration;
 
+        private FloatView float_view;
         private FrameLayout rv_ll;
         private WaveView fragment_evaluate_waveview;
         public HeadViewHodler(View itemView) {
@@ -259,6 +274,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
             evalute_heartrate = itemView.findViewById(R.id.evalute_heartrate);
             evalute_concentration = itemView.findViewById(R.id.evalute_concentration);
             fragment_evaluate_waveview = itemView.findViewById(R.id.fragment_evaluate_waveview);
+            float_view = itemView.findViewById(R.id.float_view);
             fragment_evaluate_waveview.setProgress(100);
             //initRingView();
         }

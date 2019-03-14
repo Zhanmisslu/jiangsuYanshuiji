@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.example.zhan.heathmanage.BasicsTools.BaseActivity;
 import com.example.zhan.heathmanage.BasicsTools.ChildViewPager;
 import com.example.zhan.heathmanage.Main.EvaluteFragment.EvaluteFragment;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.AttentionActivity;
+import com.example.zhan.heathmanage.Main.FindFragment.Activity.FanListActivity;
 import com.example.zhan.heathmanage.Main.FindFragment.FindFragment;
 import com.example.zhan.heathmanage.Main.Menu.ChangePasswordActivity;
 import com.example.zhan.heathmanage.Main.Menu.EmergencyContactActivity;
@@ -276,7 +278,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         Intent intent=new Intent(MainActivity.this, EmergencyContactActivity.class);
         startActivity(intent);
     }
+//关注
+    @OnClick(R.id.menu_attention_tv)
+    public void  menu_attention_tv_Onclick(){
+        Intent intent=new Intent(MainActivity.this, AttentionActivity.class);
+        intent.putExtra("userId",MyApplication.getUserId());
+        startActivity(intent);
 
+    }
+    //粉丝
+    @OnClick(R.id.menu_fan_tv)
+    public void menu_fan_tv_Onclick(){
+        Intent intent=new Intent(MainActivity.this, FanListActivity.class);
+        intent.putExtra("userId",MyApplication.getUserId());
+        startActivity(intent);
+    }
 
 
     @Override
