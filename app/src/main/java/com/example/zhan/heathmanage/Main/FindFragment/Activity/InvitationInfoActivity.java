@@ -401,7 +401,7 @@ public class InvitationInfoActivity extends BaseActivity {
                     ReplyDetailBean detailBean = new ReplyDetailBean(MyApplication.getUserNickName(), commentsList.get(position).getNickName(), replyContent);
                     commentExpandAdapter.addTheReplyData(detailBean, position);
                     InvitationInfo_CommentExpandableListView.expandGroup(position);
-                    attentionDao.Reply(commentsList.get(position).getId(), commentsList.get(position).getPostingCommentId(), replyContent);
+                    attentionDao.Reply(MyApplication.getUserId(), commentsList.get(position).getPostingCommentId(), replyContent);
                     Toast.makeText(InvitationInfoActivity.this, "回复成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(InvitationInfoActivity.this, "回复内容不能为空", Toast.LENGTH_SHORT).show();

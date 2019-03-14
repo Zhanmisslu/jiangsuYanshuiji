@@ -200,6 +200,10 @@
                     android:divider="@null"
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                     />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
