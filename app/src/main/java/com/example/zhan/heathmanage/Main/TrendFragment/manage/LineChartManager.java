@@ -121,14 +121,13 @@ public class LineChartManager {
         lineDataSet.setColor(color);
         //lineDataSet.setCircleColor(color);
         lineDataSet.setLineWidth(2f);
-//        lineDataSet.setCircleColor(R.color.green);
-        lineDataSet.setCircleRadius(3f);
-        lineDataSet.setDrawCircles(false);
+        lineDataSet.setCircleColor(color);
+        lineDataSet.setCircleRadius(6f);
+        lineDataSet.setCircleHoleRadius(4f);
+        lineDataSet.setDrawCircles(true);
         lineDataSet.setDrawValues(false);
         //设置曲线值的圆点是实心还是空心
         lineDataSet.setDrawCircleHole(true);
-
-
         lineDataSet.setValueTextSize(10f);
         //设置折线图填充
         lineDataSet.setDrawFilled(false);
@@ -344,7 +343,7 @@ public class LineChartManager {
 
         /******根据需求的不同 在此在次设置X Y轴的显示内容******/
         if(dataList.size()<8){
-            xAxis.setLabelCount(dataList.size(),false);
+            xAxis.setLabelCount(dataList.size(),true);
         }else {
             xAxis.setLabelCount(8, true);
         }
@@ -412,7 +411,7 @@ public class LineChartManager {
 
         /******根据需求的不同 在此在次设置X Y轴的显示内容******/
         if(dataList.size()<8){
-            xAxis.setLabelCount(dataList.size(),false);
+            xAxis.setLabelCount(dataList.size(),true);
         }else {
             xAxis.setLabelCount(8, true);
         }        //设置是否绘制刻度
@@ -541,7 +540,7 @@ public class LineChartManager {
 
         /******根据需求的不同 在此在次设置X Y轴的显示内容******/
         if(dataList.size()<8){
-            xAxis.setLabelCount(dataList.size(),false);
+            xAxis.setLabelCount(dataList.size(),true);
         }else {
             xAxis.setLabelCount(8, true);
         }

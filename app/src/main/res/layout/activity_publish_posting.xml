@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/view_gad"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/publish_image_rl"
         android:layout_height="100dp">
         <ImageView
@@ -107,7 +107,6 @@
         android:layout_below="@+id/publish_image_rl"
         android:layout_alignParentStart="true"
         android:background="#b1b1b1"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true" />
@@ -127,7 +126,6 @@
             android:id="@+id/publishloaction_ll"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
 
@@ -156,13 +154,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/right" />
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#b1b1b1"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="20dp"
-            />
+
         <!--<LinearLayout-->
             <!--android:id="@+id/remind_ll"-->
             <!--android:layout_width="match_parent"-->
