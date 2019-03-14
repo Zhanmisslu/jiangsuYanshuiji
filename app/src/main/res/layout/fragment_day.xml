@@ -65,7 +65,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="c/min"
+                    android:text="n/min"
                     android:textSize="20dp" />
             </LinearLayout>
         </LinearLayout>
@@ -173,7 +173,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text=" mmsg"
+                    android:text=" mmHg"
                     android:textSize="20dp" />
             </LinearLayout>
         </LinearLayout>
@@ -228,7 +228,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:text=" mmsg"
+                    android:text=" mmHg"
                     android:textSize="20dp" />
             </LinearLayout>
         </LinearLayout>
