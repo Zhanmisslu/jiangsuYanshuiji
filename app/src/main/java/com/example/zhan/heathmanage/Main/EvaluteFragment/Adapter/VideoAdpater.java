@@ -119,9 +119,9 @@ public class VideoAdpater extends RecyclerView.Adapter {
            hodler.evalute_heartrate.setText(MyApplication.getHeartRate());
            hodler.evalute_eva.setText(MyApplication.getRanting());
             List<Float> list = new ArrayList<>();
-            list.add((float) 1.567);
-            list.add((float) 0.261);
-            list.add((float) 2.455);
+            list.add((float) 0);
+            list.add((float) 0);
+            list.add((float) 0);
             hodler.float_view.setList(list);
             hodler.float_view.setOnItemClickListener(new FloatView.OnItemClickListener() {
                 @Override

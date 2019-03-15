@@ -386,11 +386,13 @@
     </LinearLayout>
     <com.smoke.zhangchen.floatviewlib.FloatView
         android:id="@+id/float_view"
-        android:layout_width="400dp"
-        android:layout_marginTop="60dp"
-        android:layout_height="200dp"
+        android:layout_width="450dp"
+        android:layout_marginTop="50dp"
+        android:layout_height="220dp"
         android:layout_gravity="center_horizontal"
-        app:childViewBackground="@drawable/shape_circle">
+        app:childViewBackground="@drawable/coin"
+        app:chidTextSize="0sp"
+        >
     </com.smoke.zhangchen.floatviewlib.FloatView>
 
 </FrameLayout>
