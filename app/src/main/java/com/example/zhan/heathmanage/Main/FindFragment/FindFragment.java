@@ -227,27 +227,27 @@ public class FindFragment extends Fragment {
                                 }
                             });
                     break;
-                case R.id.report_FAB:
-                    RxPermissions.getInstance(getActivity())
-                            .request(Manifest.permission.CAMERA,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)//多个权限用","隔开
-                            .subscribe(new Action1<Boolean>() {
-                                @Override
-                                public void call(Boolean aBoolean) {
-                                    if (aBoolean) {
-                                        //当所有权限都允许之后，返回true
-                                        Intent intent=new Intent(getActivity(),ReportActivity.class);
-                                        fragment_find_FAM.close(true);
-                                        startActivity(intent);
-                                    } else {
-                                        //只要有一个权限禁止，返回false，
-                                        //下一次申请只申请没通过申请的权限
-                                        getActivity().finish();
-                                    }
-                                }
-                            });
-                    break;
+//                case R.id.report_FAB:
+//                    RxPermissions.getInstance(getActivity())
+//                            .request(Manifest.permission.CAMERA,
+//                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+//                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)//多个权限用","隔开
+//                            .subscribe(new Action1<Boolean>() {
+//                                @Override
+//                                public void call(Boolean aBoolean) {
+//                                    if (aBoolean) {
+//                                        //当所有权限都允许之后，返回true
+//                                        Intent intent=new Intent(getActivity(),ReportActivity.class);
+//                                        fragment_find_FAM.close(true);
+//                                        startActivity(intent);
+//                                    } else {
+//                                        //只要有一个权限禁止，返回false，
+//                                        //下一次申请只申请没通过申请的权限
+//                                        getActivity().finish();
+//                                    }
+//                                }
+//                            });
+//                    break;
 
             }
         }

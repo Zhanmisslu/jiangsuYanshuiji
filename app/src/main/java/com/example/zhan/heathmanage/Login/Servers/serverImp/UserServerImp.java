@@ -160,9 +160,6 @@ public class UserServerImp implements UserServer {
                        MyApplication.setHeartRate(jsonObject1.getString("heartRate"));
                        MyApplication.setRanting(jsonObject1.getString("ranting"));
                        loginActivity.EvaluteCallBack();
-                       Looper.prepare();
-                       Toast.makeText(MyApplication.getContext(),"获取信息成功",Toast.LENGTH_LONG).show();
-                       Looper.loop();
                    }
                }catch (Exception e){
                    Looper.prepare();

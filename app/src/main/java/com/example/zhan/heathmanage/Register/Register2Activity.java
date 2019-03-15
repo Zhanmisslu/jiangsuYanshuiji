@@ -57,6 +57,7 @@ public class Register2Activity extends BaseActivity {
                     Intent intent = new Intent(Register2Activity.this,Register3Activity.class);
                     intent.putExtra("RegisterPhone",Phone);
                     startActivity(intent);
+
                 } else {
                     // TODO 处理错误的结果
                     ((Throwable) data).printStackTrace();
@@ -87,5 +88,6 @@ public class Register2Activity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eh);
+
     }
 }

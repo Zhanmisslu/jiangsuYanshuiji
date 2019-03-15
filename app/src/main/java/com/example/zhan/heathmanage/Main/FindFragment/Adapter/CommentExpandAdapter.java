@@ -141,14 +141,23 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         String replyUser = commentBeanList.get(groupPosition).getReplyList().get(childPosition).getNickName();
         String user=commentBeanList.get(groupPosition).getNickName();
         //replyUser不空的时候执行
+        String s = "";
         if(!TextUtils.isEmpty(replyUser)){
             childHolder.tv_name.setText(replyUser);
             childHolder.reply_item_user1.setText(user+":");
+
+            for (int i=0;i<childHolder.tv_name.getText().length();i++){
+                s+="    ";
+            }
+            for (int i = 0;i<childHolder.reply_item_user1.getText().length();i++){
+                s+="     ";
+            }
+            s+="      ";
         }else {
             childHolder.tv_name.setText("无名"+":");
         }
 
-        childHolder.tv_content.setText(commentBeanList.get(groupPosition).getReplyList().get(childPosition).getContent());
+        childHolder.tv_content.setText(s+commentBeanList.get(groupPosition).getReplyList().get(childPosition).getContent());
 
         return convertView;
     }

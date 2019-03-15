@@ -64,6 +64,7 @@ public class LoginActivity extends BaseActivity {
     SharedPreferences.Editor editor;
     UserServer userServer;
     String phone;
+    EventHandler eh;
     @BindView(R.id.login_verification_password)EditText login_verification_password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class LoginActivity extends BaseActivity {
         });
 
 
-        EventHandler eh = new EventHandler() {
+        eh = new EventHandler() {
             @Override
             public void afterEvent(int event, int result, Object data) {
                 Message msg = new Message();
@@ -372,8 +373,21 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SMSSDK.unregisterAllEventHandler();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        SMSSDK.registerEventHandler(eh);
+    }
+
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
+
 }
