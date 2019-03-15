@@ -139,7 +139,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         }
 
         String replyUser = commentBeanList.get(groupPosition).getReplyList().get(childPosition).getNickName();
-        String user=commentBeanList.get(groupPosition).getReplyList().get(childPosition).getAuthorName();
+        String user=commentBeanList.get(groupPosition).getNickName();
         //replyUser不空的时候执行
         if(!TextUtils.isEmpty(replyUser)){
             childHolder.tv_name.setText(replyUser);
