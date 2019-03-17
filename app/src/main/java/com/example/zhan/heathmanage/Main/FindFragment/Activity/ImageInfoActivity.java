@@ -1,7 +1,6 @@
 package com.example.zhan.heathmanage.Main.FindFragment.Activity;
 
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +26,7 @@ public class ImageInfoActivity extends BaseActivity {
         Glide.with(getContext())
                 .load(image)
                 .asBitmap()
-                .error(R.drawable.welcome)
+                .error(R.drawable.weclome2)
                 .into(imageView2);
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override

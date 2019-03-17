@@ -328,7 +328,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
             mController.setLenght(video.getLength());
             Glide.with(itemView.getContext())
                     .load(video.getImageUrl())
-                    .placeholder(R.drawable.img_default)
+                    .placeholder(R.drawable.fengmian)
                     .crossFade()
                     .into(mController.imageView());
             mVideoPlayer.setUp(video.getVideoUrl(), null);
