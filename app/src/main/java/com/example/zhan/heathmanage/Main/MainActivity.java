@@ -236,21 +236,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         resetImgs();
         switch (view.getId()){
             case R.id.tab_evalute_ll:
-                tab_evalute_ib.setImageResource(R.drawable.evaluate_press);
+                tab_evalute_ib.setImageResource(R.drawable.ceping);
                 startShakeByPropertyAnim(tab_evalute_ib, 0.9f, 1.2f, 10f, 400);
-                tab_evalute_tv.setTextColor(Color.parseColor("#FF000000"));
+                tab_evalute_tv.setTextColor(Color.parseColor("#22BA8E"));
                 setSelect(0);
                 break;
             case R.id.tab_trend_ll:
-                tab_trend_ib.setImageResource(R.drawable.trend_press);
+                tab_trend_ib.setImageResource(R.drawable.qushi);
                 startShakeByPropertyAnim(tab_trend_ib,0.9f, 1.2f, 10f, 400);
-                tab_trend_tv.setTextColor(Color.parseColor("#FF000000"));
+                tab_trend_tv.setTextColor(Color.parseColor("#22BA8E"));
                 setSelect(1);
                 break;
             case R.id.tab_find_ll:
-                tab_find_ib.setImageResource(R.drawable.find_press);
+                tab_find_ib.setImageResource(R.drawable.faxian);
                 startShakeByPropertyAnim(tab_find_ib,0.9f, 1.2f, 10f, 400);
-                tab_find_tv.setTextColor(Color.parseColor("#FF000000"));
+                tab_find_tv.setTextColor(Color.parseColor("#22BA8E"));
                 setSelect(2);
                 break;
             default:break;

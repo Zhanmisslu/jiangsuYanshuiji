@@ -126,7 +126,7 @@ public class VideoAdpater extends RecyclerView.Adapter {
             hodler.float_view.setOnItemClickListener(new FloatView.OnItemClickListener() {
                 @Override
                 public void itemClick(int position, Number value) {
-                    Toast.makeText(context, "当前是第"+position+"个，其值是"+value.floatValue(), Toast.LENGTH_SHORT).show();
+                  // Toast.makeText(context,"金币",Toast.LENGTH_LONG).show();
                 }
             });
            hodler.rv_ll.setOnClickListener(new View.OnClickListener() {

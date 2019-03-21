@@ -99,7 +99,7 @@ dependencies {
     //    //工具类开源库
     implementation 'com.blankj:utilcode:1.19.0'
     implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
-    implementation 'io.reactivex:rxjava:1.2.3'
+//    implementation 'io.reactivex:rxjava:1.2.3'
     implementation 'io.reactivex:rxandroid:1.2.1'
 
     //加载框

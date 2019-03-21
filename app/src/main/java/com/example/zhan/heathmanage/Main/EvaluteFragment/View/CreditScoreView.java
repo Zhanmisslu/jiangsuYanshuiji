@@ -28,8 +28,8 @@ public class CreditScoreView extends View {
     //各维度标题
     private String[] titles = {"收缩压", "舒张压", "血氧", "血浓度", "心率"};
     //各维度图标
-    private int[] icons = {R.mipmap.diastolic, R.mipmap.systolic, R.mipmap.oxygen,
-            R.mipmap.concentration, R.mipmap.heartrate};
+    private int[] icons = {R.drawable.diastolic, R.drawable.systolic, R.drawable.oxygen,
+            R.drawable.concentration, R.drawable.heartrate};
 
 
 
@@ -70,38 +70,39 @@ public class CreditScoreView extends View {
     private void init() {
         mainPaint = new Paint();
         mainPaint.setAntiAlias(true);
-        mainPaint.setStrokeWidth(0.3f);
-        mainPaint.setColor(Color.argb(100,245,245,245));
+        mainPaint.setStrokeWidth(0.6f);
+        mainPaint.setColor(Color.argb(180,128,128,128));
         mainPaint.setStyle(Paint.Style.STROKE);
 
         valuePaint = new Paint();
         valuePaint.setAntiAlias(true);
-        valuePaint.setColor(Color.argb(100,178,233,210));
-        valuePaint.setAlpha(120);
+        valuePaint.setColor(Color.argb(160,178,233,210));
+        //valuePaint.setAlpha(120);
         valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         scorePaint = new Paint();
         scorePaint.setAntiAlias(true);
         scorePaint.setTextSize(scoreSize);
-        scorePaint.setColor(Color.argb(100,35,185,142));
+        scorePaint.setColor(Color.argb(255,35,185,142));
         scorePaint.setTextAlign(Paint.Align.CENTER);
         scorePaint.setStyle(Paint.Style.FILL);
 
         titlePaint = new Paint();
         titlePaint.setAntiAlias(true);
         titlePaint.setTextSize(titleSize);
-        titlePaint.setColor(Color.argb(100,146,146,146));
+        titlePaint.setColor(Color.argb(255,146,146,146));
         titlePaint.setStyle(Paint.Style.FILL);
 
         iconPaint = new Paint();
         iconPaint.setAntiAlias(true);
+
 
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         //雷达图半径
-        radius = Math.min(h, w) / 2 * 0.5f;
+        radius = Math.min(h, w) / 2 * 0.65f;
         //中心坐标
         centerX = w / 2;
         centerY = h / 2;

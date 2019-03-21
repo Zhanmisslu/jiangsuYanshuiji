@@ -39,8 +39,9 @@
 
                 <com.example.zhan.heathmanage.Main.EvaluteFragment.View.CreditScoreView
                     android:id="@+id/rv_view"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="300dp"
+                    android:layout_height="280dp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center" />
             </LinearLayout>

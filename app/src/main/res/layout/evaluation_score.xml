@@ -23,7 +23,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
                 app:riv_oval="true"
-                android:src="@drawable/exercise"/>
+                android:src="@drawable/reporttter"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,13 +51,14 @@
             android:background="@drawable/evaluation_bt"
             android:layout_width="170dp"
             android:layout_height="60dp">
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
                 android:layout_gravity="center"
-                app:riv_oval="true"
-                android:src="@drawable/nutrition"/>
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/han"
+                app:riv_oval="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

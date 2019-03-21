@@ -29,7 +29,7 @@
             android:background="#00000000"
             android:scaleType="centerInside"
             android:clickable="false"
-            android:src="@drawable/evaluate_press" />
+            android:src="@drawable/ceping" />
 
         <TextView
             android:id="@+id/tab_evalute_tv"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="测评"
-            android:textColor="#000"/>
+            android:textColor="#22BA8E"/>
     </LinearLayout>
 
     <!--<LinearLayout-->
