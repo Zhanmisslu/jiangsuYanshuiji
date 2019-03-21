@@ -203,6 +203,14 @@ public class SettingActivity extends BaseActivity {
       //  editor.putString("Login_Password","");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
         editor.remove("Login_Weight");
+        editor.remove("sBP");
+        editor.remove("HeartRate");
+        editor.remove("dBP");
+        editor.remove("DataTime");
+        editor.remove("BloodOxygen");
+        editor.remove("BloodFat");
+        MyApplication.setsBP("0");
+
        // editor.clear();
         editor.apply();
         MyApplication.getContext().startActivity(intent);

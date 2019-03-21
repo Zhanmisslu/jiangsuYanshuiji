@@ -28,8 +28,8 @@ public class CreditScoreView extends View {
     //各维度标题
     private String[] titles = {"收缩压", "舒张压", "血氧", "血浓度", "心率"};
     //各维度图标
-    private int[] icons = {R.drawable.diastolic, R.drawable.systolic, R.drawable.oxygen,
-            R.drawable.concentration, R.drawable.heartrate};
+    private int[] icons = {R.mipmap.diastolic, R.mipmap.systolic, R.mipmap.oxygen,
+            R.mipmap.concentration, R.mipmap.heartrate};
 
 
 
